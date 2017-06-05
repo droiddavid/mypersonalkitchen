@@ -1,0 +1,236 @@
+/* Platters Component */
+angular.module('app').component('dashboardPlatters', {
+	bindings: {
+		platters: '<',
+		platterItems: '<',
+		data: '<',
+		superthis: '<'
+	},
+	controller: function ($state, Session, Cook, Database, DashboardService, PlatterItemService) {
+		var that = this, 
+			_platters = undefined,
+			_platterItems = undefined,
+			_plattersWithFoodItems = [],
+			_Platter = undefined;
+			_db = undefined;
+		this.platterFood = [];
+		this.foodForPlatters = [];
+
+
+		this.$onInit = function () {
+			that._platters = this.platters;
+			that._platterItems = this.platterItems;
+			that._db = Database;
+
+			//I HATE THIS!!!! Fix it! Fix it! Fix it! 
+			var tt = this.superthis;
+			that._platterItems = tt;
+
+
+			// for (var index = 0; index < Session.Collections.food.length; index++) {
+			// 	if (index < 15) {
+			// 		that.foodForPlatters.push(Session.Collections.food[index]);
+			// 	}
+			// }
+
+			if (that.platterFood === undefined) that.platterFood.length = 0;
+
+
+			/***** PLATTERS TAB *****/
+			that._platters.forEach(function (platter, index) {
+
+				//At least one platter item is required for each platter.
+				var addPlatter = true;
+
+				if (platter.platter_status !== 0) {
+					var Platter = {
+						id: platter.platter_id,
+						name: platter.platter_name,
+						price: platter.price,
+						status: platter.platter_status,
+						cook_id: platter.platter_cook_id,
+						Food: [] //holds to food for this platter
+					};  //Platter
+
+					//Get the food items for each platter.
+					that._platterItems.forEach(function (platterItem, index) {
+						var platterItems_platterId = platterItem.platter_id;
+
+						if (Platter.id == platterItems_platterId && platterItem.food_id !== null) {
+							Platter.Food.push(platterItem);
+							addPlatter = true;
+						}
+
+					}); //forEach _platterItems
+
+					if (addPlatter) {
+						_plattersWithFoodItems.push(Platter);
+						addPlatter = false;
+					}
+				}
+
+			}); //forEach that._platters
+
+			this.data = _plattersWithFoodItems;
+		};
+		//Triggered by the save button on the 'Add Platter' dialog box. 
+		this.addPlatter = function (platter) {
+			that._Platter = {};
+			//Add the form's elements to the insert object.
+			for (var key in platter) {
+				// skip loop if the property is from prototype
+				if (!platter.hasOwnProperty(key)) continue;			
+				that._Platter[key] = platter[key];
+			}
+			that._Platter.table = "platters";
+			that._Platter.userId = Session.id;
+			that._Platter.menuId = 0;
+			that._Platter.status = 1;
+			that._Platter.lastUpdate = Date.now();
+			that._Platter.id = undefined;
+
+			var cook = new Cook();
+			//Add the platter
+			cook.addPlatter(that._Platter)
+				.then(function (response) {
+					//Get the newly added platter id by using the lastUpdate value
+					that._db.select({
+						fields: "lastUpdate",
+						table: "platters",
+						where: that._Platter.lastUpdate
+					})
+						.then(function (response) {
+							var platterRecord = response.data.data[0];
+							that._Platter.platter_name = platterRecord.name;
+							that._Platter.platter_id = platterRecord.id;
+							that._Platter.price = platterRecord.price;
+							that._Platter.cook_id = platterRecord.cook_id;
+							that._Platter.status = platterRecord.status;
+							that._Platter.Food = [];
+							that.data.push(that._Platter);
+							PlatterItemService.platter = that._Platter;
+							//debugger;
+						});
+				});
+		}; //this.onSave
+		this.onDelete = function (platter) {
+			
+			//Remove platter from db.platters where platterId = platter.id
+			var obj = {};
+			obj.table = "platters";
+			obj.fieldName = "id";
+			obj.fieldValue = platter.id
+			
+			Database.delete(obj)
+				.then(function (response) {
+					return response;
+				});
+			
+
+			
+
+			//Remove platterItems from db.platterItems where platterId = platter.id
+			obj.table = "platterItems";
+			obj.fieldName = "platterId";
+			
+			Database.delete(obj)
+				.then(function (response) {
+					return response;
+				});
+
+			
+
+			var index = this.data.indexOf(platter);
+			this.data.splice(index, 1);
+
+		};
+		this.onUpdate = function (platter_id) {
+			console.log("onUpdate..." + platter_id);
+			return true;
+		};
+		this.addFoodItemToPlatter = function (platter) {
+			if (platter) {
+				$state.go('platterItemsManager', { platter: platter });
+			}
+		};
+		this.removeFoodItemFromPlatter = function (platter, platterItem) {
+
+			var i = undefined;
+
+			platter.Food.forEach(function (item, index) {
+				if (item.platterId === platterItem.platterId) {
+					i = index;
+				}
+			});
+			platter.Food.splice(i, 1);
+
+			var obj = {
+				table: 				"platterItems",
+				firstFieldName: 	"platterId",
+				firstFieldValue: 	platter.id,
+				secondFieldName: 	"foodId",
+				secondFieldValue: 	platterItem.foodId
+			};
+
+			Database.delete2(obj)
+				.then(function (response) {
+					return response;
+				});
+
+		};
+
+
+
+		this.checkSelected = function (foodItem) {
+			var idx = that.platterFood.indexOf(foodItem);
+			return idx > -1;
+		};
+		this.addFoodItem = function (foodItem) {
+			if (that.platterFood !== undefined) {
+				var idx = that.platterFood.indexOf(foodItem);
+				if (that.platterFood.indexOf(foodItem) == -1) {
+					console.log('Pushing: ', foodItem)
+					that.platterFood.push(foodItem);
+					console.log(that.platterFood);
+				} else {
+					that.platterFood.splice(idx,1);
+				}
+			} else {
+				console.log("Eh! that.platterFood is not defined :)");
+			}
+		};
+		this.cancelAddPlatter = function () {
+			that.platterFood.length = 0; //Clear the food from the array.
+		};
+
+
+
+
+
+
+
+		/*** UTILITIES ***************************************/
+		this.showPlatterItemsPage = function (platter) {
+			DashboardService.platter = platter;
+			$state.go('index.dashboardPlatterDetail');
+		};
+
+	},
+	templateUrl: 'partials/dashboard/dashboard.platters.html'
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

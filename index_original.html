@@ -1,0 +1,173 @@
+<!DOCTYPE HTML>
+<!--
+	Alpha by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>My Personal Kitchen</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+		<!--<link rel="stylesheet" href="assets/css/main.css" />
+		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+
+		<!-- Google Roboto font -->
+		<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
+
+		<!--<script src="https://apis.google.com/js/platform.js" async defer></script>-->
+		<!--<meta name="google-signin-client_id" content="241746219925-04i1rfpl1mlgmotu0js4fuc11ge1qm7o.apps.googleusercontent.com">-->
+
+		<link href="css/master.css" rel="stylesheet">
+		<link href="css/html5media.css" rel="stylesheet">
+	</head>
+
+	<body class="landing" 
+		ng-app="app" 
+		ng-cloak 
+		ng-controller="IndexController">
+
+
+
+		<div id="page-wrapper">
+			<div ui-view></div>
+		</div>
+
+
+
+		<!-- Angular Library -->
+		<!--<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>-->
+		<script src="//unpkg.com/angular@1.6.1/angular.js"></script>
+		<script src="//unpkg.com/angular-ui-router@1.0.0-rc.1/release/angular-ui-router.js"></script>
+
+		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular-animate.min.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular-aria.min.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular-messages.min.js"></script>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/angular-filter/0.5.11/angular-filter.js"></script>
+
+
+
+		<!-- Angular Material Design Library -->
+		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
+
+		<!-- Material Design Lite Theme color wheel.  Change this line for a new theme. -->
+		<!--<link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.brown-deep_orange.min.css" />-->
+		<link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.green-light_green.min.css" />
+
+
+
+		<!-- JQUERY -->
+		<!-- Latest compiled and minified -->
+		<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+
+
+
+		<!-- BOOTSTRAP -->
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+		<!-- Optional theme -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+		<!-- Latest compiled and minified JavaScript -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+		<!-- ui.bootstrap -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.4.0/ui-bootstrap-tpls.min.js"></script>
+
+
+
+		<!-- Dexie.js - api for IndexedDB -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/dexie/1.4.2/dexie.min.js"></script>	
+
+
+
+		<!-- Application bootstrapping  app, app.run, app.config, etc -->
+		<script type="text/javascript" src="js/utilities/utilities.js"></script>
+		<script type="text/javascript" src="js/utilities/capture.js"></script>
+
+
+		<!-- Application bootstrapping  app, app.run, app.config, etc -->
+		<script type="text/javascript" src="js/index.js"></script>
+
+		<script type="text/javascript" src="js/app/controllers.js"></script>
+		<script type="text/javascript" src="js/app/components.js"></script>
+		<script type="text/javascript" src="js/app/factories.js"></script>
+		<script type="text/javascript" src="js/app/services.js"></script>
+
+
+		<!-- Application Login -->
+		<script type="text/javascript" src="js/login/services.js"></script>
+
+		<!-- Application Data -->
+		<script type="text/JavaScript" src="data/component.data.js"></script>
+
+		<!-- Application Cook -->
+		<script type="text/javascript" src="js/cook/factories.js"></script>
+
+		<!-- Application Customer -->
+		<script type="text/javascript" src="js/customer/factories.js"></script>
+
+		<!-- Application Dashboard -->
+		<script type="text/javascript" src="js/dashboard/component.dashboard.js"></script>
+		<script type="text/javascript" src="js/dashboard/component.dashboard.food.js"></script>
+		<script type="text/javascript" src="js/dashboard/component.dashboard.platters.js"></script>
+		<script type="text/javascript" src="js/dashboard/component.dashboard.platters.detail.js"></script>
+		<script type="text/javascript" src="js/dashboard/component.dashboard.menus.js"></script>
+		<script type="text/javascript" src="js/dashboard/component.dashboard.menus.detail.js"></script>
+
+		<!-- Application Updates -->
+		<script type="text/javascript" src="js/updates/component.updates.js"></script>
+
+		<!-- Application Profile -->
+		<script type="text/javascript" src="js/profile/component.profile.js"></script>
+		<script type="text/javascript" src="js/profile/factory.profile.js"></script>
+
+		<!-- Application Food -->
+		<script type="text/javascript" src="js/food/factories.js"></script>
+
+		<!-- Application Platters -->
+		<script type="text/javascript" src="js/platters/factories.js"></script>
+
+		<!-- Application Menus -->
+		<script type="text/javascript" src="js/menus/factories.js"></script>
+
+		<!-- Application Invitations -->
+		<script type="text/javascript" src="js/invitations/factories.js"></script>
+		<script type="text/javascript" src="js/invitations/component.invitations.js"></script>
+		<script type="text/javascript" src="js/invitations/component.invitations.header.js"></script>
+		<script type="text/javascript" src="js/invitations/component.invitations.body.js"></script>
+		<script type="text/javascript" src="js/invitations/invitations.services.js"></script>
+		<script type="text/javascript" src="js/invitations/component.invitation.detail.js"></script>
+
+		<!-- Application Shopping Cart -->
+		<script type="text/javascript" src="js/shoppingCart/component.shoppingCart.js"></script>
+
+		<!-- Application Users -->
+		<script type="text/javascript" src="js/users/factories.js"></script>
+		<script type="text/javascript" src="js/users/services.js"></script>
+
+
+		<script type="text/javascript" src="js/federatedLogins/facebook.js"></script>
+
+
+		<script type="text/javascript" src="js/htmlmedia/component.htmlmedia.js"></script>
+		<script type="text/javascript" src="js/htmlmedia/component.htmlmedia.header.js"></script>
+		<script type="text/javascript" src="js/htmlmedia/component.htmlmedia.body.js"></script>
+		<script type="text/javascript" src="js/htmlmedia/service.htmlmedia.js"></script>
+
+
+		<!-- Scripts -->
+		<script src="assets/js/jquery.min.js"></script>
+		<script src="assets/js/jquery.dropotron.min.js"></script>
+		<script src="assets/js/jquery.scrollgress.min.js"></script>
+		<script src="assets/js/skel.min.js"></script>
+		<script src="assets/js/util.js"></script>
+		<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+		<script src="assets/js/main.js"></script>
+
+	</body>
+</html>

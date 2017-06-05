@@ -1,0 +1,63 @@
+<div class="mdl-card mdl-cell mdl-cell--12-col mdl-shadow--6dp">
+
+<!--
+<figure class="mdl-card__media">
+	<img src="images/pic05.jpg" alt="" />
+</figure>
+-->
+
+	<div>
+		Id: {{ $ctrl.Invitation.id }}
+		<input type="hidden" 
+			ng-model="Invitation.id" 
+			value="{{ $ctrl.Invitation.id }}"
+			/>
+	</div>
+
+
+	<div class="mdl-card__title">
+		<h2 class="mdl-card__title-text">{{ $ctrl.Invitation.title }}</h2>
+	</div>
+	
+
+	<div class="mdl-card__supporting-text">
+		<p>Starts: {{ $ctrl.Invitation.beginDate }}</p>
+		<p>Ends: {{ $ctrl.Invitation.endDate }}</p>
+		<br />
+		<p>{{ $ctrl.Invitation.message }}</p>
+
+		<div class="mdl-card__actions mdl-card--border">
+
+			<ul class="icons">
+				<li style="padding: 0px;">
+					<a 
+						ng-click="$ctrl.go('index')" 
+						class="btn btn-success icon fa-remove">
+					</a>
+				</li>
+
+				<li style="padding: 0px;">
+					<a 
+						ng-click="$ctrl.addToCart($ctrl.Invitation)"
+						class="btn btn-primary icon fa fa-shopping-cart"
+					>
+					</a>
+				</li>
+			</ul>
+
+		</div>
+
+		<div>
+			<ul>
+				<li ng-repeat="item in $ctrl.shoppingCart.items">
+					<strong>Title</strong>: {{ item.title }},<br />
+					<strong>Message</strong>: {{ item.message }},<br />
+					<strong>End Date</strong>: {{ item.endDate }}
+					<hr />
+				</li>
+			</ul>
+		</div>
+
+	</div><!-- End mdl-card_supporting-text -->
+
+</div><!-- end mdl-card mdl-cell -->

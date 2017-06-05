@@ -1,0 +1,293 @@
+<nav class="navbar navbar-default">
+	<div class="container-fluid" style="background-color: green;">
+		<!-- Brand and toggle get grouped for better mobile display -->
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+
+			<a class="navbar-brand" ui-sref="dashboard" style="color: black;">
+				<i class="material-icons" style="padding-right: 15px;">keyboard_arrow_left</i>
+				<h3 style="display: inline;">Platter Items Manager</h3>
+			</a>
+		</div>
+
+		<!-- Collect the nav links, forms, and other content for toggling -->
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav navbar-right">
+
+			<!--<hamburger link='elloHay' linkText="inklay"></hamburger>-->
+
+
+				<li>
+					<a ui-sref="profile" style="color: black;">
+						<h3 style="display: inline;">Profile</h3>
+					</a>
+				</li>
+
+				<li>
+					<a ui-sref="invitations" style="color: black;">
+						<h3 style="display: inline;">Invitations</h3>
+					</a>
+				</li>
+
+				<li>
+					<a ui-sref="members" style="color: black;">
+						<h3 style="display: inline;">Members</h3>
+					</a>
+				</li>
+
+				<li>
+					<a ui-sref="updates" style="color: black;">
+						<h3 style="display: inline;">Updates</h3>
+					</a>
+				</li>
+
+			</ul>
+		</div><!-- /.navbar-collapse -->
+	</div><!-- /.container-fluid -->
+</nav>
+
+
+
+<div class="container" style="border: 1px solid green; border-radius: 5px; margin: 5px;">
+	<div class="row" style="border: 5px solid green; position: relative;">
+		<md-button 
+			aria-label="Settings" 
+			class="md-fab 
+				md-fab-top-right 
+				md-raised 
+				md-primary 
+				md-hue-1"
+			data-toggle="modal" 
+			data-target="#addFoodItemsModal"
+			style="position: absolute;"
+		>
+			<md-icon>add</md-icon>
+		</md-button>
+
+
+
+
+		
+		<!-- Modal -->
+		<div 
+			class="modal fade" 
+			id="addFoodItemsModal" 
+			role="dialog" 
+			data-backdrop="false"
+		>
+			<div class="modal-dialog">
+
+				<!-- Modal content-->
+				<div class="modal-content">
+					<div class="modal-header accent-color">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4 class="modal-title">Add a new food item</h4>
+					</div>
+
+
+
+					<div class="modal-body">
+
+
+						<!-- Food and Platter List tabs Food and Platter List tabs Food and Platter List tabs -->
+						<div class="col">
+
+							<md-tabs 
+								layout-padding
+								md-selected="0" 
+								
+								md-dynamic-height 
+								md-center-tabs 
+							>
+								<md-tab label="{{ item.type }}" ng-repeat="item in $ctrl.foodList">
+
+									<!-- md icon restaurant -->
+									<md-tab-label>
+										<md-icon 
+											md-svg-src="images/svg/{{ item.type }}.svg" 
+											style="width:36px; height:36px;">
+										</md-icon>
+									</md-tab-label>
+
+									<md-tab-body layout-padding="true">
+
+						<!-- BEGIN THE MD GRID LIST -->
+
+										<md-content class="md-padding" layout-xs="column" layout="row">
+											<div style="border-radius: 5px; padding-left: auto; padding-right: auto; margin-left: auto; margin-right: auto;">
+												<!-- #006400 = dark green -->
+												<!-- BEGIN CARD BEGIN CARD BEGIN CARD -->
+												<div 
+													class="card col-md-12 col-sm-12 col-xs-6"
+													ng-repeat="foodItem in item.items"
+													style="border: 3px solid #006400; border-radius: 10px; margin-bottom: 10px; padding-left: 0px; padding-right: 0px;"
+												>
+													<img class="card-img-top img- fluid" 
+														ng-src="images/pic13.jpg"
+														alt="card image"
+														style="border-top-left-radius: 5px; border-top-right-radius: 5px;">
+													<div class="card-block">
+														<div style="padding: 5px;">
+															<strong>[{{ foodItem.type }}]</strong>
+															<strong class="card-title">{{ foodItem.food_name }}</strong>
+															<strong class="card-title">{{ foodItem.food_status }}</strong>
+															
+															<p class="card-text">{{ foodItem.description }}</p>
+
+															<a ng-click="$ctrl.add(foodItem)" 
+																class="btn btn-primary" ng-show="!foodItem.isOnPlatter">
+																Add To Platter
+															</a>
+
+															<!-- <p> foodItem.isOnPlatter: {{ foodItem.isOnPlatter }}</p> -->
+
+															<a ng-click="$ctrl.remove(foodItem)" 
+																class="btn btn-danger" ng-show="foodItem.isOnPlatter">
+																Remove
+															</a>
+
+															<span flex></span>
+
+															<a ng-click="$ctrl.close()" 
+																class="btn btn btn-danger" 
+																data-dismiss="modal"
+															>
+																Close
+															</a>
+														</div>
+													</div>
+												</div>
+												<!-- END CARD END CARD END CARD END CARD -->
+											</div>
+
+										</md-content>
+
+						<!-- END THE MD GRID LIST -->
+
+
+									</md-tab-body>			
+
+								</md-tab>
+
+							</md-tabs>
+
+						</div>
+						<!-- Food and Platter List tabs Food and Platter List tabs  -->
+					</div>
+					<!-- modal body modal body modal body modal body modal body modal body -->
+
+					<div class="modal-footer accent-color">
+						<div class="btn-group">
+							<button 
+								id="save" 
+								type="button" 
+								class="btn btn-primary btn-xs" 
+								ng-click="$ctrl.onSave($ctrl.NewFoodItem)" 
+								data-dismiss="modal"
+							><i class="material-icons">save</i></button>
+
+							<button 
+								id="cancel" 
+								type="button" 
+								class="btn btn-danger btn-xs" 
+								data-dismiss="modal"
+							><i class="material-icons">cancel</i></button>
+						</div>
+					</div><!-- modal-footer -->
+
+				</div><!-- modal-content -->
+
+			</div><!-- modal-dialog -->
+		</div>
+		<!-- Modal -->
+
+
+	</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<div class="row" style="padding: 5px;">
+		<p>INSTRUCTIONS: Below is the food which appears on the {{  $ctrl.platter.platter_name  }} platter.  Use the ADD button to add food.  Use the REMOVE button on a specific food item to remove it.</p>
+		[ #{{ $ctrl.platter.platter_id }} ]
+		<h3>Platter Name: {{ $ctrl.platter.platter_name }}</h3>
+		<h3>Price: {{ $ctrl.platter.price }}</h3>
+		<form>
+			<input type="checkbox" id="isAvailable" ng-model="$ctrl.platter.available" />In Stock?
+		</form>
+
+	 	<md-card ng-repeat="foodItem in $ctrl.platter.Food" style="border: 1px solid black;">
+
+	 		<md-card-content>
+	 			<!--<span>Food Id: {{ foodItem.food_id }}</span>-->
+	 			<span>[{{ foodItem.type }}] - <strong>{{ foodItem.food_name }}</strong></span>
+	 			<p>{{ foodItem.description }}</p>
+	 			<!--<span>Available: {{ foodItem.food_status }}</span>-->
+	 		</md-card-content>
+
+	 		<md-card-action layout-align="end end">
+	 			<md-button 
+	 				class="md-raised md-primary"
+	 				ng-click="$ctrl.remove(foodItem)"
+	 			>
+	 				Remove
+	 			</md-button>
+	 		</md-card-action>
+
+	 	</md-card>
+
+	</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>

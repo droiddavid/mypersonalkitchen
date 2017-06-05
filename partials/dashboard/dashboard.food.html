@@ -1,0 +1,475 @@
+<div class="container">
+	<div class="row">
+
+		<div style="padding-bottom: 65px;">
+			<md-button 
+				aria-label="Settings" 
+				class="md-fab 
+					md-fab-top-right 
+					md-raised 
+					md-primary 
+					md-hue-1"
+				data-toggle="modal" 
+				data-target="#foodModal"
+			>
+				<md-icon>add</md-icon>
+			</md-button>
+		</div>
+		
+		<!-- Modal -->
+		<div 
+			class="modal fade" 
+			id="foodModal" 
+			role="dialog" 
+			data-backdrop="false"
+		>
+			<div class="modal-dialog">
+
+				<!-- Modal content-->
+				<div class="modal-content">
+					<div class="modal-header accent-color">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4 class="modal-title">Add a new food item</h4>
+					</div>
+
+
+
+					<div class="modal-body">
+						
+
+						<form ng-submit="addFoodItem(food)">
+
+								<div class="container-fluid">
+									<div class="mdl-textfield mdl-js-textfield">
+										<input id="foodName"
+											class="mdl-textfield__input form-control input-sm" 
+											type="text" 
+											ng-model="$ctrl.NewFoodItem.name"
+											placeholder="Food Name..."
+										>
+									</div>
+
+
+									<div 
+										class="btn-group mdl-selectfield mdl-js-selectfield" 
+										uib-dropdown is-open="status.isopen">
+
+										<button 
+											id="single-button" 
+											type="button" 
+											class="btn btn-primary" 
+											uib-dropdown-toggle 
+											ng-disabled="disabled"
+										>
+											Select Food Type <span class="caret"></span>
+										</button>
+										<p>{{ $ctrl.NewFoodItem.type }}</p>
+
+										<ul 
+											class="dropdown-menu" 
+											uib-dropdown-menu 
+											role="menu" 
+											aria-labelledby="single-button"
+										>
+											<li role="menuitem" ng-repeat="type in $ctrl.types">
+												<a ng-click="$ctrl.setType(type.type)">
+													{{ type.type }}
+												</a>
+											</li>
+										</ul>
+									</div>
+
+									<div class="mdl-textfield mdl-js-textfield">
+										<input id="foodDescription"
+											class="mdl-textfield__input form-control input-sm" 
+											type="text" 
+											ng-model="$ctrl.NewFoodItem.description"
+											placeholder="Description..."
+										>
+									</div>
+								</div><!-- container-fluid -->
+
+						</form><!-- form -->
+
+
+					</div><!-- modal body -->
+
+					<div class="modal-footer accent-color">
+						<div class="btn-group">
+							<button 
+								id="save" 
+								type="button" 
+								class="btn btn-primary btn-xs" 
+								ng-click="$ctrl.onSave($ctrl.NewFoodItem)" 
+								data-dismiss="modal"
+							><i class="material-icons">save</i></button>
+
+							<button 
+								id="cancel" 
+								type="button" 
+								class="btn btn-danger btn-xs" 
+								data-dismiss="modal"
+							><i class="material-icons">cancel</i></button>
+						</div>
+					</div><!-- modal-footer -->
+
+				</div><!-- modal-content -->
+
+			</div><!-- modal-dialog -->
+		</div>
+		<!-- Modal -->
+
+	</div>
+
+</div>
+
+
+
+
+
+
+
+<!-- Food List -->
+<div class="col">
+
+	<md-tabs 
+		layout-padding
+		md-selected="0" 
+		
+		md-dynamic-height 
+		md-center-tabs 
+	>
+		<md-tab label="{{ item.type }}" ng-repeat="item in $ctrl.foodList">
+
+			<!-- md icon restaurant -->
+			<md-tab-label>
+				<md-icon 
+					md-svg-src="images/svg/{{ item.type }}.svg" 
+					style="width:36px; height:36px;">
+				</md-icon>
+			</md-tab-label>
+
+			<md-tab-body layout-padding="true">
+
+<!-- BEGIN THE MD GRID LIST -->
+
+				<md-content class="md-padding" layout-xs="column" layout="row">
+					<div style="
+	  					border-radius: 5px; 
+	  					padding-left: auto; 
+	  					padding-right: auto;
+	  					margin-left: auto; 
+	  					margin-right: auto;"
+	  				>
+  						<md-card 
+							class="col-md-4 col-sm-6 col-xs-12"
+			  				ng-repeat="foodItem in item.items" 
+			  				style="border: 1px solid black; border-radius: 5px; margin: 0px;"
+		  				>
+
+							<md-card-header class="default-primary-color" 
+								style="
+									border-top-left-radius: 5px;
+									border-top-right-radius: 5px;
+									padding-top: 10px;">
+								<md-card-avatar>
+									<md-icon class="md-avatar-icon" md-svg-src="images/svg/{{ item.type }}.svg" style="width:36px; height:36px;">
+									</md-icon>
+								</md-card-avatar>
+								<md-card-header-text>
+									<span class="md-title">{{ foodItem.name }}</span>
+									<span class="md-subhead">{{ foodItem.type }}</span>
+								</md-card-header-text>
+							</md-card-header>
+
+					        <!--<img ng-src="{{imagePath}}" class="md-card-image" alt="Washed Out">-->
+					        <img ng-src="images/pic05.jpg" class="md-card-image" alt="Washed Out">
+
+							<md-card-title>
+								<md-card-title-text>
+									<span class="md-headline">{{ foodItem.name }}</span>
+									<span class="md-subhead">{{ foodItem.type }}</span>
+								</md-card-title-text>
+							</md-card-title>
+							
+							<md-card-content>
+								<p>{{ foodItem.description }}</p>
+							</md-card-content>
+
+							<md-card-actions class="default-primary-color" style="border-radius: 5px; padding: 10px;" layout="row" layout-align="start center">
+								<span 
+									aria-label="Settings" 
+									data-toggle="modal" 
+									data-target="#updateModal"
+									ng-click="$ctrl.updateFormData(foodItem)">
+									
+									<i class="material-icons default-primary-color"">
+										border_color <!--update-->
+									</i>
+								</span>
+								
+								<span 
+									ng-click="$ctrl.onDelete(foodItem)">
+									<i class="material-icons default-warning-color"">
+										delete
+									</i>
+								</span>
+								
+								<span flex></span>
+								
+								<span style="float: right;">
+									<i class="material-icons tile-footer-icon-buttons">
+										favorite
+									</i>
+								</span>
+
+								<span style="float: right;">
+									<i class="material-icons tile-footer-icon-buttons">
+										share
+									</i>
+								</span>
+
+							</md-card-actions>
+						</md-card>
+					</div>
+
+
+
+
+
+
+
+
+<!-- Update/Modal Update/Modal Update/Modal Update/Modal Update/Modal Update/Modal -->
+					<div 
+						class="modal fade" 
+						id="updateModal" 
+						role="dialog"
+						data-backdrop="false" 
+					>
+						<div class="modal-dialog">
+
+							<!-- Modal content-->
+							<div class="modal-content">
+
+								<form style="border: 5px solid orange;">
+
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal">&times;</button>
+										<h4 class="modal-title">Edit food item</h4>
+									</div><!-- modal-header -->
+
+
+									<div class="modal-body">
+										<div class="container-fluid">
+											<input id="id" type="hidden" ng-model="$ctrl.selectedFoodItem.food_id" />
+
+
+											<!-- Food Name Text Field -->
+											<div class="mdl-textfield mdl-js-textfield">
+												<input id="foodName"
+													class="mdl-textfield__input form-control input-sm" 
+													type="text" 
+													ng-model="$ctrl.selectedFoodItem.name"
+													placeholder="Food Name..."
+												>
+											</div>
+
+
+											<br />
+
+
+											<!-- Food Type Select Box -->
+											<div 
+												class="btn-group mdl-selectfield mdl-js-selectfield" 
+												uib-dropdown is-open="status.isopen">
+
+												<button 
+													id="single-button" 
+													type="button" 
+													class="btn btn-primary btn-xs" 
+													uib-dropdown-toggle 
+													ng-disabled="disabled"
+												>
+													Select Food Type <span class="caret"></span>
+												</button>
+
+												<p>Food Type: <span flex>{{ $ctrl.selectedFoodItem.type }}</span></p>
+												<ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+													<li role="menuitem" ng-repeat="type in $ctrl.types">
+														<a uib-dropdown-toggle ng-click="$ctrl.setType(type.type)" ng-model="$ctrl.selectedFoodItem.type">{{ type.type }}</a>
+													</li>
+												</ul>
+
+											</div>
+
+
+											<br />
+
+
+											<!-- Food Description Text Field -->
+											<div class="mdl-textfield mdl-js-textfield">
+												<input id="foodDescription"
+													class="mdl-textfield__input form-control input-sm" 
+													type="text" 
+													ng-model="$ctrl.selectedFoodItem.description"
+													placeholder="Description..."
+												>
+											</div>
+
+
+												<!-- Food Status Radio Buttons -->
+												<div>
+													<label class="mdl-radio mdl-js-radio" for="option-status-available">
+														<input 
+															type="radio" 
+															id="option-status-available" 
+															class="mdl-radio__button" 
+															name="options" 
+															ng-model="$ctrl.selectedFoodItem.status"
+															ng-checked="$ctrl.selectedFoodItem.status === 1"
+															ng-click="$ctrl.toggleSelection('option-status-available')"
+														>
+															<span class="mdl-radio__label">Available</span>
+													</label>
+
+													<br>
+
+													<label class="mdl-radio mdl-js-radio" for="option-status-not-available">		
+														<input 
+															type="radio" 
+															id="option-status-not-available" 
+															class="mdl-radio__button" 
+															name="options"
+															ng-model="$ctrl.selectedFoodItem.status"
+															ng-checked="$ctrl.selectedFoodItem.status === 0"
+															ng-click="$ctrl.toggleSelection('option-status-not-available')"
+														>
+														<span class="mdl-radio__label">Not Available</span>
+													</label>
+
+												</div>
+
+
+										</div><!-- container-fluid -->
+									</div><!-- modal-body -->
+
+
+									<div class="modal-footer">
+										<div class="btn-group">
+
+											<button 
+												id="update" 
+												type="button" 
+												class="btn btn-info" 
+												ng-click="$ctrl.onUpdate($ctrl.selectedFoodItem)" 
+												data-dismiss="modal"
+											><i class="material-icons">update</i></button>
+
+											<button 
+												id="cancel" 
+												type="button" 
+												class="btn btn-danger" 
+												data-dismiss="modal"
+											><i class="material-icons">cancel</i></button>
+										</div>
+									</div><!-- modal-footer -->
+
+								</form><!-- form -->
+
+							</div><!-- modal-content -->
+
+
+						</div><!-- modal-dialog -->
+
+					</div>
+<!-- Update/Modal Update/Modal Update/Modal Update/Modal Update/Modal Update/Modal -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+				</md-content>
+
+<!-- END THE MD GRID LIST -->
+
+
+			</md-tab-body>			
+
+		</md-tab>
+
+	</md-tabs>
+
+</div>
+
+
+
+
+
+
+
+
+
+<div ng-if="$ctrl.foodList.length === 0">
+
+	<!-- Main -->
+	<section id="main" class="container">
+
+		<section class="box special features">
+			<div class="features-row">
+				<section>
+					<span class="icon major fa-bolt accent2"></span>
+					<h3>Invitations</h3>
+					<p>Integer volutpat ante et accumsan commophasellus sed aliquam feugiat lorem aliquet ut enim rutrum phasellus iaculis accumsan dolore magna aliquam veroeros.</p>
+				</section>
+				<section>
+					<span class="icon major fa-area-chart accent3"></span>
+					<h3>Food</h3>
+					<p>Integer volutpat ante et accumsan commophasellus sed aliquam feugiat lorem aliquet ut enim rutrum phasellus iaculis accumsan dolore magna aliquam veroeros.</p>
+				</section>
+			</div>
+			<div class="features-row">
+				<section>
+					<span class="icon major fa-cloud accent4"></span>
+					<h3>Platters</h3>
+					<p>Integer volutpat ante et accumsan commophasellus sed aliquam feugiat lorem aliquet ut enim rutrum phasellus iaculis accumsan dolore magna aliquam veroeros.</p>
+				</section>
+				<section>
+					<span class="icon major fa-lock accent5"></span>
+					<h3>Menus</h3>
+					<p>Integer volutpat ante et accumsan commophasellus sed aliquam feugiat lorem aliquet ut enim rutrum phasellus iaculis accumsan dolore magna aliquam veroeros.</p>
+				</section>
+			</div>
+			<div class="features-row">
+				<section>
+					<span class="icon major fa-cloud accent4"></span>
+					<h3>Monetize</h3>
+					<p>Integer volutpat ante et accumsan commophasellus sed aliquam feugiat lorem aliquet ut enim rutrum phasellus iaculis accumsan dolore magna aliquam veroeros.</p>
+				</section>
+				<section>
+					<span class="icon major fa-lock accent5"></span>
+					<h3>Reports</h3>
+					<p>Stay in the know with up to the minute detailed reports.</p>
+				</section>
+			</div>
+		</section>
+
+	</section>
+
+</div>

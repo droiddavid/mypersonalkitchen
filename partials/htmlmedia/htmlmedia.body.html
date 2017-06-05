@@ -1,0 +1,67 @@
+<h3 style="text-align: center; margin: 0 auto; padding: 0 auto;">Take Photo</h3>
+
+<div class="6u 12u(mobilep)" style="width: 100%; margin: 0px; padding: 0px;
+border: 8px dotted blue;">
+	
+
+	<div 
+		class="camera" 
+		style="border: 8px dotted red; position: relative; left: 0px; top: 0px; width: 100%;"
+		ng-show="$ctrl.showVideo"
+	>
+		<video id="video" 
+			ng-show="$ctrl.showVideo"
+			style="border: 8px dotted green; width: 100%;"
+		>Video stream not available.</video>
+
+		<button 
+			class="mdl-button mdl-js-button 
+				mdl-button--fab mdl-button--mini-fab 
+				mdl-button--colored fab_small"
+			id="startbutton"
+			ng-click="$ctrl.showVideoOrPhoto('photo')"
+		>
+			<i class="material-icons">camera</i>
+		</button>
+	</div>
+
+	<canvas id="canvas"></canvas>
+
+	<div id="output" 
+		class="output" 
+		style="border: 8px dotted orange; 
+			position: relative; 
+			left: 0px; 
+			top: 0px; 
+			width: 100%;"
+		ng-show="$ctrl.showPhoto"
+	>
+		<img id="photo" alt="The screen capture will appear in this box." style="border: 8px dotted aqua;">
+
+		<div class="mdl-layout-spacer"></div>
+
+		<div id="cameraButtons">
+			<ul class="icons">
+				<li>
+					<a 
+						ng-click="$ctrl.go('invitations')"
+						class="icon fa-close">
+					</a>
+				</li>
+				<li>
+					<a 
+						ng-click="$ctrl.saveImageFile()"
+						class="icon fa-save">
+					</a>
+				</li>
+				<li>
+					<a 
+						ng-click="$ctrl.showVideoOrPhoto('video')"
+						class="icon fa-refresh">
+					</a>
+				</li>
+			</ul>
+		</div> 
+	</div>
+
+</div><!-- Colored mini FAB button -->

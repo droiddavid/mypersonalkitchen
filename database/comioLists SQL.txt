@@ -1,0 +1,456 @@
+Required Lists
+
+CUSTOMERS
+
+1. List of cooks by customer id - A list of a customer's cooks.
+====================================================
+customer.cooks
+====================================================
+$scope.getCustomerCooks = function (customerId) {
+	return $http.post(baseUrl + select, customerId);
+}; //$scope.getCustomerCooks
+====================================================
+SELECT 
+	Customer.id, Customer.firstName, Customer.lastName, Customer.role, Customer.userName, Customer.emailAddress, Customer.message, Customer.status AS customer_status,
+    customertocook.customerId, customertocook.cookid,
+    Cook.id AS cook_id, Cook.firstName AS cook_firstName, Cook.lastName AS cook_lastName, Cook.role AS cook_role, Cook.userName AS cook_userName
+FROM vwcustomers as Customer
+LEFT JOIN customertocook ON customertocook.customerid = Customer.id
+LEFT JOIN users AS Cook ON Cook.id = customertocook.cookid
+WHERE Customer.id = ?
+
+
+
+
+
+
+2. List of food items by cook - A list of a customer's cooks with each cook's food items.
+=============================
+customer.cooks.foodItems
+=============================
+SELECT Customer.id, Customer.role, Customer.firstName, Customer.lastName, 
+	Cooks.cookid AS cook_id, 
+	Cook.firstName AS Cook_firstName, Cook.lastName AS Cook_lastName, Cook.userName AS Cook_userName, Cook.emailAddress AS Cook_emailAddress, Cook.message AS Cook_message,
+	Food.id AS food_id, Food.type, Food.name, Food.description, Food.status
+FROM vwcustomers as Customer
+LEFT JOIN customertocook AS Cooks ON Customer.ID = Cooks.customerid
+LEFT JOIN vwcooks AS Cook ON Cook.id = Cooks.cookid
+LEFT JOIN food AS Food ON Food.userId = Cooks.cookid
+WHERE Customer.id = ?
+ORDER BY Cooks.cookid
+
+
+
+
+
+
+3. List of platters by cook - A list of a customer's cooks with each cook's platters 
+===========================
+customer.cooks.platters
+===========================
+SELECT Customer.id, Customer.role, Customer.firstName, Customer.lastName, 
+	Cooks.cookid AS cook_id, 
+	Cook.firstName AS Cook_firstName, Cook.lastName AS Cook_lastName, Cook.userName AS Cook_userName, Cook.emailAddress AS Cook_emailAddress, Cook.message AS Cook_message,
+	Platters.id AS platter_id, Platters.userId AS platter_cookId, Platters.menuId AS platter_menuId, Platters.name AS platter_name, Platters.price, Platters.status AS platter_status
+FROM vwcustomers as Customer
+LEFT JOIN customertocook AS Cooks ON Customer.ID = Cooks.customerid
+LEFT JOIN vwcooks AS Cook ON Cook.id = Cooks.cookid
+LEFT JOIN Platters AS Platters ON Platters.userId = Cooks.cookid
+WHERE Customer.id = ?
+ORDER BY Cooks.cookid, Platters.name
+
+
+
+
+
+
+4. List of platters with food items by cook - A list of a customer's cooks with each cook's platters and each platter's food items (platter items)
+===========================================
+customer.cooks.platters.platteritems
+===========================================
+SELECT Customer.id, Customer.role, Customer.firstName, Customer.lastName, 
+	Cooks.cookid AS cook_id, 
+	Cook.firstName AS Cook_firstName, Cook.lastName AS Cook_lastName, Cook.userName AS Cook_userName, Cook.emailAddress AS Cook_emailAddress, Cook.message AS Cook_message,
+	Platters.id AS platter_id, Platters.userId AS platter_cookId, Platters.menuId AS platter_menuId, Platters.name AS platter_name, Platters.price, Platters.status AS platter_status,
+    platteritems.platterId, platteritems.foodId,
+    food.id AS food_id, food.userId AS food_userId, food.type, food.name AS food_name, food.description, food.status AS food_status
+FROM vwcustomers as Customer
+LEFT JOIN customertocook AS Cooks ON Customer.ID = Cooks.customerid
+LEFT JOIN vwcooks AS Cook ON Cook.id = Cooks.cookid
+LEFT JOIN Platters AS Platters ON Platters.userId = Cooks.cookid
+LEFT JOIN platterItems ON platteritems.platterId = Platters.id
+LEFT JOIN food ON food.id = platteritems.foodId
+WHERE Customer.id = ?
+ORDER BY Cooks.cookid, Platters.name
+
+
+
+
+
+
+5. List of menus by cook - A list of a customer's cooks with each cook's menus
+========================
+customer.cooks.menus
+========================
+SELECT Customer.id, Customer.role, Customer.firstName, Customer.lastName, 
+	Cooks.cookid AS cook_id, 
+	Cook.firstName AS Cook_firstName, Cook.lastName AS Cook_lastName, Cook.userName AS Cook_userName, Cook.emailAddress AS Cook_emailAddress, Cook.message AS Cook_message,
+	Menus.id AS menus_menuId, Menus.title, Menus.status AS menu_status, Menus.created
+FROM vwcustomers as Customer
+LEFT JOIN customertocook AS Cooks ON Customer.ID = Cooks.customerid
+LEFT JOIN vwcooks AS Cook ON Cook.id = Cooks.cookid
+LEFT JOIN Menus AS Menus ON Menus.userId = Cooks.cookid
+WHERE Customer.id = ?
+ORDER BY Cooks.cookid, Menus.id
+
+
+
+
+
+
+6. List of food items by menu - A list of a customer's cooks with each cook's menus and each menu's food items.
+==============================
+customer.cooks.menus.foodItems
+==============================
+SELECT Customer.id, Customer.role, Customer.firstName, Customer.lastName, 
+	Cooks.cookid AS cook_id, 
+	Cook.firstName AS Cook_firstName, Cook.lastName AS Cook_lastName, Cook.userName AS Cook_userName, Cook.emailAddress AS Cook_emailAddress, Cook.message AS Cook_message,
+	Menus.id AS menus_menuId, Menus.title, Menus.status AS menu_status, Menus.created,
+    menustofood.id AS menustofood_id, menustofood.menuId, menustofood.foodId,
+    food.userId AS food_userId, food.type, food.name AS food_name, food.description, food.status AS food_status
+FROM vwcustomers as Customer
+LEFT JOIN customertocook AS Cooks ON Customer.ID = Cooks.customerid
+LEFT JOIN vwcooks AS Cook ON Cook.id = Cooks.cookid
+LEFT JOIN Menus AS Menus ON Menus.userId = Cooks.cookid
+LEFT JOIN menustofood ON menustofood.menuId = Menus.id
+LEFT JOIN food ON food.id = menustofood.foodId
+WHERE Customer.id = ?
+ORDER BY Cooks.cookid, Menus.id
+
+
+
+
+
+
+7. List of platters by menu by cook - A list of a customer's cooks with each cook's menus and each menu's platters.
+=============================
+customer.cooks.menus.platters
+=============================
+SELECT Customer.id, Customer.role, Customer.firstName, Customer.lastName, 
+	Cooks.cookid AS cook_id, 
+	Cook.firstName AS Cook_firstName, Cook.lastName AS Cook_lastName, Cook.userName AS Cook_userName, Cook.emailAddress AS Cook_emailAddress, Cook.message AS Cook_message,
+	Menus.id AS menus_menuId, Menus.title, Menus.status AS menu_status, Menus.created,
+    Platters.id AS platter_id, Platters.userId AS platter_cook_id, Platters.name AS platter_name, Platters.price, Platters.status AS platter_status
+FROM vwcustomers as Customer
+LEFT JOIN customertocook AS Cooks ON Customer.ID = Cooks.customerid
+LEFT JOIN vwcooks AS Cook ON Cook.id = Cooks.cookid
+LEFT JOIN Menus AS Menus ON Menus.userId = Cooks.cookid
+LEFT JOIN menustoplatters ON menustoplatters.menuId = Menus.id
+LEFT JOIN platters AS Platters ON platters.id = menustoplatters.platterid AND platters.userId = Cooks.cookId
+WHERE Customer.id = ?
+ORDER BY Cooks.cookid, Menus.title, Platters.name
+
+
+
+
+
+
+8. List of platter items by menu by cook - A list of a customer's cooks with each cook's menus and each menu's platter items.
+==========================================
+customer.cooks.menus.platters.platteritems
+==========================================
+SELECT Customer.id, Customer.role, Customer.firstName, Customer.lastName, 
+	Cooks.cookid AS cook_id, 
+	Cook.firstName AS Cook_firstName, Cook.lastName AS Cook_lastName, Cook.userName AS Cook_userName, Cook.emailAddress AS Cook_emailAddress, Cook.message AS Cook_message,
+	Menus.id AS menus_menuId, Menus.title, Menus.status AS menu_status, Menus.created,
+    Platters.id AS platter_id, Platters.userId AS platter_cook_id, Platters.name AS platter_name, Platters.price, Platters.status AS platter_status,
+    food.id AS food_id, food.userId AS food_cook_id, food.type, food.name AS food_name, food.description, food.status AS food_status
+FROM vwcustomers as Customer
+LEFT JOIN customertocook AS Cooks ON Customer.ID = Cooks.customerid
+LEFT JOIN vwcooks AS Cook ON Cook.id = Cooks.cookid
+LEFT JOIN Menus AS Menus ON Menus.userId = Cooks.cookid
+LEFT JOIN menustoplatters ON menustoplatters.menuId = Menus.id
+LEFT JOIN platters AS Platters ON platters.id = menustoplatters.platterid AND platters.userId = Cooks.cookId
+LEFT JOIN platterItems ON platteritems.platterId = Platters.id
+LEFT JOIN food ON food.id = platteritems.foodId
+WHERE Customer.id = ?
+ORDER BY Cooks.cookid, Menus.title, Platters.name
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+COOKS
+
+1. List of each cook's food items
+===============================
+cooks.food
+===============================
+SELECT vwCooks.id AS cook_id, vwCooks.firstName, vwCooks.lastName, vwCooks.role, vwCooks.userName, vwCooks.emailAddress, vwCooks.message,
+	food.id AS food_id, food.userid AS food_cook_id, food.type, food.name, food.description, food.status
+FROM vwCooks
+LEFT JOIN food ON food.userId = vwCooks.id
+
+
+
+
+
+
+2. List of platters by cook
+===========================
+cooks.platters
+===========================
+SELECT vwCooks.id AS cook_id, vwCooks.firstName, vwCooks.lastName, vwCooks.role, vwCooks.userName, vwCooks.emailAddress, vwCooks.message,
+	platters.id AS platter_id, platters.userId AS platter_cook_id, platters.name AS platter_name, platters.price, platters.status AS platter_status
+FROM vwCooks
+LEFT JOIN platters ON platters.userId = vwCooks.id
+ORDER BY vwCooks.id, platters.name
+
+REVISED - 02/08/17 to include description field.
+SELECT vwCooks.id AS cook_id, vwCooks.firstName, vwCooks.lastName, vwCooks.role, vwCooks.userName, vwCooks.emailAddress, vwCooks.message,
+	platters.id AS platter_id, platters.userId AS platter_cook_id, platters.menuId AS platter_menuId, platters.name AS platter_name, platters.description, platters.price, platters.status AS platter_status
+FROM vwCooks
+LEFT JOIN platters ON platters.userId = vwCooks.id
+ORDER BY vwCooks.id, platters.name
+
+
+
+
+
+3. List of platter items
+===========================
+cooks.platters.platterItems
+===========================
+SELECT vwCooks.id AS cook_id, vwCooks.firstName, vwCooks.lastName, vwCooks.role, vwCooks.userName, vwCooks.emailAddress, vwCooks.message,
+	platters.id AS platter_id, platters.userId AS platter_cook_id, platters.name AS platter_name, platters.price, platters.status AS platter_status,
+	platteritems.platterId, platteritems.foodId,
+    food.id AS food_id, food.userId AS food_userId, food.type, food.name AS food_name, food.description, food.status AS food_status
+FROM vwCooks
+LEFT JOIN platters ON platters.userId = vwCooks.id
+LEFT JOIN platteritems ON platteritems.platterId = platters.id
+LEFT JOIN food ON food.id = platteritems.foodId
+ORDER BY vwCooks.id, platters.name, food.name
+
+
+
+
+
+
+4. List of menus by cook id
+===========================
+cooks.menus
+===========================
+SELECT vwCooks.id AS cook_id, vwCooks.firstName, vwCooks.lastName, vwCooks.role, vwCooks.userName, vwCooks.emailAddress, vwCooks.message,
+	menus.id AS menus_id, menus.userId AS menus_cook_id, menus.title, menus.status
+FROM vwCooks
+LEFT JOIN menus ON menus.userId = vwCooks.id
+ORDER BY vwCooks.id, menus.title
+
+
+
+
+
+
+5. List of platters by menus
+============================
+cooks.menus.platters
+============================
+SELECT vwCooks.id AS cook_id, vwCooks.firstName, vwCooks.lastName, vwCooks.role, vwCooks.userName, vwCooks.emailAddress, vwCooks.message,
+	menus.id AS menus_id, menus.userId AS menus_cook_id, menus.title, menus.status,
+	platters.id AS platter_id, platters.userId AS platter_cook_id, platters.menuId AS platter_menuId, platters.name AS platter_name, platters.price, platters.status AS platter_status
+FROM vwCooks
+LEFT JOIN menus ON menus.userId = vwCooks.id
+LEFT JOIN menustoplatters ON menustoplatters.menuId = menus.id
+LEFT JOIN platters ON platters.id = menustoplatters.platterid
+ORDER BY vwCooks.id, menus.title, platters.name
+
+
+
+
+
+
+6. List of platters by menus
+=================================
+cooks.menus.platters.platterItems
+=================================
+SELECT 
+	Cooks.id AS cook_id, Cooks.firstName AS cook_firstName, Cooks.lastName AS cook_lastName, Cooks.role AS cook_role, Cooks.userName AS cook_userName, Cooks.emailAddress AS cook_emailAddress, Cooks.message AS cook_message, Cooks.status AS cook_status,
+    Menus.id AS menus_id, menus.userId AS menus_userId, menus.title AS menus_title, menus.status AS menus_status,
+    menustoplatters.menuId AS menustoplatters_menuId, menustoplatters.platterId AS menustoplatters_platterId,
+    Platters.id AS platters_id, Platters.userId AS platters_userId, Platters.name AS platters_name, Platters.price AS platters_price, Platters.status AS platters_status,
+    platterItems.platterId AS platterItems_platterId, platteritems.foodId AS platteritems_foodId,
+    Food.id AS food_id, Food.userId AS food_userId, Food.type AS food_type, Food.name AS food_name, Food.description AS food_description, Food.status AS food_status
+FROM vwCooks AS Cooks
+LEFT JOIN Menus ON Menus.userId = Cooks.id
+LEFT JOIN menustoplatters ON menustoplatters.menuId = menus.id
+LEFT JOIN Platters ON platters.id = menustoplatters.platterId
+LEFT JOIN platterItems ON platterItems.platterId = platters.id
+LEFT JOIN Food ON food.id = platterItems.foodId
+
+
+
+
+
+
+7. List of invitations
+===========================
+cooks.invitations
+===========================
+SELECT * 
+FROM invitations 
+WHERE userId = ? 
+ORDER BY invitations.id DESC
+
+
+
+
+
+
+8. List of recipients
+===========================
+cooks.recipients
+===========================
+SELECT
+	invitationrecipients.id, 
+    invitationrecipients.invitationId, 
+    invitationrecipients.userId AS invitationrecipients_cookId, 
+    invitationrecipients.firstName AS invitationrecipients_recipientFirstName, 
+    invitationrecipients.lastName AS invitationrecipients_lastName, 
+    invitationrecipients.mode, 
+    invitationrecipients.modeValue, 
+    invitationrecipients.status 
+FROM invitationrecipients 
+WHERE userId = 15
+ORDER BY invitationrecipients.id DESC
+
+
+
+
+
+
+9. List of members
+===========================
+cooks.members
+===========================
+NO QUERY AS YET
+
+
+
+
+
+10. List of customers
+===========================
+cooks.customers
+===========================
+SELECT
+	Cooks.id AS cook_id, Cooks.firstName, Cooks.lastName, Cooks.role, 
+	Cooks.userName, Cooks.emailAddress, Cooks.message, Customer.id AS customer_id, Customer.firstName AS customer_firstName, Customer.lastName AS
+	customer_lastName, Customer.userName AS customer_userName, Customer.emailAddress AS customer_emailAddress, Customer.message AS customer_message
+FROM vwCooks AS Cooks
+LEFT JOIN customertocook ON customertocook.cookid = Cooks.id
+LEFT JOIN Users AS Customer ON customertocook.customerid = Customer.id
+WHERE Cooks.id = ? (<---ENTER THE COKK'S ID HERE)
+
+
+
+
+
+11. List of orders
+===========================
+cooks.orders
+===========================
+
+
+
+
+
+
+12. List of specials
+===========================
+cooks.specials
+===========================
+
+
+
+
+
+
+13. List of roles
+===========================
+cooks.roles
+===========================
+SELECT * FROM roles
+
+
+
+
+
+
+14. Profile data
+===========================
+cooks.profile
+===========================
+
+
+
+
+
+
+
+Profile data.
+Demographic
+	First/Last Name
+	Address, City, State, Zip
+	Phone Number
+Social Media Contacts
+	Facebook, Twitter, G+, Email
+Hours of operation
+Private/Semi-Private/Public

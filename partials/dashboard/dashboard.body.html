@@ -1,0 +1,36 @@
+<h3>Dashboard dashboard.body.html</h3>
+
+<uib-tabset active="active">
+
+
+	<!-- Food -->
+	<uib-tab index="0" heading="Food">
+		Welcome {{ $ctrl.name }}, Below is a list of your food.<br />
+		<dashboard-food 
+			food="$ctrl.food"
+		></dashboard-food>
+	</uib-tab>
+
+
+	<!-- Platters -->
+	<uib-tab id="platters" index="1" heading="Platters">
+		<dashboard-platters 
+			platters="$ctrl.platters" 
+			platterItems="$ctrl.platterItems"
+			superthis="$ctrl.platterItems"
+		></dashboard-platters>
+	</uib-tab>
+
+
+	<!-- Menus -->
+	<uib-tab index="2" heading="Menu">
+		<dashboard-menus
+			menus = "$ctrl.menus"
+			plateitems = "$ctrl.platterItems"
+			allplates = "$ctrl.platters"
+		></dashboard-menus>
+	</uib-tab>
+
+
+
+</uib-tabset>

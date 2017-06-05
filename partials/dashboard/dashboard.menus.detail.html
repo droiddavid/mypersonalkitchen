@@ -1,0 +1,25 @@
+<h3></h3>
+<ul>
+	<li ng-repeat="platter in $ctrl.platters">
+
+		# {{ platter.platter_id }} -- {{ platter.platter_cook_id }} -- {{ platter.platter_name }}<br />
+		Price: {{ platter.price }}<br />
+		{{ platter.platter_status }}<br />
+
+		<ul>
+			<li ng-repeat="foodItem in platter.food">
+				# {{ foodItem.foodId }} -- {{ foodItem.food_name }}
+			</li>
+		</ul>
+
+		<a id="showPlatterPageButton"
+			class="btn btn-xs btn-primary"
+			ng-click="$ctrl.goBack()" 
+			aria-label="Show Platter Page Button">
+			<span class="glyphicon glyphicon-chevron-left"></span>
+			 Back
+		</a>
+
+		<hr />
+	</li>
+</ul>

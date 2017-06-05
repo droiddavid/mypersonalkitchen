@@ -1,0 +1,116 @@
+<form class="form-horizontal" layout="column"
+	name="loginForm" 
+	novalidate 
+	ng-model-options="{ allowInvalid: true, debounce: 400 }"
+>
+	<h3 ng-if="$ctrl.person.firstName.length > 0">Welcome {{ $ctrl.person.firstName }}</h3>
+
+	<span flex></span>
+
+	<md-input-container style="margin: 0px;">
+		<input 
+			type="text" 
+			id="firstName"
+			name="firstName"
+			ng-model="$ctrl.person.firstName"
+			required
+			aria-label="firstname"
+		>
+		<div class="hint">First Name</div>
+	</md-input-container>
+
+	<md-input-container style="margin: 0px;">
+		<input 
+			type="text" 
+			id="lastName"
+			name="lastName"
+			ng-model="$ctrl.person.lastName"
+			required
+			aria-label="lastname"
+		>
+		<div class="hint">Last Name</div>
+	</md-input-container>
+
+	<md-input-container style="margin: 0px;">
+		<input 
+			type="email"
+			id="emailAddress"
+			name="emailAddress"
+			ng-model="$ctrl.person.emailAddress"
+			required
+			aria-label="emailaddress"
+		>
+		<div class="hint">Email</div>
+	</md-input-container>
+
+	<md-input-container style="margin: 0px;">
+		<input 
+			type="password" 
+			id="password"
+			name="password"
+			ng-model="$ctrl.person.password"
+			required
+			aria-label="password"
+		>
+		<div class="hint">Password</div>
+	</md-input-container>
+
+
+	<div layout="row" flex>
+		<span flex></span>
+
+		<div class="form-group"> 
+			<div class="col-sm-12">
+
+				<div layout="row">
+					<!-- <md-button id="registerButton" class="md-raised md-primary" 
+						ng-click="$ctrl.onRegister()"  
+						aria-label="register button"
+					>Register</md-button>
+
+					<span flex></span> -->
+
+					<md-button id="loginButton" class="md-raised md-primary" 
+						ng-click="$ctrl.onLogin()"  
+						aria-label="login"
+					>Login</md-button>
+
+					<!--<a class="md-button md-raised md-warn" href="http://localhost/mypersonalkitchen/#!/invitationDetail/69">69</a>-->
+				</div>
+
+				<br /><br />
+
+				<!-- Facebook -->
+				<div layout="row">
+					<div layout="row">
+						<div class="fb-login-button" data-max-rows="1" data-size="xlarge" data-show-faces="false" data-auto-logout-link="true"></div>
+					</div>
+				</div>
+
+				<div layout="row">
+					<div id="status" layout-padding></div>		
+				</div>
+
+			</div>
+		</div>
+
+		<span flex></span>
+	</div>
+
+	<div layout="row" flex>
+		<span flex></span>
+		<p>{{ message }}</p>
+		<span flex></span>
+	</div>
+
+</form>
+
+
+
+<!--
+<md-button class="md-raised btn btn-primary" ng-click="$ctrl.go('elements')">Elements</md-button>
+<md-button class="md-raised btn btn-primary" ng-click="$ctrl.go('generic')">Generic</md-button>
+<md-button class="md-raised btn btn-primary" ng-click="$ctrl.go('contact')">Contact</md-button>
+-->
+
+

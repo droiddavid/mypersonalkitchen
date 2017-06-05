@@ -1,0 +1,54 @@
+<md-content>
+
+	<dashboard-header></dashboard-header>
+	<!--<dashboard-body></dashboard-body>
+	<dashboard-footer></dashboard-footer>
+
+
+	<iheader></iheader>-->
+	<!--<h3>Dashboard</h3>-->
+
+	<md-tabs 
+		layout-padding
+		md-selected="1" 
+		md-stretch-tabs="always" 
+		md-dynamic-height 
+		md-center-tabs 
+	>
+		<!-- Food -->
+		<md-tab label="Food" >
+			<md-tab-body layout-padding="true">
+				Welcome {{ $ctrl.name }}, Below is a list of your food.<br />
+				<dashboard-food food="$ctrl.food"></dashboard-food>
+			</md-tab-body>
+		</md-tab>
+
+
+		<!-- Platters -->
+		<md-tab label="Platters" >
+			<md-tab-body layout-padding="true">
+				<dashboard-platters 
+					platters="$ctrl.platters" 
+					platterItems="$ctrl.platterItems"
+					superthis="$ctrl.platterItems"
+				></dashboard-platters>
+			</md-tab-body>
+		</md-tab>
+
+
+		<!-- Menu -->
+		<md-tab label="Menu">
+			<md-tab-body layout-padding="true">
+				<dashboard-menus
+					menus = "$ctrl.menus"
+					plateitems = "$ctrl.platterItems"
+					allplates = "$ctrl.platters"
+				></dashboard-menus>
+			</md-tab-body>
+		</md-tab>
+
+
+	</md-tabs>
+
+
+</md-content>

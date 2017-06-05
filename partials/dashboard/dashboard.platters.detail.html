@@ -1,0 +1,91 @@
+<nav class="navbar navbar-default">
+	<div class="container-fluid">
+
+		<!-- Hamburger Menu -->
+		<!-- Brand and toggle get grouped for better mobile display -->
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="btn btn-primary" ui-sref="index.dashboard">< Back</a>
+		</div>
+
+		<!-- Collect the nav links, forms, and other content for toggling -->
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+			<ul class="nav navbar-nav">
+				<li class="active"
+					ng-repeat="type in $ctrl.foodTypes"
+					style="display: inline;">				
+					<button class="btn btn-primary" 
+						ng-click="$ctrl.getFilteredFoodList(type)" 
+						style="margin-left: 10px;">
+						{{ type }}
+					</button>
+				</li>
+
+			</ul>
+		</div><!-- /.navbar-collapse -->
+	</div><!-- /.container-fluid -->
+</nav>
+
+
+<div class="container testimonial-group">
+	<div class="row text-center">
+		<ul ng-repeat="foodItem in $ctrl.filteredFoodList" class="col-xs-4">
+			<li style="font-size: 21px;">
+				<button class="btn btn-primary" ng-click="$ctrl.addFoodItem(foodItem)">
+					{{ foodItem.name }}
+				</button>
+			</li>
+		</ul>
+	</div>
+</div>
+
+
+
+<div>
+	<a class="btn btn-xs btn-success" ng-click="$ctrl.save()">
+		<span class="glyphicon glyphicon-save">Save</span>
+	</a>
+</div>
+
+
+
+
+
+<!-- This is the platter header. -->
+<h5>id: {{ $ctrl.platter.platter_id }}</h5>
+<h3>name: {{ $ctrl.platter.platter_name }}</h3>
+<h4>desc: {{ $ctrl.platter.description }}</h4>
+<h5>price: {{ $ctrl.platter.price }}</h5>
+<h5>status: {{ $ctrl.platter.platter_status }}</h5>
+
+
+
+<ul>
+	<li ng-repeat="item in $ctrl.the_list">
+		<p>{{ item.name }}
+			<a ng-click="$ctrl.removeFoodItem($index)" 
+				class="btn btn-xs btn-danger"
+			>
+				<span class="glyphicon glyphicon-trash"></span>
+			</a>
+		</p>
+	</li>
+</ul>
+
+
+<!-- This is the platter detail which lists the platterItems. -->
+<!-- <ul>
+	<li ng-repeat="platterItem in $ctrl.selected_Platter_PlatterItems" style="border: 1px solid black;">
+		{{ platterItem.food_id }}<br /> 
+		{{ platterItem.type }}<br />
+		{{ platterItem.food_name }}<br />
+		{{ platterItem.description }}<br />
+		{{ platterItem.food_status }}<br />
+	</li>
+</ul> -->

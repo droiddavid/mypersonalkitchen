@@ -1,0 +1,37 @@
+[	
+	{
+		"image": "home",
+		"text": "HOME",
+		"url": "index"
+	},
+	{
+		"image": "phonelink_lock",
+		"text": "Login",
+		"url": "index.login"
+	},
+	{
+		"image": "restaurant",
+		"text": "Food",
+		"url": "index.dashboard"
+	},
+	{
+		"image": "group",
+		"text": "Profile",
+		"url": "index.profile"
+	},
+	{
+		"image": "mail",
+		"text": "Invites",
+		"url": "index.invitations"
+	},
+	{
+		"image": "receipt",
+		"text": "Subscribers",
+		"url": "index.subscriptions"
+	},
+	{
+		"image": "update",
+		"text": "Update",
+		"url": "index.updates"
+	}
+]

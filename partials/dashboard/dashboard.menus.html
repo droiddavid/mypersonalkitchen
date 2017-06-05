@@ -1,0 +1,17 @@
+<!-- dashboard.menus.html -->
+
+<div>
+	<ul>
+		<li ng-repeat="menu in $ctrl.menusdisplay">
+			Menu ID #:{{ menu.menuId }} | In Stock: {{ menu.menus_status }}<br />
+			Title: {{ menu.menus_title }}
+			Platters: {{ menu.Platters.length }}<br />
+			<a id="showPlatterPageButton" 
+				class="btn btn-xs btn-primary"
+				ng-click="$ctrl.showPlatterPage(menu)" 
+				aria-label="Show Platter Page Button">
+				<span class="glyphicon glyphicon-chevron-right"></span> Next
+			</a>
+		</li>
+	</ul>
+</div>

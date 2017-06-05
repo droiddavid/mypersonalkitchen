@@ -1,0 +1,423 @@
+<div class="row" style="color: black; width: 100%; margin: 0px; padding-left: 0px;">
+
+	<div class="6u 12u(mobilep)" style="width: 100%; margin: 0px; padding: 0px;">
+
+		<button 
+			class="mdl-button mdl-js-button 
+				mdl-button--fab mdl-button--mini-fab 
+				mdl-button--colored fab_small"
+			data-toggle="modal"
+			data-target="#invitationModal"
+		>
+			<i class="material-icons">add</i>
+		</button>
+		<h3>Invitations</h3>
+		<ul class="alt" style="background-color: #ffa64d; width: 100%;">
+			<li ng-repeat="invitation in $ctrl.invitationList" style="display: inline;">
+
+				<div class="content-grid mdl-grid" class="col">
+
+					<div class="mdl-card mdl-cell mdl-cell--12-col mdl-shadow--6dp">
+
+<!-- 						<figure class="mdl-card__media">
+							<img src="images/pic05.jpg" alt="" />
+						</figure> -->
+
+
+						<div>
+							Id: {{ invitation.id }}
+							<input type="hidden" 
+								ng-model="invitation.id" 
+								value="{{ invitation.id }}"
+								/>
+						</div>
+
+
+						<div class="mdl-card__title">
+							<h2 class="mdl-card__title-text">{{ invitation.title }}</h2>
+						</div>
+						
+
+						<div class="mdl-card__supporting-text">
+							<p>Starts: {{ invitation.beginDate }}</p>
+							<p>Ends: {{ invitation.endDate }}</p>
+							<br />
+							<p>{{ invitation.message }}</p>
+
+							<div class="mdl-card__actions mdl-card--border">
+
+								<!--<button class="mdl-button mdl-button--icon mdl-button--colored" ng-click="$ctrl.onDelete(NewFoodItem.food_id)"><i class="material-icons">facebook-box</i></button>
+
+								<button id="update" type="button" class="mdl-button mdl-button--icon mdl-button--colored" data-toggle="modal" data-target="#updateModal" ng-click="$ctrl.updateFormData(foodItem)"><i class="material-icons">twitter</i></button>-->
+
+
+								<ul class="icons">
+									<li style="padding: 0px;"><a ui-sref="#" class="btn btn-danger icon fa-remove"></a></li>
+
+									<li style="padding: 0px;">
+										<a 
+											ng-click="
+												$ctrl.go(
+													{ 
+														state: 'invitationDetail', 
+														data: invitation.id 
+													}
+												)" 
+											class="btn btn-success icon fa fa-cutlery">
+										</a>
+									</li>
+
+									<li style="padding: 0px;">
+										<a ui-sref="#"
+											data-toggle="modal"
+											data-target="#updateModal" 
+											ng-click="$ctrl.updateFormData(invitation)"
+											class="btn btn-primary icon fa-edit"></a>
+									</li>
+
+<!-- 									<li>
+										<a ng-click="$ctrl.go({ state: 'htmlmedia', data: invitation })"
+											class="btn btn-primary icon fa-camera"></a>
+									</li> -->
+
+								</ul>
+
+
+
+								<div class="mdl-layout-spacer"></div>
+
+
+
+								<ul class="icons">
+									<li><a ng-click="$ctrl.sendAsFacebookMessage(invitation)" class="icon fa-facebook"></a></li>
+									<li><a ui-sref="#" class="icon fa-google-plus"></a></li>
+									<li><a ui-sref="#" class="icon fa-twitter"></a></li>
+									<li><a ui-sref="#" class="icon fa-instagram"></a></li>
+									<li><a ui-sref="#" class="icon fa-comment"></a></li>
+									<li><a ui-sref="#" class="icon fa-envelope"></a></li>
+								</ul>
+
+
+							</div>
+
+						</div><!-- End mdl-card_supporting-text -->
+
+					</div><!-- end mdl-card mdl-cell -->
+
+				</div><!-- mdl-grid -->
+
+			</li>
+		</ul>
+	</div><!-- Colored mini FAB button -->
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Add Modal -->
+<div class="modal fade" id="invitationModal" role="dialog">
+	<div class="modal-dialog">
+
+		<!-- Modal content-->
+		<div class="modal-content">
+
+			<form ng-submit="add(invitation)">
+
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Add a new invitation</h4>
+				</div><!-- modal-header -->
+
+				<div class="modal-body">
+					<div class="container-fluid">
+
+						<form action="#">
+
+							<div class="mdl-textfield 
+								mdl-js-textfield 
+								mdl-textfield--floating-label">
+								<input 
+									class="mdl-textfield__input" 
+									type="text" 
+									pattern="[A-Z,a-z]*" 
+									id="title"
+									ng-model="$ctrl.invitation.title"
+									placeholder="Title" />
+							</div>
+
+
+
+							<div class="mdl-textfield 
+								mdl-js-textfield 
+								mdl-textfield--floating-label">
+								<input 
+									class="mdl-textfield__input" 
+									type="text" 
+									pattern="[A-Z,a-z]*" 
+									id="message"
+									ng-model="$ctrl.invitation.message"
+									placeholder="Invitation Message" />
+							</div>
+
+
+
+							<div class="mdl-textfield 
+								mdl-js-textfield 
+								mdl-textfield--floating-label">
+								<input class="mdl-textfield__input" 
+									type="date"
+									id="beginDate"
+									ng-model="$ctrl.invitation.beginDate"
+									placeholder="Begin Date" 
+								/>
+							</div>
+
+
+							<div class="mdl-textfield 
+								mdl-js-textfield 
+								mdl-textfield--floating-label">
+								<input class="mdl-textfield__input" 
+									type="date"
+									id="endDate"
+									ng-model="$ctrl.invitation.endDate"
+									placeholder="End Date" />
+							</div>
+
+
+
+							<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+								<input class="mdl-textfield__input" 
+									type="text" 
+									pattern="[A-Z,a-z]*" 
+									id="photo_filename"
+									ng-model="$ctrl.invitation.photo_filename"
+									placeholder="Take a photo" />
+							</div>
+						</form>
+
+					</div><!-- container-fluid -->
+				</div><!-- modal-body -->
+
+
+				<div class="modal-footer">
+
+					<div>
+						<div class="mdl-layout-spacer"></div>
+
+						<button 
+							id="save" 
+							type="button" 
+							class="btn btn-primary btn-xs" 
+							ng-click="$ctrl.save($ctrl.invitation)" 
+							data-dismiss="modal"
+						><i class="material-icons">save</i></button>
+
+						<button 
+							id="update" 
+							type="button" 
+							class="btn btn-primary btn-xs" 
+							ng-click="$ctrl.update($ctrl.invitation)" 
+							data-dismiss="modal"
+						><i class="material-icons">update</i></button>
+
+						<button 
+							id="cancel" 
+							type="button" 
+							class="btn btn-danger btn-xs" 
+							data-dismiss="modal"
+						><i class="material-icons">cancel</i></button>
+					</div>
+
+				</div><!-- modal-footer -->
+
+			</form><!-- form -->
+
+		</div><!-- modal-content -->
+
+	</div><!-- modal-dialog -->
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Update Modal -->
+<div class="modal fade" id="updateModal" role="dialog">
+	<div class="modal-dialog">
+
+		<!-- Modal content-->
+		<div class="modal-content">
+
+			<form ng-submit="update($ctrl.invitation)">
+
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Make changes to your invitation</h4>
+				</div><!-- modal-header -->
+
+				<div class="modal-body">
+					<div class="container-fluid">
+
+						<form action="#">
+
+							<div>
+								<input type="hidden" 
+									ng-model="$ctrl.invitation.id" 
+									value="$ctrl.invitation.id" />
+							</div>
+
+							<div class="mdl-textfield 
+								mdl-js-textfield 
+								mdl-textfield--floating-label">
+								<input 
+									class="mdl-textfield__input" 
+									type="text" 
+									pattern="[A-Z,a-z]*" 
+									id="title"
+									ng-model="$ctrl.invitation.title"
+									placeholder="Title" />
+							</div>
+
+
+
+							<div class="mdl-textfield 
+								mdl-js-textfield 
+								mdl-textfield--floating-label">
+								<input 
+									class="mdl-textfield__input" 
+									type="text" 
+									pattern="[A-Z,a-z]*" 
+									id="message"
+									ng-model="$ctrl.invitation.message"
+									placeholder="Invitation Message" />
+							</div>
+
+
+
+							<div class="mdl-textfield 
+								mdl-js-textfield 
+								mdl-textfield--floating-label">
+								<input class="mdl-textfield__input" 
+									type="date"
+									id="beginDate"
+									ng-model="$ctrl.invitation.beginDate"
+									placeholder="Begin Date" 
+								/>
+							</div>
+
+
+							<div class="mdl-textfield 
+								mdl-js-textfield 
+								mdl-textfield--floating-label">
+								<input class="mdl-textfield__input" 
+									type="date"
+									id="endDate"
+									ng-model="$ctrl.invitation.endDate"
+									placeholder="End Date" />
+							</div>
+
+
+
+							<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+								<input class="mdl-textfield__input" 
+									type="text" 
+									pattern="[A-Z,a-z]*" 
+									id="photo_filename"
+									ng-model="$ctrl.invitation.photo_filename"
+									placeholder="Take a photo" />
+							</div>
+
+
+							<div>
+								<label>Available:
+									<input type="checkbox" ng-model="$ctrl.invitation.status">
+								</label>
+							</div>
+						</form>
+
+					</div><!-- container-fluid -->
+				</div><!-- modal-body -->
+
+
+				<div class="modal-footer">
+
+					<div>
+						<div class="mdl-layout-spacer"></div>
+
+						<button 
+							id="update" 
+							type="button" 
+							class="btn btn-primary btn-xs" 
+							ng-click="$ctrl.update($ctrl.invitation)" 
+							data-dismiss="modal"
+						><i class="material-icons">update</i></button>
+
+						<button 
+							id="cancel" 
+							type="button" 
+							class="btn btn-danger btn-xs" 
+							data-dismiss="modal"
+						><i class="material-icons">cancel</i></button>
+					</div>
+
+				</div><!-- modal-footer -->
+
+			</form><!-- form -->
+
+		</div><!-- modal-content -->
+
+	</div><!-- modal-dialog -->
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

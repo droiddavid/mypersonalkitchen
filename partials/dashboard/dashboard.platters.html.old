@@ -1,0 +1,243 @@
+<div class="container">
+	<div class="row">
+		<md-button 
+			class="md-fab md-accent md-fab-top-right"
+			data-toggle="modal" 
+			data-target="#addPlatterModal"
+			aria-label="Add a new platter"
+		>
+			<md-tooltip>Add Platter</md-tooltip>
+			<md-icon>add</md-icon>
+		</md-button>
+	</div>
+</div>
+
+<!-- Add Platter Modal -->
+<div class="modal fade" id="addPlatterModal" role="dialog" data-backdrop="false" style="border: 3px solid red;">
+	<div class="modal-dialog">
+
+		<!-- Modal content-->
+		<div class="modal-content">
+
+			<form ng-submit="addPlatterItem(platter)" style="border: 5px solid orange;">
+
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Add a new platter</h4>
+				</div><!-- modal-header -->
+
+				<div class="modal-body">
+					<div class="container-fluid">
+						<input id="platterName" 
+							class="form-control input-sm" 
+							type="text" 
+							ng-model="$ctrl.platter.name"
+							placeholder="Platter Name..." />
+
+						<input id="platterPrice"
+							class="form-control input-sm"
+							type="text"
+							ng-model="$ctrl.platter.price"
+							placeholder="Platter Price..." />
+
+						<input id="platterDescription" 
+							class="form-control input-sm" 
+							type="text" 
+							ng-model="$ctrl.platter.description"
+							placeholder="Platter Description..." />
+
+						<br />
+
+						<p>Add your platter, then add food to it.</p>
+
+					</div><!-- container-fluid -->
+				</div><!-- modal-body -->
+
+
+				<div class="modal-footer">
+					<div class="btn-group">
+						<button 
+							id="save" 
+							type="button" 
+							class="btn btn-default" 
+							ng-click="$ctrl.addPlatter($ctrl.platter)" 
+							data-dismiss="modal">
+							Add
+						</button>
+						
+						<button 
+							id="cancel" 
+							type="button" 
+							class="btn btn-default" 
+							data-dismiss="modal">
+							Cancel
+						</button>
+					</div>
+				</div><!-- modal-footer -->
+
+			</form><!-- form -->
+
+		</div><!-- modal-content -->
+
+
+	</div><!-- modal-dialog -->
+</div>
+
+<hr style="border: 3px solid orange" />
+
+<div>
+	<ul>
+		<!-- platter in platters (find a way to change the name from $ctrl.data to $ctrl.platters.)  -->	
+		<li ng-repeat="platter in $ctrl.data">
+			<div>
+				<md-card style="border: 1px solid blue; border-radius: 15px;">
+
+					<md-card-title>
+
+						<md-card-title-text>
+							<!--<span class="md-subhead">SubHead</span>-->
+						</md-card-title-text>
+
+					</md-card-title>
+
+
+					<md-card-header>
+						<!--<md-card-avatar><img class="md-user-avatar" src="avatar.png"></md-card-avatar>-->
+						<md-card-header-text>
+							<span class="md-headline">
+								<span>{{ platter.name }} (#{{ platter.id }})
+								<span>$</span>{{ platter.price }}</span>
+							</span>
+							<span class="md-title">{{ platter.platter_name }}</span>
+							<!--<span class="md-subhead">Sub Platter Notation</span>-->
+						</md-card-header-text>
+
+					</md-card-header>
+
+
+
+					<!--<img ng-src="card-image.png" class="md-card-image" alt="image caption">-->
+
+
+					<md-card-content>
+						<!-- foodItem in platter.Food -->
+						<div layout="row">
+							<ul style="list-style: none; width: 100%;">
+								<li ng-repeat="foodItem in platter.Food">
+									<table style="border: 1px solid #000; width: 100%;">
+										<tr>
+											<td style="border: 1px solid #ccc; width: 90%;">
+												[{{foodItem.type}}] | {{foodItem.food_name}}
+												<!-- {{foodItem.description}} -->
+											</td>
+
+											<td style="border: 1px solid #ccc; width: 10%;">
+												<button
+													class="btn btn-danger btn-xs"
+													id="removePlatter" 
+													type="button" 
+													style="position: relative; right: 0px;"
+													ng-click="$ctrl.removeFoodItemFromPlatter(platter, foodItem)" 
+													aria-label="Remove Platter" >
+													<md-icon>remove</md-icon>
+													<md-tooltip>Remove FoodItem</md-tooltip>
+												</button>
+											</td>
+										</tr>
+
+										
+
+									</table>
+
+								</li>
+							</ul>
+						</div>
+
+						<div layout="row">
+							<div layout="column">
+								<div layout="row">
+									<md-button 
+										class="btn btn-success btn-xs"
+										id="addFoodItemToPlatter"
+										data-toggle="modal" 
+										data-target="#addFoodItemToPlatterModal"
+										ng-click="$ctrl.addFoodItemToPlatter(platter)" 
+										aria-label="add food item to platter" 
+									>
+										<md-icon>add</md-icon>
+										<md-tooltip>Add Food Item</md-tooltip>
+									</md-button><span style="vertical-align: text-bottom;">Add a food item to this platter.</span>
+								</div>
+
+								<div layout="row">
+									<md-button 
+										class="btn btn-success btn-xs"
+										ng-click="$ctrl.onDelete(platter)"
+									>
+										<md-icon>delete</md-icon>
+										<md-tooltip>Remove Platter</md-tooltip>
+									</md-button><span>Remove this platter.</span>
+								</div>
+							</div>
+
+						</div>
+
+					</md-card-content>
+
+				</md-card>
+			</div>
+		</li>
+	</ul>
+
+	<!-- If the platter does not have any food, then it is not a platter. (i.e. grouping) -->
+	
+
+	<!--
+	<ul>
+		<li ng-repeat="platter in $ctrl.platters">
+				<span>
+					{{ platter.platter_name }}
+					...{{ platter.description }}
+				</span>
+
+
+
+				<md-button 
+					class="md-fab md-accent md-raised md-mini"
+					id="removePlatter" 
+					type="button" 
+					data-toggle="modal" 
+					data-target="#addFoodItemToPlatterModal" 
+					ng-click="$ctrl.removePlatter(platter.id)" 
+					aria-label="Remove Platter" 
+				>
+					<md-tooltip>Remove Platter</md-tooltip>
+					<md-icon>remove</md-icon>
+				</md-button>
+
+
+
+				<md-button 
+					id="showPlatterItemsPageButton" 
+					class="md-fab md-accent md-raised md-mini"	 
+					ng-click="$ctrl.showPlatterItemsPage(platter)" 
+					aria-label="Show Platter Items Page Button"
+				>
+					<md-tooltip>Add Food Items</md-tooltip>
+					<md-icon>keyboard_arrow_right</md-icon>					
+				</md-button>
+
+
+
+				<md-card-content>
+					<!-- <p>New Food Item</p>
+					<p>New Food Item</p>
+					<p>New Food Item</p>
+					<p>New Food Item</p> -->
+				<!--</md-card-content>
+
+			</md-card>
+		</li>
+	</ul>
+	-->
+</div>
