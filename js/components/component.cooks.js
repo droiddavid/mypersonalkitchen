@@ -3,8 +3,10 @@ angular.module('app').component('cooks', {
 	function ($http, $state, $mdToast, Database, Session) {
 		var that = this;
 
+		this.cooks = undefined;
+
 		this.$onInit = function () {
-			console.log('Cooks Component $onInit.');
+			this.cooks = Session.Collections.cooks;
 		};
 
 

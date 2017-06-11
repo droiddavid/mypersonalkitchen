@@ -296,3 +296,7 @@ md-input-container:not(.md-input-invalid) .md-input {
 		padding-bottom: 25%;
 	}
 }
+
+
+.odd { background-color: lightgreen; }
+.even { background-color: #fff; }
