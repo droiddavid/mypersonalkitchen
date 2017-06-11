@@ -43,7 +43,7 @@ angular.module('app').component('login', {
 	bindings: {
 		person: '<'
 	},
-	controller: function ($http, $state, Session, Person, FileService, DataService) {
+	controller: function ($http, $state, Session, Person, USER_ROLES, FileService, DataService) {
 		var that = this;
 
 		this.$onInit = function () {
@@ -56,12 +56,21 @@ angular.module('app').component('login', {
 			// };
 
 
+			// this.person = {
+			// 	firstName: 'Flash',
+			// 	lastName: 'Gordon',
+			// 	emailAddress: 'flash@gordon.com',
+			// 	password: 'locutus',
+			// 	role: '2'
+			// };
+
+
 			this.person = {
-				firstName: 'Flash',
-				lastName: 'Gordon',
-				emailAddress: 'flash@gordon.com',
+				firstName: 'Betty',
+				lastName: 'Garcia',
+				emailAddress: 'betty@garcia.com',
 				password: 'locutus',
-				role: '2'
+				role: '6'
 			};
 
 
@@ -85,47 +94,22 @@ angular.module('app').component('login', {
 						if (response.data.data.length) {
 							var User = response.data.data[0];
 						}
-						Session.createUser(User);
-						DataService.onInit();
+						if (User.role === USER_ROLES.cook || User.role === 0) { //Cook
+							Session.createUser(User);
+							DataService.onInit();
+						}
+						if (User.role ===  USER_ROLES.guest || User.role ===  6) { //Guest
+							Session.createGuest(User);
+							DataService.onInit();
+						}
+
 					} else {
 						$state.go('login');
 					}
 				});
 		};
 		
-		this.onRegister = function () {
-			var person = this.person;
-			Person.getPerson(person)
-				.then(function (response) {
-
-					if (response.data.message === "No data found.") {
-
-						person.status = 1;
-						person.userName = person.emailAddress.substr(0, person.emailAddress.search("@"));
-						person.message = 'Tell your foodies about yourself.';
-						person.lastLogin = new Date();
-
-						Person.register(person)
-							//You need to add some REAL error checking here also.
-							//In particular, HOW CAN WE PROVE THE INSERT OCCURED? 
-							.then(function (response) {
-								Person.getPerson(person)
-									.then(function (response) {
-										if (response.data.data[0]) {
-											//You need to add some REAL error checking here also.
-											Session.createUser(response.data.data[0]);
-											$state.go('dashboard');
-										} else { $state.go('login'); }
-									}
-								); //Person.getPerson
-						}); //Person.register
-					} else {  
-						$state.go('dashboard'); 
-					}
-				}
-
-			); //Person.getPerson (does person exist?)
-		}; //this.register
+	
 		this.go = function (page) {
 			$state.go(page);
 		};

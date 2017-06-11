@@ -121,118 +121,51 @@ app.config(function($stateProvider, $urlServiceProvider, $mdThemingProvider) {
 		}
 	});
 
+	$stateProvider.state('guestDashboard', {
+		url: '/guestDashboard',
+		component: 'guestDashboard',
+		resolve: {
+			cooks: ['Session', function (Session) {
+				if (Session.role === 6) {
+					return Session.Collections.cooks;
+				}
+			}]
+		}
+	});
+
 	$stateProvider.state('dashboard', {
 		url: '/dashboard',
 		component: 'dashboard',
 		resolve: {
 			food: ['Session', function (Session) {
-				if (Session.role === 2) { //USER_ROLES.cook
+				if (Session.role === 2) {
 					return Session.Collections.food;
-				} //if
+				}
 			}],
 			platters: ['$http', '$timeout', 'Session', 'Cook', function ($http, $timeout, Session, Cook) {
-				if (Session.role === 2) { //USER_ROLES.cook
+				if (Session.role === 2) {
 					return Session.Collections.platters;
-				} //if
+				}
 			}],
 			platterItems: ['$http', '$timeout', 'Session', 'Cook', function ($http, $timeout, Session, Cook) {
-				if (Session.role === 2) { //USER_ROLES.cook
-
+				if (Session.role === 2) {
 					return Session.Collections.platterItems;
-
-					// if (!Session.Collections.platterItems || Session.Collections.platterItems.length === 0) {
-					// 	var cook = new Cook(Session.id);
-					// 	cook.getPlatterItems(
-					// 		cook.QUERIES.PlatterItems.fields, 
-					// 		cook.QUERIES.PlatterItems.table, 
-					// 		Session.id)
-					// 		.then(function (response) {
-					// 			Session.Collections.platterItems = response.data.data;
-					// 		})
-					// 		.then(function () {
-					// 			$http.post('./data/fileWriter.php', { 
-					// 				fileName: Session.FileNames.platterItems + ".json",
-					// 				data: Session.Collections.platterItems 
-					// 			});
-					// 		});
-					// } else {
-					// 	return Session.Collections.platterItems;
-					// } //if..else..if
-
-				} //if
+				}
 			}],
 			menusPlatters: [
 				'$http', '$timeout', 'Session', 'Cook', function ($http, $timeout, Session, Cook) {
-				if (Session.role === 2) { //USER_ROLES.cook
-				
+				if (Session.role === 2) {
 					return Session.Collections.menusPlatters;	
-
-					// if (!Session.Collections.menusPlatters || Session.Collections.menusPlatters.length === 0) {
-					// 	var cook = new Cook(Session.id);
-					// 	cook.getMenusPlatters(cook.QUERIES.Menus_Platters.fields, cook.QUERIES.Menus_Platters.table, Session.id)
-					// 		.then(function (response) {
-					// 			Session.Collections.menusPlatters = response.data.data;
-					// 		})
-					// 		.then(function () {
-					// 			$http.post('./data/fileWriter.php', { 
-					// 				fileName: Session.FileNames.menusPlatters + ".json",
-					// 				data: Session.Collections.menusPlatters 
-					// 			});
-					// 		});
-					// } else {
-					// 	return Session.Collections.menusPlatters;
-					// } //if..else..if
-				}//if
+				}
 			}],
 			menuPlattersPlatterItems: ['$http', '$timeout', 'Session', 'Cook', function ($http, $timeout, Session, Cook) {
 				if (Session.role === 2) {
-
 					return Session.Collections.menusPlattersPlatterItems;
-
-					// if (!Session.Collections.menusPlattersPlatterItems || Session.Collections.menusPlattersPlatterItems.length === 0) {
-					// 	var cook = new Cook(Session.id);
-					// 	cook.getMenusPlatterItems(cook.QUERIES.Menus_Platters_PlatterItems.fields, cook.QUERIES.Menus_Platters_PlatterItems.table, Session.id)
-					// 		.then(function (response) {
-					// 			Session.Collections.menusPlattersPlatterItems = response.data.data;
-					// 		})
-					// 		.then(function () {
-					// 			$http.post('./data/fileWriter.php', { 
-					// 				fileName: Session.FileNames.menusPlattersPlatterItems + ".json",
-					// 				data: Session.Collections.menusPlattersPlatterItems
-					// 			});
-					// 		});
-					// } else {
-					// 	return Session.Collections.menusPlattersPlatterItems;
-					// } //if..else..if
-				} //if
+				}
 			}],
 			menus: ['$http', '$timeout', 'Session', 'Cook', function ($http, $timeout, Session, Cook) {
-				if (Session.role === 2) { //USER_ROLES.cook
-					//debugger;
+				if (Session.role === 2) {
 					return Session.Collections.menusPlattersPlatterItems;
-
-					// if (!Session.Collections.menusPlattersPlatterItems) {
-					// 	var cook = new Cook(Session.id);
-					// 	return cook.getMenus_Platters_PlatterItems(
-					// 		cook.QUERIES.Menus_Platters_PlatterItems.fields, 
-					// 		cook.QUERIES.Menus_Platters_PlatterItems.table, 
-					// 		Session.id
-					// 		)
-
-					// 		.then(function (response) {
-					// 			Session.Collections.menusPlattersPlatterItems = response.data.data;
-					// 			return response.data.data;
-					// 		})
-
-					// 		.then(function () {
-					// 			$http.post('./data/fileWriter.php', {
-					// 					fileName: Session.FileNames.menusPlattersPlatterItems + ".json", 
-					// 					data: Session.Collections.menusPlattersPlatterItems 
-					// 				});
-					// 		});	
-					// } else {
-					// 	return Session.Collections.menusPlattersPlatterItems;
-					// } //if
 				}
 			}]
 		}

@@ -10,22 +10,6 @@ angular.module('app').component('register', {
 		this.$onInit = function () {
 			//console.log('Register Component controller.');
 		};
-		this.login = function (person) {
-			Person.getPerson(person)
-				.then(function (response) {
-					if (response.data) {
-						if (response.data.data.length) {
-							var User = response.data.data[0];
-						}
-						Session.createUser(User);
-						DataService.onInit();
-					} else {
-						$state.go('login');
-					}
-				});
-		};
-
-
 		this.register = function (person) {
 			that.person = {
 				firstName: person.firstName,

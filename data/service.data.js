@@ -10,6 +10,22 @@ angular.module('app').service('DataService', ['$http', '$state', '$stateParams',
 	this.isDone = 0;
 	this.dataSet = undefined;
 	this.initialized = false;
+	this.zipcodes = undefined;
+	this.nearByCooks = undefined;
+
+
+	//location data
+	//https://www.mapquestapi.com/geocoding/v1/reverse?key=KEY&location=39.755695%2C-104.995986&outFormat=json&thumbMaps=true
+	//https://www.mapquestapi.com/geocoding/v1/reverse?key=iYQOHGpOoaHbOYf1QENPT3rqtJeq3Dg8&location=40.0505328%2C-75.1817911&outFormat=json&thumbMaps=true
+	this.lat = undefined;
+	this.lon = undefined;
+	this.mapQuestKey = 'iYQOHGpOoaHbOYf1QENPT3rqtJeq3Dg8';
+	this.zipCodeSmall = undefined; //i.e. 99999 vs 99999-9999
+	this.mapUrl = undefined;
+	this.zipCodeList = '\'';
+
+
+	this.userCooks = undefined;
 
 
 	this.onInit = function () {	
@@ -39,7 +55,7 @@ angular.module('app').service('DataService', ['$http', '$state', '$stateParams',
 
 	//This is the initial data load.  It loads all Session data variables.
 	this.initializeDataSets = function () {
-		debugger;
+
 		if (Session.role === 2) { //role.2 === cook
 			//what is the role level?
 			that.cook.getFood(that.cook.QUERIES.Food.fields, that.cook.QUERIES.Food.table, Session.id)
@@ -101,25 +117,58 @@ angular.module('app').service('DataService', ['$http', '$state', '$stateParams',
 				});
 		} //if cook
 
+
 		if (Session.role === 6) { //role.6 === guest
 			if (navigator.geolocation) {
-				// geolocation is available
-				console.log("geolocation is available");
-			} 
-			else {
+
+				//Get the user's lat and lon
+				navigator.geolocation.getCurrentPosition(function showPosition(position) {
+					that.lat = position.coords.latitude, //40.0505328
+					that.lon = position.coords.longitude //-75.1817911
+					var mapQuestURL = 'https://www.mapquestapi.com/geocoding/v1/reverse?key=' + that.mapQuestKey + '&location=' + that.lat + '%2C' + that.lon + '&outFormat=json&thumbMaps=true'; 
+
+					$http.get(mapQuestURL)
+						.then(function (response) {
+							that.zipCodeSmall = response.data.results[0].locations[0].postalCode.substring(0,5);
+							that.mapUrl = response.data.results[0].locations[0].mapUrl;
+
+							var api_key = '3mfre6wOIwlRkd2BxVGoeQCb0Q22E5eIru9GBFujcPaw3d8B8O0nFCzFtBI7HWP8';
+							var zipCode = that.zipCodeSmall;
+							var distance = '2';
+							var filename = 'radius.json';
+							var url = 'https://www.zipcodeapi.com/rest/' + api_key + '/' + filename + '/' + zipCode + '/' + distance + '/miles?minimal';
+
+
+							$http.get(url)
+								.then(function (response) {
+									if (response.data.zip_codes.length > 0) {
+										that.zipcodes = response.data.zip_codes;
+										that.zipcodes.forEach(function (zipcode, index) {
+											that.zipCodeList += zipcode + '\',\'';
+										});
+										that.zipCodeList = that.zipCodeList.substring(that.zipCodeList, that.zipCodeList.length - 2);
+										
+										var selectWhereIn = 'http://' + WEB_SERVER + '/mypersonalkitchen/database/select_where_in.php';
+										$http.post(selectWhereIn, { zipcodes: that.zipCodeList })
+											.then(function (response) {
+
+												that.userCooks = response.data;
+												Session.Collections.cooks = response.data;
+												$state.go('guestDashboard');
+											});
+									}
+								});
+						});
+				});
+
+			} else {
 				// geolocation is not supported
 				console.log("geolocation is not supported");
 			}
 		}
 
-
-
-
-
-
-
-
 		that.initialized = true;
+
 	};
 
 	/* 	1. check if files exist.

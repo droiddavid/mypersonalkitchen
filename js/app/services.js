@@ -31,6 +31,33 @@ angular.module('app').service('Session', ['$log', '$rootScope', 'Cook', 'Custome
 		CustomerShoppingCart,
 		foodie; //represents the current user as a foodie.
 
+	this.createGuest = function (Guest) {
+		this.id = Guest.id;
+		this.firstName = Guest.firstName;
+		this.lastName = Guest.lastName;
+		this.role = Guest.role;
+		this.GuestName = Guest.GuestName;
+		this.password = Guest.password;
+		this.emailAddress = Guest.emailAddress;
+		this.lastLogin = Guest.lastLogin;
+		this.message = Guest.message;
+		this.Collections = {
+			cooks: []
+		};
+		this.FileNames = {
+			cooks: 'cooks'
+		};
+		this.filenames = [
+			'cooks'
+		];
+		this.getFileName = function (filename) {
+			var ext_begin = './data/', ext_end = '.json',
+				directory_and_file = ext_begin + filename + ext_end;
+			return directory_and_file; 
+		};
+		console.log('Guest created!');
+	};
+
 	this.createUser = function (User) {
 		this.id = User.id;
 		this.firstName = User.firstName;
