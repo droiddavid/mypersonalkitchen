@@ -43,7 +43,8 @@ angular.module('app').service('Session', ['$log', '$rootScope', 'Cook', 'Custome
 		this.message = Guest.message;
 		this.Collections = {
 			cooks: [],
-			cooksFood: []
+			cooksFood: [],
+			cooksPlatters: []
 		};
 		this.FileNames = {
 			cooks: 'cooks'

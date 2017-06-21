@@ -26,18 +26,6 @@ angular.module('app').component('guestDashboard', {
 					Session.Collections.cooksFood = response.data;
 				});
 
-
-			//List of platters for all cooks in these zip codes
-			var objPlatters = { 
-				table: 'platters', 
-				field: 'userId', 
-				fieldList: that.sqlInString 
-			};
-			Database.selectIn(objPlatters)
-				.then(function (response) {
-					Session.Collections.platters = response.data;
-				});
-
 		};
 	}],
 	templateUrl: 'partials/guestDashboard/guestDashboard.html'

@@ -129,6 +129,11 @@ app.config(function($stateProvider, $urlServiceProvider, $mdThemingProvider) {
 				if (Session.role === 6) {
 					return Session.Collections.cooks;
 				}
+			}],
+			cooksPlatters: ['Session', function (Session) {
+				if (Session.role === 6) {
+					return Session.Collections.cooksPlatters;
+				}
 			}]
 		}
 	});
