@@ -147,12 +147,12 @@ angular.module('app').service('DataService', ['$http', '$state', '$stateParams',
 											that.zipCodeList += zipcode + '\',\'';
 										});
 										that.zipCodeList = that.zipCodeList.substring(that.zipCodeList, that.zipCodeList.length - 2);
-										
-										var selectWhereIn = 'http://' + WEB_SERVER + '/mypersonalkitchen/database/select_where_in.php';
-										$http.post(selectWhereIn, { zipcodes: that.zipCodeList })
-											.then(function (response) {
 
+										var obj = { table: 'profileData', field: 'zip', fieldList: that.zipCodeList };
+										Database.selectIn(obj)
+											.then(function (response) {
 												that.userCooks = response.data;
+												//List of cooks who are in this zip code range.
 												Session.Collections.cooks = response.data;
 												$state.go('guestDashboard');
 											});

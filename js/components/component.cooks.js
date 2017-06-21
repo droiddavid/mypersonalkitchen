@@ -6,9 +6,12 @@ angular.module('app').component('cooks', {
 		this.cooks = undefined;
 
 		this.$onInit = function () {
-			this.cooks = Session.Collections.cooks;
+			that.cooks = Session.Collections.cooks;
 		};
 
+		this.cookDetails = function (item) {
+			$state.go('guestDashboardDetail', { cookUserId: item.userId });
+		};
 
 	}],
 	templateUrl: 'partials/components/component.cooks.html'

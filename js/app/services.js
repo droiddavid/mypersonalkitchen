@@ -42,7 +42,8 @@ angular.module('app').service('Session', ['$log', '$rootScope', 'Cook', 'Custome
 		this.lastLogin = Guest.lastLogin;
 		this.message = Guest.message;
 		this.Collections = {
-			cooks: []
+			cooks: [],
+			cooksFood: []
 		};
 		this.FileNames = {
 			cooks: 'cooks'
@@ -148,6 +149,7 @@ angular.module('app').service('Database', ['$http', function ($http) {
 	var url = {
 		select: baseUrl + '/select.php',
 		select2: baseUrl + '/select2.php',
+		selectIn: baseUrl + '/selectIn.php',
 		insert: baseUrl + '/insert.php',
 		update: baseUrl + '/update.php',
 		delete: baseUrl + '/delete.php',
@@ -171,8 +173,13 @@ angular.module('app').service('Database', ['$http', function ($http) {
 				secondFieldValue: obj.where[1].value
 			});
 		},
-
-
+		selectIn: function (obj) {
+			return $http.post(url.selectIn, {
+				table: obj.table,
+				field: obj.field,
+				fieldList: obj.fieldList
+			});
+		},
 		insert: function (obj) {
 			return $http.post(url.insert, obj);
 		},

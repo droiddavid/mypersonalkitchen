@@ -1,23 +1,26 @@
 <md-content>
 	
 	<md-list>
-
+		<!-- List of companies/cooks in these zip codes. -->
 		<md-list-item 
 			class="md-1-line" 
 			ng-repeat="item in $ctrl.cooks" 
 			ng-class-odd="'odd'" 
 			ng-class-even="'even'"
 		>
-			<div class="md-list-item-text">
-				<p>{{ item.company }}</p>
+			<div style="width: 100%;">
+				<div class="md-list-item-text" ng-click="$ctrl.cookDetails(item);">
+					<p style="display: inline;">{{ item.company }}</p>
+
+					<span flex></span>
+
+					<i class="material-icons" style="display: inline; float: right;">&#xE039;</i>
+					<!-- For modern browsers. -->
+					<!-- <i class="material-icons">play_circle_outline</i>-->
+					<!-- For IE9 or below. -->
+				</div>
+				
 			</div>
-
-			<span flex></span>
-
-			<!-- For modern browsers. -->
-			<!-- <i class="material-icons">play_circle_outline</i>-->
-			<!-- For IE9 or below. -->
-			<i class="material-icons">&#xE039;</i>
 
 		</md-list-item>
 

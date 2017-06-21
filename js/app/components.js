@@ -88,13 +88,23 @@ angular.module('app').component('login', {
 			}
 		};
 		this.onLogin = function () {
+
+			// all: 		'*', 			//0
+			// admin: 		'admin', 		//1
+			// cook: 		'cook', 		//2
+			// customer: 	'customer', 	//3
+			// invitee: 	'invitee', 		//4
+			// member: 		'member', 		//5
+			// guest: 		'guest' 		//6
+
+
 			Person.getPerson(this.person)
 				.then(function (response) {
 					if (response.data) {
 						if (response.data.data.length) {
 							var User = response.data.data[0];
 						}
-						if (User.role === USER_ROLES.cook || User.role === 0) { //Cook
+						if (User.role === USER_ROLES.cook || User.role === 2) { //Cook
 							Session.createUser(User);
 							DataService.onInit();
 						}

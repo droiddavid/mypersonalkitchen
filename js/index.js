@@ -133,6 +133,21 @@ app.config(function($stateProvider, $urlServiceProvider, $mdThemingProvider) {
 		}
 	});
 
+	$stateProvider.state('guestDashboardDetail', {
+		url: '/guestDashboardDetail',
+		component: 'guestDashboardDetail',
+		params: {
+			cookUserId: null
+		},
+		resolve: {
+			cooks: ['Session', function (Session) {
+				if (Session.role === 6) {
+					return Session.Collections.cooks;
+				}
+			}]
+		}
+	});
+
 	$stateProvider.state('dashboard', {
 		url: '/dashboard',
 		component: 'dashboard',
