@@ -7,19 +7,20 @@ angular.module('app').component('guestDashboardDetail', {
 		this.food = [],
 		this.types = [],
 		this.foodList = [];
+		this.cookUserId = undefined;
 
 		$scope.oneAtATime = true;
 
-		this.$onInit = function () {
-
-			/* SELECTED COOK SELECTED COOK SELECTED COOK SELECTED COOK */
-			var cookUserId = $stateParams['cookUserId'];
-
+		this.getFood = function (id) {
 			//Get the food for the selected cook
 			Session.Collections.cooksFood.forEach(function (foodItem, index) {
-				that.food.push(foodItem);
+				if (foodItem.userId === id) {
+					that.food.push(foodItem);
+				}
 			});
+		}; //this.getFood
 
+		this.setListByTypes = function () {
 			//We need distinct types to display on the food in separate sections.
 			that.unfilteredTypes = selectDistinct(that.food, "type");
 			that.unfilteredTypes.forEach(
@@ -27,7 +28,6 @@ angular.module('app').component('guestDashboardDetail', {
 					that.types.push({ type: item.type });
 				}
 			);
-
 			//For each food type, add the food type, the list of items related to that type and an
 			//indication determining whether the typed list is open or closed (groupOpen).
 			that.types.forEach(function (type, index) {
@@ -37,13 +37,17 @@ angular.module('app').component('guestDashboardDetail', {
 						foodItem.push(food);
 					}
 				});
-				if (that.foodList.length === 0) {
-					that.foodList.push({ type: type.type, items: foodItem, groupOpen: true });
-				} else {
-					that.foodList.push({ type: type.type, items: foodItem, groupOpen: false });
-				}
-	
+				that.foodList.push({ type: type.type, items: foodItem, groupOpen: false });
 			});
+		}; //this.setListByTypes
+
+		this.$onInit = function () {
+
+			/* SELECTED COOK SELECTED COOK SELECTED COOK SELECTED COOK */
+			that.cookUserId = Session.selectedCookId = $stateParams['cookUserId'];
+
+			that.getFood(that.cookUserId);
+			that.setListByTypes();
 
 		};
 

@@ -41,6 +41,7 @@ angular.module('app').service('Session', ['$log', '$rootScope', 'Cook', 'Custome
 		this.emailAddress = Guest.emailAddress;
 		this.lastLogin = Guest.lastLogin;
 		this.message = Guest.message;
+		this.selectedCookId = 0; //Holds the selected cook's id for guestDashboardDetails
 		this.Collections = {
 			cooks: [],
 			cooksFood: [],

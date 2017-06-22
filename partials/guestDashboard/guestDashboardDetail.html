@@ -28,7 +28,7 @@
 					<div uib-accordion-group 
 						class="panel-default" 
 						is-open="type.groupOpen" 
-						ng-click="$ctrl.toggleOpen(type);"
+						ng-click="$ctrl.toggleOpen(type);" style="border: 2px solid #388E3C;"
 					>
 						<uib-accordion-heading>
 							{{ type.type }} 
@@ -39,9 +39,6 @@
 								}">
 							</i>
 						</uib-accordion-heading>
-
-
-
 						<ul>
 							<li ng-repeat="foodItem in type.items">
 								<md-card style="border: 1px solid blue; border-radius: 5px;"><!-- Header for the card. Usually describes category -->
@@ -62,22 +59,17 @@
 								</md-card>
 							</li>
 						</ul>
-
-
-
 					</div>
 				</uib-accordion>
 			</md-tab-body>
 		</md-tab>
 
 		<!-- TAB 2 -->
-		<!-- <md-tab label="Select Platter" >
+		<md-tab label="Select Platter" >
 			<md-tab-body layout-padding="true">
-				
-
+				<cooks-platters userId="cookUserId"></cooks-platters>
 			</md-tab-body>
-
-		</md-tab> -->
+		</md-tab>
 
 	</md-tabs>
 
