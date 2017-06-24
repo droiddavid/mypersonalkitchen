@@ -1,7 +1,7 @@
 angular.module('app').component('guestDashboardDetail', {
 	//NOTE: nothing to bind to at this time.
-	controller: ['$scope', '$http', '$state', '$stateParams', '$mdToast', 'Database', 'Session', 
-	function ($scope, $http, $state, $stateParams, $mdToast, Database, Session) {
+	controller: ['$scope', '$http', '$state', '$stateParams', '$mdToast', 'Database', 'Session', 'ShoppingCart',
+	function ($scope, $http, $state, $stateParams, $mdToast, Database, Session, ShoppingCart) {
 		var that = this;
 
 		this.food = [],
@@ -63,6 +63,19 @@ angular.module('app').component('guestDashboardDetail', {
 						foodObj.groupOpen = false;
 					}
 				}
+			});
+		};
+
+		this.addToCart = function (item) {
+			ShoppingCart.add(item);
+
+			console.clear();
+			console.log("Shopping Cart items...");
+
+			var items = ShoppingCart.shoppingCart();
+			console.log("items.length: " + items.length);
+			items.forEach(function (platterOrFoodItem, index) {
+				console.log(platterOrFoodItem.name);
 			});
 		};
 	}],

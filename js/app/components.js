@@ -82,11 +82,11 @@ angular.module('app').component('login', {
 			// 	role: '3'
 			// };
 		};
-		this.$onChanges = function (changes) {
-			if (changes.person) {
-				this.person = Object.assign({}, this.person);
-			}
-		};
+		// this.$onChanges = function (changes) {
+		// 	if (changes.person) {
+		// 		this.person = Object.assign({}, this.person);
+		// 	}
+		// };
 		this.onLogin = function () {
 
 			// all: 		'*', 			//0

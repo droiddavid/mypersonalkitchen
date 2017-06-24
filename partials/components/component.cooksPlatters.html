@@ -7,13 +7,20 @@
 			ng-repeat="item in $ctrl.cooksPlatters" 
 			ng-class-odd="'odd'" 
 			ng-class-even="'even'"
+			style="
+			background-color: #C8E6C9; 
+			border: 1px solid green; 
+			border-radius: 10px;
+			margin-bottom: 15px;"
 		>
 			<div style="width: 100%;">
-				<!--<div class="md-list-item-text" ng-click="$ctrl.cookDetails(item);">-->
 				<div class="md-list-item-text" ng-click="$ctrl.cookDetails(item);">
 
-					<md-card style="border: 1px solid blue; border-radius: 5px;"><!-- Header for the card. Usually describes category -->
-						<md-card-header><!-- Avatar - symbolic representation of content in the card -->
+					<md-card style="background-color: #388E3C; border: 1px solid green; border-radius: 10px; padding-top: 15px;">
+
+						<!-- Header for the card. Usually describes category -->
+						<md-card-header style="background-color: #C8E6C9;">
+							<!-- Avatar - symbolic representation of content in the card -->
 							<md-card-avatar class="md-user-avatar">
 								<h2>{{ $index + 1 }}</h2>
 							</md-card-avatar>
@@ -23,16 +30,18 @@
 									{{ item.name }}
 									<span flex></span>
 									<p style="display: inline;" class="pull-right">
-										${{ item.price }}
+										<h3 style="display: inline;">${{ item.price }}</h3>
 									</p>
 								</div>
 								<div class="md-subhead">{{ item.description }}</div>
 							</md-header-text>
 						</md-card-header>
+
 						<!-- Actions or buttons that you might need on card -->
 						<md-card-actions layout-align="end end">
-							<md-button class="md-raised md-primary">+ Cart</mdbutton>
+							<md-button class="md-raised md-primary" ng-click="$ctrl.addToCart(item);">+ Cart</mdbutton>
 						</md-card-actions>
+
 					</md-card>
 
 				</div>

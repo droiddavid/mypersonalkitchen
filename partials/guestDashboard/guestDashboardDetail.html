@@ -28,24 +28,30 @@
 					<div uib-accordion-group 
 						class="panel-default" 
 						is-open="type.groupOpen" 
-						ng-click="$ctrl.toggleOpen(type);" style="border: 2px solid #388E3C;"
+						style="border: 2px solid #388E3C;"
 					>
 						<uib-accordion-heading>
-							{{ type.type }} 
-							<i class="pull-right glyphicon" 
-								ng-class="{
-									'glyphicon-chevron-down': status.open, 
-									'glyphicon-chevron-right': !status.open
-								}">
-							</i>
-						</uib-accordion-heading>
+							<button class="btn" style="background-color: #C8E6C9; width: 100%;" ng-click="$ctrl.toggleOpen(type);">
+								<span class="pull-left">{{ type.type }}</span>
+								<i class="pull-right glyphicon" 
+									ng-class="{
+										'glyphicon-chevron-down': status.open, 
+										'glyphicon-chevron-right': !status.open
+									}">
+								</i>							
+							</button>
+							</uib-accordion-heading>
 						<ul>
 							<li ng-repeat="foodItem in type.items">
-								<md-card style="border: 1px solid blue; border-radius: 5px;"><!-- Header for the card. Usually describes category -->
-									<md-card-header><!-- Avatar - symbolic representation of content in the card -->
+								<md-card style="background-color: #388E3C; border: 1px solid green; border-radius: 10px; padding-top: 15px;">
+
+									<!-- Header for the card. Usually describes category -->
+									<md-card-header style="background-color: #D8F6D9;">
+										<!-- Avatar - symbolic representation of content in the card -->
 										<md-card-avatar class="md-user-avatar">
 											<h2>{{ $index + 1 }}</h2>
 										</md-card-avatar>
+										
 										<!-- Header content -->
 										<md-header-text>
 											<div class="md-title">[ {{ foodItem.type }} ] - {{ foodItem.name }}</div>
@@ -54,7 +60,7 @@
 									</md-card-header>
 									<!-- Actions or buttons that you might need on card -->
 									<md-card-actions layout-align="end end">
-										<md-button class="md-raised md-primary">+ Cart</mdbutton>
+										<md-button class="md-raised md-primary" ng-click="$ctrl.addToCart(foodItem);">+ Cart</mdbutton>
 									</md-card-actions>
 								</md-card>
 							</li>

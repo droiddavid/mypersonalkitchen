@@ -1,6 +1,6 @@
 angular.module('app').component('cooksPlatters', {
-	controller: ['$http', '$state', '$mdToast', 'Database', 'Session', 
-	function ($http, $state, $mdToast, Database, Session) {
+	controller: ['$http', '$state', '$mdToast', 'Database', 'Session', 'ShoppingCart', 
+	function ($http, $state, $mdToast, Database, Session, ShoppingCart) {
 		var that = this;
 
 		this.selectedCookId = undefined;
@@ -17,6 +17,19 @@ angular.module('app').component('cooksPlatters', {
 				.then(function (response) {
 					that.cooksPlatters = Session.Collections.cooksPlatters = response.data.data;
 				});
+		};
+
+		this.addToCart = function (item) {
+			ShoppingCart.add(item);
+
+			console.clear();
+			console.log("Shopping Cart items...");
+
+			var items = ShoppingCart.shoppingCart();
+			console.log("items.length: " + items.length);
+			items.forEach(function (platterOrFoodItem, index) {
+				console.log(platterOrFoodItem.name);
+			});
 		};
 
 	}],
