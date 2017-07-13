@@ -301,3 +301,70 @@ md-input-container:not(.md-input-invalid) .md-input {
 .odd { background-color: lightgreen; }
 .even { background-color: #fff; }
 
+
+
+.shoppingCartPanel {
+	background-color: #C8E6C9;
+	border: 3px solid green;
+	border-radius: 15px;
+	padding: 15px;
+	width: 100%;
+	z-index: 10;
+}
+.shoppingCartPanelShowMenu {
+	animation-duration: 1s;
+	animation-name: shoppingCartPanelSlideIn;
+	animation-fill-mode: forwards;
+}
+@keyframes shoppingCartPanelSlideIn {
+	from {
+		border: 3px solid blue;
+		position: absolute;
+		left: 1300px;
+		top: 50px;
+		width: 100%;
+		z-index: 10;
+	}
+	to {
+		border: 3px solid red;
+		margin-left: auto;
+		margin-right: auto;
+		position: absolute;
+		left: 50px;
+		top: 50px;
+		width: 80%;
+		z-index: 10;
+	}
+}
+.shoppingCartPanelCloseMenu {
+	animation-duration: 3s;
+	animation-name: shoppingCartPanelSlideOut;	
+}
+@keyframes shoppingCartPanelSlideOut {
+	from {
+		border: 3px solid red;
+		margin-left: auto;
+		margin-right: auto;
+		position: absolute;
+		left: 50px;
+		top: 50px;
+		width: 80%;
+		z-index: 10;
+	}
+
+	to {
+		border: 3px solid blue;
+		position: absolute;
+		left: 1300px;
+		top: 50px;
+		width: 100%;
+		z-index: 10;
+	}
+}
+
+
+.shoppingCartTable tr td {
+	border: 1px solid green;
+	font-size: large;
+	padding: 5px;
+}

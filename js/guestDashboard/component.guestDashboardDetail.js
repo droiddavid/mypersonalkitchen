@@ -11,10 +11,16 @@ angular.module('app').component('guestDashboardDetail', {
 
 		$scope.oneAtATime = true;
 
-		this.getFood = function (id) {
+		this.shoppingCart = undefined;
+		this.total = ShoppingCart.getTotal();
+		this.taxes = undefined;
+		this.internetFee = undefined;
+		this.grandTotal = undefined;
+
+		this.getFood = function (userId) {
 			//Get the food for the selected cook
 			Session.Collections.cooksFood.forEach(function (foodItem, index) {
-				if (foodItem.userId === id) {
+				if (foodItem.userId === userId) {
 					that.food.push(foodItem);
 				}
 			});
@@ -34,6 +40,8 @@ angular.module('app').component('guestDashboardDetail', {
 				var foodItem = [];
 				that.food.forEach(function (food, ndx) {
 					if (type.type === food.type) {
+						food.quantity = 0;
+						food.foodId = food.id;
 						foodItem.push(food);
 					}
 				});
@@ -41,15 +49,67 @@ angular.module('app').component('guestDashboardDetail', {
 			});
 		}; //this.setListByTypes
 
+
+		this.documentWidth = undefined;
+		this.selectFoodNavBarHeight = undefined;
+		this.selectFoodNavBarWidth = undefined;
+		this.shoppingCartPanelWidth = undefined;
+		this.shoppingCartPanelPosition = undefined;
+
 		this.$onInit = function () {
 
 			/* SELECTED COOK SELECTED COOK SELECTED COOK SELECTED COOK */
 			that.cookUserId = Session.selectedCookId = $stateParams['cookUserId'];
 
 			that.getFood(that.cookUserId);
-			that.setListByTypes();
+			that.setListByTypes();	
+
+			//Absolutely postion the shopping cart panel.
+			that.selectFoodNavBarHeight = $('#selectFoodNavBar').height();
+			that.selectFoodNavBarWidth = $('#selectFoodNavBar').width();
+			that.documentWidth = $( document ).width();
+			that.shoppingCartPanelWidth = $( document ).width() / 2;
+			that.shoppingCartPanelPosition = that.documentWidth - (that.shoppingCartPanelWidth);
+			
+			$( "#shoppingCartPanel" ).width( that.documentWidth )
+				.css('position', 'absolute')
+				.css('left', that.documentWidth)
+				.css('top', that.selectFoodNavBarHeight);
 
 		};
+
+
+		this.$doCheck = function () {
+
+			if (ShoppingCart.items.length > 0) {
+				console.log("There are " + ShoppingCart.items.length + " items in ShoppingCart.items");
+			}
+
+			if (that.shoppingCart !== undefined) {
+				calculateTotal();
+				that.shoppingCart = ShoppingCart.shoppingCart();
+			} else {
+				calculateTotal();
+				that.shoppingCart = this.shoppingCart = ShoppingCart.shoppingCart();
+			}
+
+		};
+
+		this.toggleShoppingCart = function () {
+			$('#shoppingCartPanel')
+				.removeClass('shoppingCartPanelCloseMenu')
+				.addClass('shoppingCartPanelShowMenu');
+
+			write(that.shoppingCart, 'that.shoppingCart');
+		};
+
+		this.closeShoppingCart = function () {
+			$('#shoppingCartPanel')
+				.removeClass('shoppingCartPanelShowMenu')
+				.addClass('shoppingCartPanelCloseMenu');
+		};
+
+
 
 		//On the food tab, toggle each section as open or closed
 		this.toggleOpen = function (foodListItem) {
@@ -67,16 +127,58 @@ angular.module('app').component('guestDashboardDetail', {
 		};
 
 		this.addToCart = function (item) {
+
 			ShoppingCart.add(item);
+			that.shoppingCart = ShoppingCart.shoppingCart();
 
-			console.clear();
-			console.log("Shopping Cart items...");
+			calculateTotal();
 
-			var items = ShoppingCart.shoppingCart();
-			console.log("items.length: " + items.length);
-			items.forEach(function (platterOrFoodItem, index) {
-				console.log(platterOrFoodItem.name);
+		};
+
+		function calculateTotal() {
+
+			that.total = ShoppingCart.getTotal();
+			that.taxes = ShoppingCart.getTaxes();
+			that.internetFee = ShoppingCart.getInternetFee() * .5;
+			that.grandTotal = ShoppingCart.getGrandTotal();
+
+		};
+
+		this.removeFromCart = function (item) {
+			//find object in array.
+			var obj = undefined;
+
+			ShoppingCart.items.forEach(function (itm, index) {
+				if (item.food.id === itm.food.id) {
+					obj = itm;
+					obj.index = index;
+				}
+
 			});
+
+			//get the index.
+			var index = obj.index;
+
+			//get the quantity.
+			var quantity = obj.food.quantity;
+
+			//if the quantity is equal to 0, then remove item.
+			//	otherwise subtract 1 from quantity.
+			if (quantity === 1) {
+				ShoppingCart.items[index].food.quantity -= 1;
+				ShoppingCart.items.splice(index, 1);
+				calculateTotal();
+			} else {
+				ShoppingCart.items[index].food.quantity -= 1;
+				calculateTotal();
+			}
+
+			// console.log('Removing...');
+			// write(ShoppingCart.items, 'ShoppingCart.items');
+
+			// //we need to remove one from this item also.  see foodList.types.items
+			// var test = item;
+			// debugger;
 		};
 	}],
 	templateUrl: 'partials/guestDashboard/guestDashboardDetail.html'

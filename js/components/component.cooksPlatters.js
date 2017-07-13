@@ -4,6 +4,9 @@ angular.module('app').component('cooksPlatters', {
 		var that = this;
 
 		this.selectedCookId = undefined;
+		this.cooksPlatters = [];
+
+		this.TAX_RATE = .08;
 
 		this.$onInit = function () {
 			that.selectedCookId = Session.selectedCookId;
@@ -15,21 +18,29 @@ angular.module('app').component('cooksPlatters', {
 			};
 			Database.select(obj)
 				.then(function (response) {
-					that.cooksPlatters = Session.Collections.cooksPlatters = response.data.data;
+					var platter = {};
+
+					if (response.data) {
+						Session.Collections.cooksPlatters = response.data.data;
+					}
+
+					if (Session.Collections.cooksPlatters.length > 0) {
+						Session.Collections.cooksPlatters.forEach(function (item, index) {
+							platter = item;
+							platter.quantity = 0;
+							platter.tax = item.price * that.TAX_RATE;
+							platter.platterId = item.id;
+							that.cooksPlatters.push(platter);
+							platter = {};
+						});
+					}
 				});
 		};
 
 		this.addToCart = function (item) {
+
 			ShoppingCart.add(item);
 
-			console.clear();
-			console.log("Shopping Cart items...");
-
-			var items = ShoppingCart.shoppingCart();
-			console.log("items.length: " + items.length);
-			items.forEach(function (platterOrFoodItem, index) {
-				console.log(platterOrFoodItem.name);
-			});
 		};
 
 	}],

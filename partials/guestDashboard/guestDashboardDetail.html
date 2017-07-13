@@ -1,18 +1,109 @@
+<!--<panel>
+	<ul>
+		<li ng-repeat="foodItem in type.items">
+			<md-card style="background-color: #388E3C; border: 1px solid green; border-radius: 10px; padding-top: 15px;">
+
+				--><!-- Header for the card. Usually describes category -->
+				<!-- <md-card-header style="background-color: #D8F6D9;"> -->
+					<!-- Avatar - symbolic representation of content in the card -->
+					<!-- <md-card-avatar class="md-user-avatar">
+						<h2>{{ $index + 1 }}</h2>
+					</md-card-avatar>-->
+					
+					<!-- Header content -->
+					<!--<md-header-text>
+						<div class="md-title">[ {{ foodItem.type }} ] - {{ foodItem.name }}</div>
+						<div class="md-subhead">{{ foodItem.description }}</div>
+					</md-header-text>
+				</md-card-header>-->
+				<!-- Actions or buttons that you might need on card -->
+				<!--<md-card-actions layout-align="end end">
+					<md-button class="md-raised md-primary" ng-click="$ctrl.addToCart(foodItem);">+ Cart</mdbutton>
+				</md-card-actions>
+			</md-card>
+		</li>
+	</ul>
+</panel>-->
+
+
+
+
+
 <md-content>
 
-	<nav class="navbar navbar-default">
+	<nav id="selectFoodNavBar" class="navbar navbar-default">
 		<div class="container-fluid" style="background-color: green;">
 			<!-- Brand and toggle get grouped for better mobile display -->
-			<div class="navbar-header">
-				<a class="navbar-brand" ui-sref="guestDashboard" style="color: black;">
+			<div class="navbar-header" style="border: 2px solid blue; display:inline; width: 50%;">
+				<a class="navbar-brand" ui-sref="guestDashboard" style="color: black; display: inline;">
 					<i class="material-icons" style="padding-right: 15px;">keyboard_arrow_left</i>
 					<h3 style="display: inline;">Select Food</h3>
+					<span>$ctrl.shoppingCart.length: {{ $ctrl.shoppingCart.length }}</span>
 				</a>
+				
+				<span flex></span>
+				
+				<div class="btn btn-primary" ng-click="$ctrl.toggleShoppingCart();">
+					<i class="material-icons">shopping_cart</i>
+				</div>
 			</div>
+			
 
 		</div><!-- /.container-fluid -->
 	</nav>
 
+
+
+	<panel id="shoppingCartPanel" class="shoppingCartPanel">
+		<h1 style="border: 1px solid red;">Shopping Cart</h1>
+		<table class="shoppingCartTable" style="border: 1px solid black; width: 100%;">
+
+			<tr>
+				<td>&nbsp;</td>
+				<td>Qty</td>
+				<td>Item</td>
+				<td>Price</td>
+			</tr>
+
+			<tr ng-repeat="item in $ctrl.shoppingCart">
+				<td style="width: 10px;">{{ $index + 1 }}</td>
+				<td>{{ item.food.quantity }}</td>
+				<td>{{ item.food.name }}</td>
+				<td style="text-align: right;">{{ (item.food.price * item.food.quantity) | currency }}</td>
+				<td>
+					<span ng-click="$ctrl.removeFromCart(item);">
+						<i class="material-icons" style="color: red;">redo</i>
+					</span>
+				</td>
+			</tr>
+
+			<tr>
+				<td colspan="2">&nbsp;</td>
+				<td>Total:&nbsp;</td><td style="text-align: right;">{{ $ctrl.total | currency }}</td>
+			</tr>
+
+			<!--
+			<tr>
+				<td colspan="2">
+				<td>Taxes:&nbsp;</td><td style="text-align: right;">{{ $ctrl.taxes | currency }}</td>
+			</tr>
+			-->
+
+			<tr>
+				<td colspan="2">
+				<td>Internet Fee:&nbsp;</td><td style="text-align: right;">{{ $ctrl.internetFee | currency }}</td>
+			</tr>
+
+			<tr>
+				<td colspan="2">
+				<td>Grand Total:&nbsp;</td><td style="text-align: right;">{{ $ctrl.grandTotal | currency }}</td>
+			</tr>
+
+		</table>
+		
+
+		<button class="btn btn-primary" ng-click="$ctrl.closeShoppingCart();">Close</button>
+	</panel>
 
 	<md-tabs 
 		layout-padding
@@ -40,7 +131,7 @@
 									}">
 								</i>							
 							</button>
-							</uib-accordion-heading>
+						</uib-accordion-heading>
 						<ul>
 							<li ng-repeat="foodItem in type.items">
 								<md-card style="background-color: #388E3C; border: 1px solid green; border-radius: 10px; padding-top: 15px;">
@@ -61,8 +152,13 @@
 									<!-- Actions or buttons that you might need on card -->
 									<md-card-actions layout-align="end end">
 										<md-button class="md-raised md-primary" ng-click="$ctrl.addToCart(foodItem);">+ Cart</mdbutton>
+										<span flex></span>
+										<span>QTY: {{ foodItem.quantity }}</span>
 									</md-card-actions>
 								</md-card>
+								<p>FoodItem...
+									{{ foodItem }}
+								</p>
 							</li>
 						</ul>
 					</div>
