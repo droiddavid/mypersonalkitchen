@@ -1,9 +1,7 @@
 /*global angular, $, console */
 /*jslint plusplus: true */
-'use strict';
 
-
-let app = angular.module('app', ['ui.router', 'ui.bootstrap', 'ngMaterial', 'ngAnimate']);
+var app = angular.module('app', ['ui.router', 'ui.bootstrap', 'ngMaterial', 'ngAnimate']);
 
 app.constant('AUTH_EVENTS', {
 	loginSuccess: 'auth-login-success',
@@ -15,13 +13,13 @@ app.constant('AUTH_EVENTS', {
 });
 
 app.constant('USER_ROLES', {
-	all: 		'*', 			//0
-	admin: 		'admin', 		//1
-	cook: 		'cook', 		//2
-	customer: 	'customer', 	//3
-	invitee: 	'invitee', 		//4
-	member: 	'member', 		//5
-	guest: 		'guest' 		//6
+	all: '*', //0
+	admin: 'admin', //1
+	cook: 'cook', //2
+	customer: 'customer', //3
+	invitee: 'invitee', //4
+	member: 'member', //5
+	guest: 'guest' //6
 });
 
 app.constant('dexie', window.Dexie);
@@ -32,13 +30,14 @@ app.constant('dexie', window.Dexie);
 //see https://medium.com/opinionated-angularjs/techniques-for-authentication-in-angularjs-applications-7bbf0346acec#.5hla7w66w
 //for explaination of AUTH_EVENTS, USER_ROLES and $httpProvider.
 //Inject $mdThemingProvider in order to change the primary, accent and warn colors.
-app.config(function($stateProvider, $urlServiceProvider, $mdThemingProvider) {
+app.config(function ($stateProvider, $urlServiceProvider, $mdThemingProvider) {
+	'use strict';
 
 	$mdThemingProvider
 		.theme('default')
-		.primaryPalette( 'green' )
-		.accentPalette( 'light-green' )
-		.warnPalette( 'red' );
+		.primaryPalette('green')
+		.accentPalette('light-green')
+		.warnPalette('red');
 
 	$urlServiceProvider.rules.otherwise({ state: 'index' });
 	
@@ -162,28 +161,27 @@ app.config(function($stateProvider, $urlServiceProvider, $mdThemingProvider) {
 					return Session.Collections.food;
 				}
 			}],
-			platters: ['$http', '$timeout', 'Session', 'Cook', function ($http, $timeout, Session, Cook) {
+			platters: ['$http', '$timeout', 'Session', function ($http, $timeout, Session) {
 				if (Session.role === 2) {
 					return Session.Collections.platters;
 				}
 			}],
-			platterItems: ['$http', '$timeout', 'Session', 'Cook', function ($http, $timeout, Session, Cook) {
+			platterItems: ['$http', '$timeout', 'Session', function ($http, $timeout, Session) {
 				if (Session.role === 2) {
 					return Session.Collections.platterItems;
 				}
 			}],
-			menusPlatters: [
-				'$http', '$timeout', 'Session', 'Cook', function ($http, $timeout, Session, Cook) {
+			menusPlatters: ['$http', '$timeout', 'Session', function ($http, $timeout, Session) {
 				if (Session.role === 2) {
-					return Session.Collections.menusPlatters;	
+					return Session.Collections.menusPlatters;
 				}
 			}],
-			menuPlattersPlatterItems: ['$http', '$timeout', 'Session', 'Cook', function ($http, $timeout, Session, Cook) {
+			menuPlattersPlatterItems: ['$http', '$timeout', 'Session', function ($http, $timeout, Session) {
 				if (Session.role === 2) {
 					return Session.Collections.menusPlattersPlatterItems;
 				}
 			}],
-			menus: ['$http', '$timeout', 'Session', 'Cook', function ($http, $timeout, Session, Cook) {
+			menus: ['$http', '$timeout', 'Session', function ($http, $timeout, Session) {
 				if (Session.role === 2) {
 					return Session.Collections.menusPlattersPlatterItems;
 				}
@@ -200,34 +198,33 @@ app.config(function($stateProvider, $urlServiceProvider, $mdThemingProvider) {
 		url: '/dashboardBody',
 		component: 'dashboardBody',
 		resolve: {
-			food: ['$http', '$timeout', 'Session', 'Cook', function ($http, $timeout, Session, Cook) {
+			food: ['$http', '$timeout', 'Session', function ($http, $timeout, Session) {
 				if (Session.role === 2) { //USER_ROLES.cook
 					return Session.Collections.food;
 					// }
 				} //if
 			}],
-			platters: ['$http', '$timeout', 'Session', 'Cook', function ($http, $timeout, Session, Cook) {
+			platters: ['$http', '$timeout', 'Session', function ($http, $timeout, Session) {
 				if (Session.role === 2) { //USER_ROLES.cook
 					return Session.Collections.platters;
 				} //if
 			}],
-			platterItems: ['$http', '$timeout', 'Session', 'Cook', function ($http, $timeout, Session, Cook) {
+			platterItems: ['$http', '$timeout', 'Session', function ($http, $timeout, Session) {
 				if (Session.role === 2) { //USER_ROLES.cook
 					return Session.Collections.platterItems;
 				} //if
 			}],
-			menusPlatters: [
-				'$http', '$timeout', 'Session', 'Cook', function ($http, $timeout, Session, Cook) {
+			menusPlatters: ['$http', '$timeout', 'Session', function ($http, $timeout, Session) {
 				if (Session.role === 2) { //USER_ROLES.cook
-					return Session.Collections.menusPlatters;	
+					return Session.Collections.menusPlatters;
 				}//if
 			}],
-			menuPlattersPlatterItems: ['$http', '$timeout', 'Session', 'Cook', function ($http, $timeout, Session, Cook) {
+			menuPlattersPlatterItems: ['$http', '$timeout', 'Session', function ($http, $timeout, Session) {
 				if (Session.role === 2) {
 					return Session.Collections.menusPlattersPlatterItems;
 				} //if
 			}],
-			menus: ['$http', '$timeout', 'Session', 'Cook', function ($http, $timeout, Session, Cook) {
+			menus: ['$http', '$timeout', 'Session', function ($http, $timeout, Session) {
 				if (Session.role === 2) { //USER_ROLES.cook
 					return Session.Collections.menusPlattersPlatterItems;
 				}
@@ -270,7 +267,7 @@ app.config(function($stateProvider, $urlServiceProvider, $mdThemingProvider) {
 								Session.Collections.invitations = response.data.data;
 							})
 							.then(function () {
-								$http.post('./data/fileWriter.php', { 
+								$http.post('./data/fileWriter.php', {
 									fileName: Session.FileNames.invitations + ".json",
 									data: Session.Collections.invitations
 								});
@@ -292,19 +289,22 @@ app.config(function($stateProvider, $urlServiceProvider, $mdThemingProvider) {
 			data: null,
 			invitationId: null
 		}
-		// resolve: {
-		// 	Invitation: ['$http', 'Session', 'Cook', 'InvitationService', function ($http, Session, Cook, InvitationService) {
-		// 		if (!InvitationService.Invitation || InvitationService.Invitation.length === 0) {
-		// 			InvitationService.getInvitation(userId)
-		// 				.then(function (response) {
-		// 					debugger;
-		// 					return response;
-		// 				});
-		// 		} else {
-		// 			return InvitationService.Invitation;
-		// 		}
-		// 	}]
-		// }
+		/*
+		resolve: {
+			Invitation: ['$http', 'Session', 'Cook', 'InvitationService', function ($http, Session, Cook, InvitationService) {
+				if (!InvitationService.Invitation || InvitationService.Invitation.length === 0) {
+					InvitationService.getInvitation(userId)
+						.then(function (response) {
+							debugger;
+							return response;
+						});
+				} else {
+					return InvitationService.Invitation;
+				}
+			}]
+		}
+		*/
+
 	});
 
 
@@ -316,46 +316,33 @@ app.config(function($stateProvider, $urlServiceProvider, $mdThemingProvider) {
 			data: null
 		},
 		resolve: {
-			// html5media: ['$http', '$timeout', 'Session', 'Cook', function ($http, $timeout, Session, Cook) {
-			// 	if (Session.role === 2) { //USER_ROLES.cook
+			/*
+			html5media: ['$http', '$timeout', 'Session', 'Cook', function ($http, $timeout, Session, Cook) {
+				if (Session.role === 2) { //USER_ROLES.cook
 
-			// 		if (!Session.Collections.html5media || Session.Collections.html5media.length === 0) {
-			// 			var cook = new Cook(Session.id);
-			// 			cook.gethtml5media(cook.QUERIES.html5media.fields, cook.QUERIES.html5media.table, Session.id)
-			// 				.then(function (response) {
-			// 					Session.Collections.html5media = response.data.data;
-			// 				})
-			// 				.then(function () {
-			// 					$http.post('./data/fileWriter.php', { 
-			// 						fileName: Session.FileNames.html5media + ".json",
-			// 						data: Session.Collections.html5media
-			// 					});
-			// 				}); //write the data to a local file (update current data)
-			// 		} else {
-			// 			return Session.Collections.html5media;
-			// 		}
+					if (!Session.Collections.html5media || Session.Collections.html5media.length === 0) {
+						var cook = new Cook(Session.id);
+						cook.gethtml5media(cook.QUERIES.html5media.fields, cook.QUERIES.html5media.table, Session.id)
+							.then(function (response) {
+								Session.Collections.html5media = response.data.data;
+							})
+							.then(function () {
+								$http.post('./data/fileWriter.php', { 
+									fileName: Session.FileNames.html5media + ".json",
+									data: Session.Collections.html5media
+								});
+							}); //write the data to a local file (update current data)
+					} else {
+						return Session.Collections.html5media;
+					}
 
-			// 		return Session.Collections.html5media;
-			// 	} //if
-			// }]
+					return Session.Collections.html5media;
+				} //if
+			}]
+			*/
+
 		}
 	});
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
   
@@ -363,7 +350,7 @@ app.config(function($stateProvider, $urlServiceProvider, $mdThemingProvider) {
 		url: '/users',
 		component: 'users',
 		resolve: {
-			users: function(UserService) {
+			users: function (UserService) {
 				return UserService.list();
 			},
 			menus: function (ApplicationMenuService) { //See js/app/services.js:369
@@ -375,7 +362,7 @@ app.config(function($stateProvider, $urlServiceProvider, $mdThemingProvider) {
 		url: '/:userId',
 		component: 'userDetail',
 		resolve: {
-			user: function($transition$, users) {
+			user: function ($transition$, users) {
 				return users.find(function (user) {
 					user.id = $transition$.params().userId;
 				});
@@ -395,9 +382,17 @@ app.config(function($stateProvider, $urlServiceProvider, $mdThemingProvider) {
 
 app.controller('IndexController', ['$scope', function ($scope) {
 
-	$scope.initialize = function () {
+	'use strict';
 
+	$scope.initialize = function () {
+		
+
+
+		/***********************************************************************/
+		/**** BEGIN CRDENTIALS MANAGMENT ***************************************/
+		/***********************************************************************/
 		//This code is for credentials management
+		/*
 		if ('credentials' in navigator) {
 			navigator.credentials.get({password: true})
 			.then(function(creds) {
@@ -407,17 +402,24 @@ app.controller('IndexController', ['$scope', function ($scope) {
 		} else {
 			// console.log("You have to login normally. :(");
 		};
+		*/
+		/***********************************************************************/
+		/**** END CRDENTIALS MANAGMENT *****************************************/
+		/***********************************************************************/
 	};
 
 
-	$scope.onSignIn = function (googleUser) {
-		var profile = googleUser.getBasicProfile();
-		// console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-		// console.log('Name: ' + profile.getName());
-		// console.log('Image URL: ' + profile.getImageUrl());
-		// console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
-	};
-
+	/***********************************************************************/
+	/**** BEGIN GOOGLE SIGN IN AND SIGN OUT ********************************/
+	/***********************************************************************/
+	/*
+		$scope.onSignIn = function (googleUser) {
+			var profile = googleUser.getBasicProfile();
+			// console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+			// console.log('Name: ' + profile.getName());
+			// console.log('Image URL: ' + profile.getImageUrl());
+			// console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+		};
 
 	$scope.signOut = function () {
 		var auth2 = gapi.auth2.getAuthInstance();
@@ -425,6 +427,11 @@ app.controller('IndexController', ['$scope', function ($scope) {
 			// console.log('User signed out.');
 		});
 	};
+	*/
+
+	/***********************************************************************/
+	/**** END GOOGLE SIGN IN AND SIGN OUT **********************************/
+	/***********************************************************************/
 
 
 	$scope.initialize();

@@ -4,7 +4,7 @@ html, body {
 	height: 100%;
 	margin: 0px;
 	padding: 0px;
-	position: relative;
+	position: absolute;
 }
 
 /** Enabled Step 3... **/
@@ -367,4 +367,59 @@ md-input-container:not(.md-input-invalid) .md-input {
 	border: 1px solid green;
 	font-size: large;
 	padding: 5px;
+}
+
+
+
+#appBody {
+	height: 100%;
+}
+
+#appBodyConent {
+	height: 100%;
+}
+
+#uiview {
+	background-color: #69B;
+	height: 100vh;
+	overflow: hidden;
+}
+
+#homeContent {
+	overflow: hidden;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	right: 0px;
+	bottom: 0px;
+}
+
+.homeContainer {
+	background-color: #966; 
+    height: -moz-calc(100%); 
+    height: -webkit-calc(100%); 
+    height: calc(100%);
+	height: 100vh;
+	position: relative;
+}
+
+#homePanel {
+	overflow-y: auto;
+	-ms-overflow-y: auto;
+}
+
+.homePanelButtons_left {
+	border: 1px solid #024F07; 
+	color: white; 
+	float: left; 
+	text-align: center;
+	width: 50%;
+}
+
+.homePanelButtons_right {
+	border: 1px solid #024F07; 
+	color: white; 
+	float: right; 
+	text-align: center;
+	width: 50%;
 }

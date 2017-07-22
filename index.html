@@ -22,7 +22,7 @@
 		<link href="css/master.css" rel="stylesheet">
 	</head>
 
-	<body class="column" 
+	<body id="appBody" class="column" 
 		ng-app="app" 
 		ng-cloak 
 		ng-controller="IndexController">
@@ -30,62 +30,13 @@
 
 
 
-
-
-
-
-
-<!-- Always shows a header, even in smaller screens. -->
-	<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-		<main class="mdl-layout__content">
-			<div ui-view></div>
-		</main>
-    </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+		<!-- Always shows a header, even in smaller screens. -->
+		<div id="appBodyConent" class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+			<main class="mdl-layout__content">
+				<!--<div ui-view style="border: 4px solid red; height: 400px;"></div>-->
+				<div id="uiview" ui-view></div>
+			</main>
+		</div>
 
 
 
