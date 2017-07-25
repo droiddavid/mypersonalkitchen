@@ -8,63 +8,157 @@ angular
 
 			'use strict';
 
+			var that = this;
+			this.HomeContainer = function () {
+				return {
+					dom: $('#homeContainer')["0"],
+					node: document.querySelector("#homeContainer"),
+					height: document.querySelector("#homeContainer").clientHeight,
+					width: $('#homeContainer')["0"].clientWidth || $('#homeContainer')["0"].clientWidth
+				};
+			};
+			this.ToolBar = function () {
+				return {
+					dom: $('#mdToolbar')["0"],
+					node: document.querySelector("#mdToolbar"),
+					height: document.querySelector("#mdToolbar").clientHeight,
+					width: $('#mdToolbar')["0"].clientWidth || $('#mdToolbar')["0"].outerWidth
+				};
+			};
+			this.Panel = function () {
+				return {
+					dom: $('#homePanel')["0"],
+					node: document.querySelector("#homePanel"),
+					height: document.querySelector("#homePanel").clientHeight,
+					width: $('#homePanel')["0"].clientWidth || $('#homePanel')["0"].outerWidth
+				};
+			};
+			this.CookPanel = function () {
+				return {
+					dom: $('#cookPanel')["0"],
+					node: document.querySelector("#cookPanel"),
+					height: document.querySelector("#cookPanel").clientHeight,
+					width: $('#cookPanel')["0"].clientWidth || $('#cookPanel')["0"].outerWidth
+				};
+			};
+			this.EarnPanel = function () {
+				return {
+					dom: $('#earnPanel')["0"],
+					node: document.querySelector("#earnPanel"),
+					height: document.querySelector("#earnPanel").clientHeight,
+					width: $('#earnPanel')["0"].clientWidth || $('#earnPanel')["0"].outerWidth
+				};
+			};
+			this.Footer = function () {
+				return {
+					dom: $('#footer')["0"],
+					node: document.querySelector("#footer"),
+					height: document.querySelector("#footer").clientHeight,
+					width: $('#footer')["0"].clientWidth || $('#footer')["0"].outerWidth
+				};
+			};
+
+
+
+
+
+
+
 			this.$onInit = function () {
-				//var mdtoolbar = document.querySelector('md-toolbar');
-				var homeContainer = $('#homeContainer'),
-					homeContainerHeight = homeContainer.outerHeight(),
-
-					mdtoolbar = $('#mdToolbar'),
-					mdtoolbarouterheight = mdtoolbar.outerHeight(),
-
-					homePanel = $('#homePanel'),
-					homePanelHeight = homePanel.outerHeight(),
-
-					homePanelButtons = $('#homePanelButtons'),
-					homePanelButtonsHeight = homePanelButtons.outerHeight();
-
-					write(mdtoolbarouterheight, 'mdtoolbarouterheight');
-
-				//homeContainer = mdtoolbar = homePanel = homePanelButtons = undefined;
-
-				var homeContainerDOM = document.querySelector("#homeContainer");
-				homeContainerDOM.style.position = "relative";
-				homeContainerDOM.style.left = "0px";
-				homeContainerDOM.style.top = "0px";
-
-				var toolBarDOM = document.querySelector("#mdToolbar");
-				toolBarDOM.style.position = "relative";
-				toolBarDOM.style.left = "0px";
-				toolBarDOM.style.top = "0px";
+				var homeContainer = that.HomeContainer().dom;
+				homeContainer.style.position = "relative";
+				homeContainer.style.left = "0px";
+				homeContainer.style.top = "0px";
 
 
-				var homePanelDOM = document.querySelector("#homePanel");
-				var hpHeight = homeContainerHeight - (mdtoolbarouterheight * 5);
-				
-				hpHeight = hpHeight + "vh";
-				//homePanelDOM.style.height = "80vh";
-				homePanelDOM.style.padding = "5px";
-				homePanelDOM.style.width = "100%";
-				homePanelDOM.style.background = "#388E3C";
-				homePanelDOM.style.position = "absolute";
-				homePanelDOM.style.top = mdtoolbarouterheight.toString() + "px";
-				//homePanelDOM.style.left = "20px";
 
-				var homePanelButtonsDOM = document.querySelector("#homePanelButtons");
-				//homePanelButtonsDOM.style.border = "1px solid yellow";
-				homePanelButtonsDOM.style.height = "7vh";
-				homePanelButtonsDOM.style.width = "100%";
-				homePanelButtonsDOM.style.background = "#2C7130";
-				homePanelButtonsDOM.style.position = "absolute";
-				homePanelButtonsDOM.style.bottom = "0px";
+				var toolbar = that.ToolBar().dom;
+				toolbar.style.position = "relative";
+				toolbar.style.left = "0px";
+				toolbar.style.top = "0px";
 
-				var homePanelButtonsDOMHeight = $('#homePanelButtons');
-				var hpBDHeight = homePanelButtonsDOMHeight.outerHeight();
-				homePanelDOM.style.bottom = hpBDHeight + "px";
-				//homePanelButtonsDOM.style.top = "0px";
+
+
+				var homePanel = that.Panel().dom;
+				var hpHeight = that.HomeContainer().height - (that.ToolBar().height * 2);
+				hpHeight = hpHeight + "px";
+				homePanel.style.height = hpHeight;
+				homePanel.style.position = "relative";
+				homePanel.style.padding = "5px";
+				homePanel.style.width = "100%";
+				homePanel.style.background = "#388E3C";
+				homePanel.style.position = "absolute";
+				homePanel.style.top = that.ToolBar().height + "px";
+				homePanel.style.left = "0px";
+
+				var cookPanel = that.CookPanel().dom;
+				cookPanel.style.position = "relative";
+				cookPanel.style.padding = "5px";
+				cookPanel.style.width = "100%";
+				cookPanel.style.background = "#FF6D00";
+				cookPanel.style.position = "absolute";
+				cookPanel.style.top = that.ToolBar().height + "px";
+				cookPanel.style.left = that.HomeContainer().height + "px";
+				cookPanel.style.height = hpHeight;
+
+				var earnPanel = that.EarnPanel().dom;
+				earnPanel.style.position = "relative";
+				earnPanel.style.padding = "5px";
+				earnPanel.style.width = "100%";
+				earnPanel.style.background = "#546E7A";
+				earnPanel.style.position = "absolute";
+				earnPanel.style.top = that.ToolBar().height + "px";
+				earnPanel.style.left = that.HomeContainer().height + "px";
+				earnPanel.style.height = hpHeight;
+
+
+
+				var footer = that.Footer().dom;
+				var footerHeight = homeContainer.clientHeight - (toolbar.clientHeight + (that.HomeContainer().height - (that.ToolBar().height * 2)) );
+				footerHeight = footerHeight + "px";
+				footer.style.height = footerHeight;
+				footer.style.width = "100%";
+				footer.style.background = "#2C7130";
+				footer.style.position = "absolute";
+				footer.style.bottom = "0px";
 			};
 
 			this.go = function (menuItem) {
 				$state.go(menuItem.url);
+			};
+
+			this.showPanel = function (panel) {
+				var homeContainer = that.HomeContainer().dom;
+				var toolbar = that.ToolBar().dom;
+				var homePanel = that.Panel().dom;
+				var cookPanel = that.CookPanel().dom;
+				var earnPanel = that.EarnPanel().dom;
+				var footer = that.Footer().dom;
+
+
+				if (panel === 'cook') {
+					toolbar.style.background = "#CC5700";
+					homePanel.style.left = that.HomeContainer().width + "px";
+					earnPanel.style.left = that.HomeContainer().width + "px";
+					cookPanel.style.left = "0px";
+					footer.style.background = "#CC5700";
+				}
+					
+				if (panel === 'earn') {
+					toolbar.style.background = "#435861";
+					homePanel.style.left = that.HomeContainer().width + "px";
+					cookPanel.style.left = that.HomeContainer().width + "px";
+					earnPanel.style.left = "0px";
+					footer.style.background = "#435861";
+				}
+					
+				if (panel === 'home') {
+					toolbar.style.background = "#2C7130";
+					cookPanel.style.left = that.HomeContainer().width + "px";
+					earnPanel.style.left = that.HomeContainer().width + "px";
+					homePanel.style.left = "0px";
+					footer.style.background = "#2C7130";
+				}
 			};
 
 			/*

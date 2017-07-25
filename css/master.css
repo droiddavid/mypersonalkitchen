@@ -409,17 +409,78 @@ md-input-container:not(.md-input-invalid) .md-input {
 }
 
 .homePanelButtons_left {
-	border: 1px solid #024F07; 
 	color: white; 
 	float: left; 
+	padding: auto;
+	padding-top: 10px;
+	position: absolute;
+	top: 0px;
+	bottom: 0px;
 	text-align: center;
 	width: 50%;
 }
 
+
 .homePanelButtons_right {
-	border: 1px solid #024F07; 
-	color: white; 
+	border-left: 1px solid black;
 	float: right; 
+	right: 0px;
+}
+
+
+
+
+
+
+#cookPanel {
+	overflow-y: auto;
+	-ms-overflow-y: auto;
+}
+
+.cookPanelButtons_left {
+	color: white; 
+	float: left; 
+	padding: auto;
+	padding-top: 10px;
+	position: absolute;
+	top: 0px;
+	bottom: 0px;
 	text-align: center;
 	width: 50%;
+}
+
+
+.cookPanelButtons_right {
+	border-left: 1px solid black;
+	float: right; 
+	right: 0px;
+}
+
+
+
+
+
+
+#footer {
+	overflow-y: auto;
+	-ms-overflow-y: auto;
+}
+
+.footer_left {
+	color: white; 
+	float: left; 
+	padding: auto;
+	padding-top: 10px;
+	position: absolute;
+	top: 0px;
+	bottom: 0px;
+	text-align: center;
+	width: 50%;
+}
+
+
+.footer_right {
+	border-left: 1px solid black;
+	float: right; 
+	right: 0px;
 }

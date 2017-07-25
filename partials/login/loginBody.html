@@ -1,7 +1,6 @@
 <md-content id="homeContent">
 
-	<div id="homeContainer" class="homeContainer">
-
+	<div id="homeContainer" class="homeContainer" style="text-align: center; width: 100%;">
 
 		<md-toolbar id="mdToolbar" layout-padding class="md-raised md-primary md-hue-2">
 			<div class="md-toolbar-tools">
@@ -9,62 +8,176 @@
 			</div>
 		</md-toolbar>
 
+		<!-- homePanel homePanel homePanel homePanel homePanel homePanel homePanel -->
+		<div id="homePanel" class="col" style="color: white; text-align: center;">
 
-		<div id="homePanel">
-			1 This is some sample text.<br /><br />
-			2 And this is some more sample text.<br /><br />
-			3 Now is the time for all good men<br /><br />
-			4 To come to the aid of their country.<br />
-			5 To come to the aid of their country.<br />
-			6 This is some sample text.<br /><br />
-			7 And this is some more sample text.<br /><br />
-			8 Now is the time for all good men<br /><br />
-			9 To come to the aid of their country.<br />
-			10 To come to the aid of their country.<br />
-			11 This is some sample text.<br /><br />
-			12 And this is some more sample text.<br /><br />
-			13 Now is the time for all good men<br /><br />
-			14 To come to the aid of their country.<br />
-			15 To come to the aid of their country.<br />
-			16 This is some sample text.<br /><br />
-			17 And this is some more sample text.<br /><br />
-			18 Now is the time for all good men<br /><br />
-			19 To come to the aid of their country.<br />
-			20 To come to the aid of their country.<br />
+			<div 
+				style="position: relative; top: 0px; left: 0px;">
+				<br /><br />
+
+				<div id="homePhoto">
+					<!--<div id="homePhoto"><img src="images/pic13.jpg" /></div>-->
+					<!-- For modern browsers. 
+					<i class="material-icons">content_paste</i>-->
+
+					<!-- For IE9 or below. -->
+					<i class="material-icons" style="font-size: 1000%;">&#xE14F;</i>
+
+				</div>
+
+				<div id="homeText">
+					<br />
+					<h1>Invite</h1>
+					<br /><br />
+					<p style="font-size: 120%;">
+						Invite your family and friends to buy your food.<br />
+						Tell them about your the platters you are inviting<br />
+						Your family and friends can order your food<br />
+						Electronically helping you to get paid right away!<br />
+					</p>
+					<br /><br />
+				</div>
+
+				<div id="homeTextNavigation">
+					<span style="font-size: xx-large;">
+						<span ng-click="$ctrl.showPanel('home');">
+							&nbsp;&nbsp;•&nbsp;&nbsp;
+						</span>
+						<span ng-click="$ctrl.showPanel('cook');">
+							&nbsp;&nbsp;•&nbsp;&nbsp;
+						</span>
+						<span ng-click="$ctrl.showPanel('earn');">
+							&nbsp;&nbsp;•&nbsp;&nbsp;
+						</span>
+					</span>
+				</div>
+			</div>
+
 		</div>
+		<!-- homePanel homePanel homePanel homePanel homePanel homePanel homePanel -->
+		<!-- cookPanel cookPanel cookPanel cookPanel cookPanel cookPanel cookPanel -->
+ 		<div id="cookPanel" class="col" style="color: white; text-align: center;">
 
-		<div id="homePanelButtons">
-			<div
-				style="
-					border-right: 1px solid black;
-					color: white; 
-					float: left; 
-					padding: auto;
-					padding-top: 10px;
-					position: absolute;
-					top: 0px;
-					bottom: 0px;
-					text-align: center;
-					width: 50%;
-					">
+			<div 
+				style="position: relative; top: 0px; left: 0px;">
+				<br /><br />
+
+				<div id="cookPhoto">
+					<!--<div id="cookPhoto"><img src="images/pic13.jpg" /></div>-->
+					<!-- For modern browsers. 
+					<i class="material-icons">content_paste</i>-->
+
+					<!-- For IE9 or below. -->
+ 					<i class="material-icons" style="font-size: 1000%;">&#xE14F;</i>
+
+				</div>
+
+				<div id="cookText">
+					<br />
+					<h1>Cook</h1>
+					<br /><br />
+					<p style="font-size: 120%;">
+						Invite your family and friends to buy your food.<br />
+						Tell them about your the platters you are cooking<br />
+						Your family and friends can order your food<br />
+						Electronically helping you to get paid right away!<br />
+					</p>
+					<br /><br />
+				</div>
+
+				<div id="cookTextNavigation">
+					<span style="font-size: xx-large;">
+						<span ng-click="$ctrl.showPanel('home');">
+							&nbsp;&nbsp;•&nbsp;&nbsp;
+						</span>
+						<span ng-click="$ctrl.showPanel('cook');">
+							&nbsp;&nbsp;•&nbsp;&nbsp;
+						</span>
+						<span ng-click="$ctrl.showPanel('earn');">
+							&nbsp;&nbsp;•&nbsp;&nbsp;
+						</span>
+					</span>
+				</div>
+			</div>
+
+		</div>
+		<!-- cookPanel cookPanel cookPanel cookPanel cookPanel cookPanel cookPanel -->
+		<!-- earnPanel earnPanel earnPanel earnPanel earnPanel earnPanel earnPanel -->
+ 		<div id="earnPanel" class="col" style="color: white; text-align: center;">
+
+			<div 
+				style="position: relative; top: 0px; left: 0px;">
+				<br /><br />
+
+				<div id="earnPhoto">
+					<!--<div id="earnPhoto"><img src="images/pic13.jpg" /></div>-->
+					<!-- For modern browsers. 
+					<i class="material-icons">content_paste</i>-->
+
+					<!-- For IE9 or below. -->
+ 					<i class="material-icons" style="font-size: 1000%;">&#xE14F;</i>
+
+				</div>
+
+				<div id="earnText">
+					<br />
+					<h1>Earn</h1>
+					<br /><br />
+					<p style="font-size: 120%;">
+						Invite your family and friends to buy your food.<br />
+						Tell them about your the platters you are earning<br />
+						Your family and friends can order your food<br />
+						Electronically helping you to get paid right away!<br />
+					</p>
+					<br /><br />
+				</div>
+
+				<div id="earnTextNavigation">
+					<span style="font-size: xx-large;">
+						<span ng-click="$ctrl.showPanel('home');">
+							&nbsp;&nbsp;•&nbsp;&nbsp;
+						</span>
+						<span ng-click="$ctrl.showPanel('cook');">
+							&nbsp;&nbsp;•&nbsp;&nbsp;
+						</span>
+						<span ng-click="$ctrl.showPanel('earn');">
+							&nbsp;&nbsp;•&nbsp;&nbsp;
+						</span>
+					</span>
+				</div>
+			</div>
+
+		</div>
+		<!-- earnPanel earnPanel earnPanel earnPanel earnPanel earnPanel earnPanel -->
+
+		<!-- footer footer footer footer -->
+		<div id="footer">
+			<div class="footer_left" style="padding-top: 3%;">
 				Login
 			</div>
 
-			<div
-				style="
-					color: white; 
-					float: right; 
-					padding: auto;
-					padding-top: 10px;
-					position: absolute;
-					top: 0px;
-					bottom: 0px;
-					right: 0px;
-					text-align: center;
-					width: 50%;">
+			<div class="footer_left footer_right" style="border-right: 1px solid black; padding-top: 3%;">
 				Register
 			</div>
 		</div>
+		<!-- footer footer footer footer -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 	</div>
