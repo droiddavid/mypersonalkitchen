@@ -4,123 +4,36 @@ angular
 		bindings: {
 			applicationMenu: '<'
 		},
-		controller: function ($state) {
+		controller: function ($state, $scope) {
 
 			'use strict';
 
 			var that = this;
-			this.HomeContainer = function () {
-				return {
-					dom: $('#homeContainer')["0"],
-					node: document.querySelector("#homeContainer"),
-					height: document.querySelector("#homeContainer").clientHeight,
-					width: $('#homeContainer')["0"].clientWidth || $('#homeContainer')["0"].clientWidth
-				};
-			};
-			this.ToolBar = function () {
-				return {
-					dom: $('#mdToolbar')["0"],
-					node: document.querySelector("#mdToolbar"),
-					height: document.querySelector("#mdToolbar").clientHeight,
-					width: $('#mdToolbar')["0"].clientWidth || $('#mdToolbar')["0"].outerWidth
-				};
-			};
-			this.Panel = function () {
-				return {
-					dom: $('#homePanel')["0"],
-					node: document.querySelector("#homePanel"),
-					height: document.querySelector("#homePanel").clientHeight,
-					width: $('#homePanel')["0"].clientWidth || $('#homePanel')["0"].outerWidth
-				};
-			};
-			this.CookPanel = function () {
-				return {
-					dom: $('#cookPanel')["0"],
-					node: document.querySelector("#cookPanel"),
-					height: document.querySelector("#cookPanel").clientHeight,
-					width: $('#cookPanel')["0"].clientWidth || $('#cookPanel')["0"].outerWidth
-				};
-			};
-			this.EarnPanel = function () {
-				return {
-					dom: $('#earnPanel')["0"],
-					node: document.querySelector("#earnPanel"),
-					height: document.querySelector("#earnPanel").clientHeight,
-					width: $('#earnPanel')["0"].clientWidth || $('#earnPanel')["0"].outerWidth
-				};
-			};
-			this.Footer = function () {
-				return {
-					dom: $('#footer')["0"],
-					node: document.querySelector("#footer"),
-					height: document.querySelector("#footer").clientHeight,
-					width: $('#footer')["0"].clientWidth || $('#footer')["0"].outerWidth
-				};
-			};
-
-
-
-
-
-
 
 			this.$onInit = function () {
-				var homeContainer = that.HomeContainer().dom;
-				homeContainer.style.position = "relative";
-				homeContainer.style.left = "0px";
-				homeContainer.style.top = "0px";
+				// this.viewport = window.MEDIA_QUERIES.viewport;
+				// write(this.viewport, "this.viewport is displaying at: ");
+
+
+				this.innerWidth = window.innerWidth;
+				write(this.innerWidth, "this.innerWidth is displaying at: " + this.innerWidth);
 
 
 
-				var toolbar = that.ToolBar().dom;
-				toolbar.style.position = "relative";
-				toolbar.style.left = "0px";
-				toolbar.style.top = "0px";
 
 
 
-				var homePanel = that.Panel().dom;
-				var hpHeight = that.HomeContainer().height - (that.ToolBar().height * 2);
-				hpHeight = hpHeight + "px";
-				homePanel.style.height = hpHeight;
-				homePanel.style.position = "relative";
-				homePanel.style.padding = "5px";
-				homePanel.style.width = "100%";
-				homePanel.style.background = "#388E3C";
-				homePanel.style.position = "absolute";
-				homePanel.style.top = that.ToolBar().height + "px";
-				homePanel.style.left = "0px";
-
-				var cookPanel = that.CookPanel().dom;
-				cookPanel.style.position = "relative";
-				cookPanel.style.padding = "5px";
-				cookPanel.style.width = "100%";
-				cookPanel.style.background = "#FF6D00";
-				cookPanel.style.position = "absolute";
-				cookPanel.style.top = that.ToolBar().height + "px";
-				cookPanel.style.left = that.HomeContainer().height + "px";
-				cookPanel.style.height = hpHeight;
-
-				var earnPanel = that.EarnPanel().dom;
-				earnPanel.style.position = "relative";
-				earnPanel.style.padding = "5px";
-				earnPanel.style.width = "100%";
-				earnPanel.style.background = "#546E7A";
-				earnPanel.style.position = "absolute";
-				earnPanel.style.top = that.ToolBar().height + "px";
-				earnPanel.style.left = that.HomeContainer().height + "px";
-				earnPanel.style.height = hpHeight;
 
 
-
-				var footer = that.Footer().dom;
-				var footerHeight = homeContainer.clientHeight - (toolbar.clientHeight + (that.HomeContainer().height - (that.ToolBar().height * 2)) );
-				footerHeight = footerHeight + "px";
-				footer.style.height = footerHeight;
-				footer.style.width = "100%";
-				footer.style.background = "#2C7130";
-				footer.style.position = "absolute";
-				footer.style.bottom = "0px";
+				//Place these in the component where you want to use the window.mediaQuery
+				/*
+				window.mediaQuery_xsmall(viewport_xsmall);
+				window.mediaQuery_small(viewport_small);
+				window.mediaQuery_medium(viewport_medium);
+				window.mediaQuery_large(viewport_large);
+				window.mediaQuery_xlarge(viewport_xlarge);
+				window.mediaQuery_xxlarge(viewport_xxlarge);
+*/
 			};
 
 			this.go = function (menuItem) {
@@ -128,7 +41,7 @@ angular
 			};
 
 			this.showPanel = function (panel) {
-				var homeContainer = that.HomeContainer().dom;
+				var container = that.container().dom;
 				var toolbar = that.ToolBar().dom;
 				var homePanel = that.Panel().dom;
 				var cookPanel = that.CookPanel().dom;
@@ -138,24 +51,24 @@ angular
 
 				if (panel === 'cook') {
 					toolbar.style.background = "#CC5700";
-					homePanel.style.left = that.HomeContainer().width + "px";
-					earnPanel.style.left = that.HomeContainer().width + "px";
+					homePanel.style.left = that.container().width + "px";
+					earnPanel.style.left = that.container().width + "px";
 					cookPanel.style.left = "0px";
 					footer.style.background = "#CC5700";
 				}
 					
 				if (panel === 'earn') {
 					toolbar.style.background = "#435861";
-					homePanel.style.left = that.HomeContainer().width + "px";
-					cookPanel.style.left = that.HomeContainer().width + "px";
+					homePanel.style.left = that.container().width + "px";
+					cookPanel.style.left = that.container().width + "px";
 					earnPanel.style.left = "0px";
 					footer.style.background = "#435861";
 				}
 					
 				if (panel === 'home') {
 					toolbar.style.background = "#2C7130";
-					cookPanel.style.left = that.HomeContainer().width + "px";
-					earnPanel.style.left = that.HomeContainer().width + "px";
+					cookPanel.style.left = that.container().width + "px";
+					earnPanel.style.left = that.container().width + "px";
 					homePanel.style.left = "0px";
 					footer.style.background = "#2C7130";
 				}

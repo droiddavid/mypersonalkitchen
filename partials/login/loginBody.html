@@ -1,231 +1,470 @@
-<md-content id="homeContent">
+<div class="container" style="padding-left: 0px; padding-right: 0px; display: block-inline;">
 
-	<div id="homeContainer" class="homeContainer" style="text-align: center; width: 100%;">
-
-		<md-toolbar id="mdToolbar" layout-padding class="md-raised md-primary md-hue-2">
-			<div class="md-toolbar-tools">
-				<h2 style="text-align: center; width: 100%;">My Personal Kitchen</h2>
-			</div>
-		</md-toolbar>
-
-		<!-- homePanel homePanel homePanel homePanel homePanel homePanel homePanel -->
-		<div id="homePanel" class="col" style="color: white; text-align: center;">
-
-			<div 
-				style="position: relative; top: 0px; left: 0px;">
-				<br /><br />
-
-				<div id="homePhoto">
-					<!--<div id="homePhoto"><img src="images/pic13.jpg" /></div>-->
-					<!-- For modern browsers. 
-					<i class="material-icons">content_paste</i>-->
-
-					<!-- For IE9 or below. -->
-					<i class="material-icons" style="font-size: 1000%;">&#xE14F;</i>
-
+	<div id="toolbar" class="toolbar" style="display: inline;">
+		<nav class="navbar navbar-default dark-primary-color" style="margin-bottom: 1px; border-radius: 0px;">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar" style="background-color: white;"></span>
+						<span class="icon-bar" style="background-color: white;"></span>
+						<span class="icon-bar" style="background-color: white;"></span>
+					</button>
+					<a class="navbar-brand" style=" color: white;" href="#">My Personal Kitchen</a>
 				</div>
 
-				<div id="homeText">
-					<br />
-					<h1>Invite</h1>
-					<br /><br />
-					<p style="font-size: 120%;">
-						Invite your family and friends to buy your food.<br />
-						Tell them about your the platters you are inviting<br />
-						Your family and friends can order your food<br />
-						Electronically helping you to get paid right away!<br />
+				<!-- Collect the nav links, forms, and other content for toggling -->
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+					<ul class="nav navbar-nav navbar-right">
+						<li class="active">
+							<a href="#" style="color: white;"">Login <span class="sr-only">(current)</span></a>
+						</li>
+						<li><a href="#" style="color: white;">Sign Up</a></li>
+					</ul>
+				</div><!-- /.navbar-collapse -->
+			</div><!-- /.container-fluid -->
+		</nav>
+	</div>
+
+	<div class="jumbotron jumbotron-fluid" style="border-radius: 0px;margin-bottom: 0px;">
+
+<!-- 		<img 
+			src="images/homepage/homepage320.png" 
+			class="md-media-md" 
+			alt="AngularJS"
+		>
+ -->		
+		<h1 class="display-3">My Personal Kitchen</h1>
+		
+		<p class="lead">
+			Earn Money Selling Your Culinary Delights To Family and Friends.
+		</p>
+	</div>
+
+	<!-- homePanel homePanel homePanel homePanel homePanel homePanel homePanel -->
+	<div id="homePanel" class="homePanel" style="margin: 0px;">
+
+
+		<div class="singleColumnCard">
+			<md-card>
+				<md-card-content>
+					<md-card-title layout-align="center center">
+						<md-card-title-media flex="50">
+							<img 
+								src="images/homepage/homepage320.jpg" 
+								class="md-media-md" 
+								alt="AngularJS"
+							>
+						</md-card-title-media>
+
+						<!-- Title caption and description -->
+						<md-card-title-text flex="50">
+							<span class="md-headline">Invite</span>
+							<span class="md-subhead">Invite friends and family to taste your culinary designs.</span>
+						</md-card-title-text>
+					</md-card-title>
+
+					<p>
+						MyPersonalKitchen is Instagram, Snapchat &amp; Facebook enabled - so you can share photos and videos of your delectable dishes.<br /><br />
+						Use Venmo, PayPal, Even Botcoin to collect your dough!
 					</p>
-					<br /><br />
-				</div>
 
-				<div id="homeTextNavigation">
-					<span style="font-size: xx-large;">
-						<span ng-click="$ctrl.showPanel('home');">
-							&nbsp;&nbsp;•&nbsp;&nbsp;
-						</span>
-						<span ng-click="$ctrl.showPanel('cook');">
-							&nbsp;&nbsp;•&nbsp;&nbsp;
-						</span>
-						<span ng-click="$ctrl.showPanel('earn');">
-							&nbsp;&nbsp;•&nbsp;&nbsp;
-						</span>
-					</span>
-				</div>
-			</div>
+					<!--<div>
+						<md-button class="md-raised md-primary">Sign In</md-button>
+						<md-button class="md-raised md-primary">Sign Up</md-button>
+					</div>-->
 
-		</div>
-		<!-- homePanel homePanel homePanel homePanel homePanel homePanel homePanel -->
-		<!-- cookPanel cookPanel cookPanel cookPanel cookPanel cookPanel cookPanel -->
- 		<div id="cookPanel" class="col" style="color: white; text-align: center;">
+				</md-card-content>		
+			</md-card>
+			<md-card>
+				<md-card-content>
+					<md-card-title layout-align="center center">
+						<md-card-title-media flex="50">
+							<img 
+								src="images/homepage/homepage320.jpg" 
+								class="md-media-md" 
+								alt="AngularJS"
+							>
+						</md-card-title-media>
 
-			<div 
-				style="position: relative; top: 0px; left: 0px;">
-				<br /><br />
+						<!-- Title caption and description -->
+						<md-card-title-text flex="50">
+							<span class="md-headline">Cook</span>
+							<span class="md-subhead">Cook and have fun with your family and friends.</span>
+						</md-card-title-text>
+					</md-card-title>
 
-				<div id="cookPhoto">
-					<!--<div id="cookPhoto"><img src="images/pic13.jpg" /></div>-->
-					<!-- For modern browsers. 
-					<i class="material-icons">content_paste</i>-->
-
-					<!-- For IE9 or below. -->
- 					<i class="material-icons" style="font-size: 1000%;">&#xE14F;</i>
-
-				</div>
-
-				<div id="cookText">
-					<br />
-					<h1>Cook</h1>
-					<br /><br />
-					<p style="font-size: 120%;">
-						Invite your family and friends to buy your food.<br />
-						Tell them about your the platters you are cooking<br />
-						Your family and friends can order your food<br />
-						Electronically helping you to get paid right away!<br />
+					<p>
+						MyPersonalKitchen is Instagram, Snapchat &amp; Facebook enabled - so you can share photos and videos of your delectable dishes.<br /><br />
+						Use Venmo, PayPal, Even Botcoin to collect your dough!
 					</p>
-					<br /><br />
-				</div>
 
-				<div id="cookTextNavigation">
-					<span style="font-size: xx-large;">
-						<span ng-click="$ctrl.showPanel('home');">
-							&nbsp;&nbsp;•&nbsp;&nbsp;
-						</span>
-						<span ng-click="$ctrl.showPanel('cook');">
-							&nbsp;&nbsp;•&nbsp;&nbsp;
-						</span>
-						<span ng-click="$ctrl.showPanel('earn');">
-							&nbsp;&nbsp;•&nbsp;&nbsp;
-						</span>
-					</span>
-				</div>
-			</div>
+					<!--<div>
+						<md-button class="md-raised md-primary">Sign In</md-button>
+						<md-button class="md-raised md-primary">Sign Up</md-button>
+					</div>-->
+				</md-card-content>		
+			</md-card>
+			<md-card>
+				<md-card-content>
+					<md-card-title layout-align="center center">
+						<md-card-title-media flex="50">
+							<img 
+								src="images/homepage/homepage320.jpg" 
+								class="md-media-md" 
+								alt="AngularJS"
+							>
+						</md-card-title-media>
 
-		</div>
-		<!-- cookPanel cookPanel cookPanel cookPanel cookPanel cookPanel cookPanel -->
-		<!-- earnPanel earnPanel earnPanel earnPanel earnPanel earnPanel earnPanel -->
- 		<div id="earnPanel" class="col" style="color: white; text-align: center;">
+						<!-- Title caption and description -->
+						<md-card-title-text flex="50">
+							<span class="md-headline">Earn</span>
+							<span class="md-subhead">Earn money from your friends and family by treating them to their culinary delights, your culinary designs.</span>
+						</md-card-title-text>
+					</md-card-title>
 
-			<div 
-				style="position: relative; top: 0px; left: 0px;">
-				<br /><br />
-
-				<div id="earnPhoto">
-					<!--<div id="earnPhoto"><img src="images/pic13.jpg" /></div>-->
-					<!-- For modern browsers. 
-					<i class="material-icons">content_paste</i>-->
-
-					<!-- For IE9 or below. -->
- 					<i class="material-icons" style="font-size: 1000%;">&#xE14F;</i>
-
-				</div>
-
-				<div id="earnText">
-					<br />
-					<h1>Earn</h1>
-					<br /><br />
-					<p style="font-size: 120%;">
-						Invite your family and friends to buy your food.<br />
-						Tell them about your the platters you are earning<br />
-						Your family and friends can order your food<br />
-						Electronically helping you to get paid right away!<br />
+					<p>
+						MyPersonalKitchen is Instagram, Snapchat &amp; Facebook enabled - so you can share photos and videos of your delectable dishes.<br /><br />
+						Use Venmo, PayPal, Even Botcoin to collect your dough!
 					</p>
-					<br /><br />
-				</div>
 
-				<div id="earnTextNavigation">
-					<span style="font-size: xx-large;">
-						<span ng-click="$ctrl.showPanel('home');">
-							&nbsp;&nbsp;•&nbsp;&nbsp;
-						</span>
-						<span ng-click="$ctrl.showPanel('cook');">
-							&nbsp;&nbsp;•&nbsp;&nbsp;
-						</span>
-						<span ng-click="$ctrl.showPanel('earn');">
-							&nbsp;&nbsp;•&nbsp;&nbsp;
-						</span>
-					</span>
-				</div>
-			</div>
-
+					<!--<div>
+						<md-button class="md-raised md-primary">Sign In</md-button>
+						<md-button class="md-raised md-primary">Sign Up</md-button>
+					</div>-->
+				</md-card-content>		
+			</md-card>
 		</div>
-		<!-- earnPanel earnPanel earnPanel earnPanel earnPanel earnPanel earnPanel -->
 
-		<!-- footer footer footer footer -->
-		<div id="footer">
-			<div class="footer_left" style="padding-top: 3%;">
-				Login
-			</div>
 
-			<div class="footer_left footer_right" style="border-right: 1px solid black; padding-top: 3%;">
-				Register
-			</div>
+		<div class="doubleColumnCard">
+			<md-card>
+				<md-card-content>
+					<md-card-title layout-align="center center">
+						<md-card-title-media flex="50">
+							<img 
+								src="images/homepage/homepage320.jpg" 
+								class="md-media-md" 
+								alt="AngularJS"
+							>
+						</md-card-title-media>
+
+						<!-- Title caption and description -->
+						<md-card-title-text flex="50">
+							<span class="md-headline">Invite</span>
+							<span class="md-subhead">Invite friends and family to taste your culinary designs.</span>
+						</md-card-title-text>
+					</md-card-title>
+
+					<p>
+						MyPersonalKitchen is Instagram, Snapchat &amp; Facebook enabled - so you can share photos and videos of your delectable dishes.<br /><br />
+						Use Venmo, PayPal, Even Botcoin to collect your dough!
+					</p>
+
+					<!--<div>
+						<md-button class="md-raised md-primary">Sign In</md-button>
+						<md-button class="md-raised md-primary">Sign Up</md-button>
+					</div>-->
+
+				</md-card-content>		
+			</md-card>
+			<md-card>
+				<md-card-content>
+					<md-card-title layout-align="center center">
+						<md-card-title-media flex="50">
+							<img 
+								src="images/homepage/homepage320.jpg" 
+								class="md-media-md" 
+								alt="AngularJS"
+							>
+						</md-card-title-media>
+
+						<!-- Title caption and description -->
+						<md-card-title-text flex="50">
+							<span class="md-headline">Cook</span>
+							<span class="md-subhead">Cook and have fun with your family and friends.</span>
+						</md-card-title-text>
+					</md-card-title>
+
+					<p>
+						MyPersonalKitchen is Instagram, Snapchat &amp; Facebook enabled - so you can share photos and videos of your delectable dishes.<br /><br />
+						Use Venmo, PayPal, Even Botcoin to collect your dough!
+					</p>
+
+					<!--<div>
+						<md-button class="md-raised md-primary">Sign In</md-button>
+						<md-button class="md-raised md-primary">Sign Up</md-button>
+					</div>-->
+				</md-card-content>		
+			</md-card>
+			<md-card>
+				<md-card-content>
+					<md-card-title layout-align="center center">
+						<md-card-title-media flex="50">
+							<img 
+								src="images/homepage/homepage320.jpg" 
+								class="md-media-md" 
+								alt="AngularJS"
+							>
+						</md-card-title-media>
+
+						<!-- Title caption and description -->
+						<md-card-title-text flex="50">
+							<span class="md-headline">Earn</span>
+							<span class="md-subhead">Earn money from your friends and family by treating them to their culinary delights, your culinary designs.</span>
+						</md-card-title-text>
+					</md-card-title>
+
+					<p>
+						MyPersonalKitchen is Instagram, Snapchat &amp; Facebook enabled - so you can share photos and videos of your delectable dishes.<br /><br />
+						Use Venmo, PayPal, Even Botcoin to collect your dough!
+					</p>
+
+					<!--<div>
+						<md-button class="md-raised md-primary">Sign In</md-button>
+						<md-button class="md-raised md-primary">Sign Up</md-button>
+					</div>-->
+				</md-card-content>		
+			</md-card>
 		</div>
-		<!-- footer footer footer footer -->
 
 
+		<div class="tripleColumnCard">
+			<md-card>
+				<md-card-content>
+					<md-card-title layout-align="center center">
+						<md-card-title-media flex="50">
+							<img 
+								src="images/homepage/homepage320.jpg" 
+								class="md-media-md" 
+								alt="AngularJS"
+							>
+						</md-card-title-media>
+
+						<!-- Title caption and description -->
+						<md-card-title-text flex="50">
+							<span class="md-headline">Invite</span>
+							<span class="md-subhead">Invite friends and family to taste your culinary designs.</span>
+						</md-card-title-text>
+					</md-card-title>
+
+					<p>
+						MyPersonalKitchen is Instagram, Snapchat &amp; Facebook enabled - so you can share photos and videos of your delectable dishes.<br /><br />
+						Use Venmo, PayPal, Even Botcoin to collect your dough!
+					</p>
+				</md-card-content>
 
 
+				<!-- style="border: 1px solid blue; position: absolute; bottom: 0px; width: 100%; left: 0px;"Actions or buttons that you might need on card -->
+				<!--<md-card-actions layout-align="end end" style="position: relative; bottom: 0px; width: 100%; left: 0px;">
+					<md-button class="md-raised md-primary">Sign In</md-button>
+					<md-button class="md-raised md-primary">Sign Up</md-button>
+				</md-card-actions>-->
+
+			</md-card>
+			<md-card>
+				<md-card-content>
+					<md-card-title layout-align="center center">
+						<md-card-title-media flex="50">
+							<img 
+								src="images/homepage/homepage320.jpg" 
+								class="md-media-md" 
+								alt="AngularJS"
+							>
+						</md-card-title-media>
+
+						<!-- Title caption and description -->
+						<md-card-title-text flex="50">
+							<span class="md-headline">Cook</span>
+							<span class="md-subhead">Cook and have fun with your family and friends.</span>
+						</md-card-title-text>
+					</md-card-title>
+
+					<p>
+						MyPersonalKitchen is Instagram, Snapchat &amp; Facebook enabled - so you can share photos and videos of your delectable dishes.<br /><br />
+						Use Venmo, PayPal, Even Botcoin to collect your dough!
+					</p>
+				</md-card-content>
 
 
+				<!-- style="border: 1px solid blue; position: absolute; bottom: 0px; width: 100%; left: 0px;"Actions or buttons that you might need on card -->
+				<!--<md-card-actions layout-align="end end" style="position: relative; bottom: 0px; width: 100%; left: 0px;">
+					<md-button class="md-raised md-primary">Sign In</md-button>
+					<md-button class="md-raised md-primary">Sign Up</md-button>
+				</md-card-actions>-->
+
+			</md-card>
+			<md-card>
+				<md-card-content>
+					<md-card-title layout-align="center center">
+						<md-card-title-media flex="50">
+							<img 
+								src="images/homepage/homepage320.jpg" 
+								class="md-media-md" 
+								alt="AngularJS"
+							>
+						</md-card-title-media>
+
+						<!-- Title caption and description -->
+						<md-card-title-text flex="50">
+							<span class="md-headline">Earn</span>
+							<span class="md-subhead">Earn money from your friends and family by treating them to their culinary delights, your culinary designs.</span>
+						</md-card-title-text>
+					</md-card-title>
+
+					<p>
+						MyPersonalKitchen is Instagram, Snapchat &amp; Facebook enabled - so you can share photos and videos of your delectable dishes.<br /><br />
+						Use Venmo, PayPal, Even Botcoin to collect your dough!
+					</p>
+				</md-card-content>
 
 
+				<!-- style="border: 1px solid blue; position: absolute; bottom: 0px; width: 100%; left: 0px;"Actions or buttons that you might need on card -->
+				<!--<md-card-actions layout-align="end end" style="position: relative; bottom: 0px; width: 100%; left: 0px;">
+					<md-button class="md-raised md-primary">Sign In</md-button>
+					<md-button class="md-raised md-primary">Sign Up</md-button>
+				</md-card-actions>-->
 
-
-
-
-
-
-
-
-
+			</md-card>
+		</div>
 
 
 	</div>
-		
+	<!-- homePanel homePanel homePanel homePanel homePanel homePanel homePanel -->
+	
+
+<!--
+	<nav>
+ 		<h3>Navigation</h3>
+		<a class="nav-link" href="javascript:void(0)">Home</a>
+		<a class="nav-link" href="javascript:void(0)">Search</a>
+		<a class="nav-link" href="javascript:void(0)">Profile</a>
+		<a class="nav-link" href="javascript:void(0)">Memberships</a>
+		<a class="nav-link" href="javascript:void(0)">Specials</a> 
+	</nav>
+
+	<aside>
+ 		<h3>Sidebar</h3>
+		<p>“A work of art is good if it has sprung from necessity. In this nature of its origin lies the judgment of it: there is no other.”<br>- Rainer Maria Rilke</p> 
+	</aside>
+	<footer>
+		<md-button class="md-raised md-primary">Sign In</md-button>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<md-button class="md-raised md-primary">Sign Up</md-button>
+	</footer>
+-->
+</div>
+
+<!-- <div id="homeWrapper" class="homeWrapper">
+
+	<div id="toolbar" class="toolbar">
+		<h3>My Personal Kitchen</h3>	
+	</div>
+
+
+
+	<div id="homePanel" class="homePanel">
+		<div id="homePhoto" class="homePhoto">
+			<img src="images/pic13.jpg" />
+			--><!--<i class="material-icons" style="font-size: 1000%;">content_paste</i>-->
+		<!--</div>
+
+		<div id="homeText" class="homeText">
+			<h1>Invite</h1>
+			<p>Invite friends and family to taste your culinary designs.</p>
+		</div>
+	</div>
+
+
+
+	<div id="footer" class="footer">
+		<div class="loginButton">
+			<button class="btn btn-primary">Login</button>
+		</div>
+
+		<div class="registerButton">
+			<button class="btn btn-primary">Register</button>			
+		</div>
+	</div>
+
+
+</div>
+	 -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <!--
 
 
- 		<md-tabs id="frontPageTabs" layout-padding md-selected="1" md-stretch-tabs="always" md-dynamic-height md-center-tabs>
+		<md-tabs id="frontPageTabs" layout-padding md-selected="1" md-stretch-tabs="always" md-dynamic-height md-center-tabs>
 
-			<md-tab label="About">
-				<h2>About Us</h2>
+		<md-tab label="About">
+			<h2>About Us</h2>
 
-				<h4>Family and Friends</h4>
-				<p class="light-primary-color" style="padding: 5px; border: 1px solid green; border-radius: 5px;">
-					We recognized that there are many people who cook food for their family and friends, yet, have no app for it and are unable to pay the vast amounts of money it takes to create a mobile app in today's world. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie, tellus nec tincidunt eleifend, dui magna feugiat dolor, eu placerat purus urna in ligula. Maecenas imperdiet mi ut sapien efficitur, id mattis ipsum vestibulum. 
-				</p>
-				<p class="light-primary-color" style="padding: 5px; border: 1px solid green; border-radius: 5px;">
-					So, we created one.  My Personal Kitchen is your very own mobile app and website capable of sporting your branding and logo.  It's sole purpose is to provide home cooks with a platform which will allow them to provide food services to their family and friends. Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-				</p>
-				<p class="light-primary-color" style="padding: 5px; border: 1px solid green; border-radius: 5px;">
-					Upgrade your home kitchen to the mobile web for free! Aenean quis eleifend nisi, sit amet pulvinar leo. Integer odio erat, feugiat quis purus sed, auctor rutrum magna. Proin molestie, massa ac aliquet volutpat, metus est hendrerit erat, a tristique sapien nulla in enim. Pellentesque eros lectus, euismod id mauris eget, imperdiet elementum ligula.
-				</p>
+			<h4>Family and Friends</h4>
+			<p class="light-primary-color" style="padding: 5px; border: 1px solid green; border-radius: 5px;">
+				We recognized that there are many people who cook food for their family and friends, yet, have no app for it and are unable to pay the vast amounts of money it takes to create a mobile app in today's world. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie, tellus nec tincidunt eleifend, dui magna feugiat dolor, eu placerat purus urna in ligula. Maecenas imperdiet mi ut sapien efficitur, id mattis ipsum vestibulum. 
+			</p>
+			<p class="light-primary-color" style="padding: 5px; border: 1px solid green; border-radius: 5px;">
+				So, we created one.  My Personal Kitchen is your very own mobile app and website capable of sporting your branding and logo.  It's sole purpose is to provide home cooks with a platform which will allow them to provide food services to their family and friends. Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+			</p>
+			<p class="light-primary-color" style="padding: 5px; border: 1px solid green; border-radius: 5px;">
+				Upgrade your home kitchen to the mobile web for free! Aenean quis eleifend nisi, sit amet pulvinar leo. Integer odio erat, feugiat quis purus sed, auctor rutrum magna. Proin molestie, massa ac aliquet volutpat, metus est hendrerit erat, a tristique sapien nulla in enim. Pellentesque eros lectus, euismod id mauris eget, imperdiet elementum ligula.
+			</p>
 
-				<h4>Create</h4>
-				<p class="default-primary-color" style="padding: 5px; border: 1px solid green; border-radius: 5px;">
-					Create a list of the food you prepare. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie, tellus nec tincidunt eleifend, dui magna feugiat dolor, eu placerat purus urna in ligula. Maecenas imperdiet mi ut sapien efficitur, id mattis ipsum vestibulum. Pellentesque congue dictum nisi, semper sagittis nunc sollicitudin sed. Praesent non elit commodo, sagittis quam nec, auctor erat.
-				</p>
+			<h4>Create</h4>
+			<p class="default-primary-color" style="padding: 5px; border: 1px solid green; border-radius: 5px;">
+				Create a list of the food you prepare. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie, tellus nec tincidunt eleifend, dui magna feugiat dolor, eu placerat purus urna in ligula. Maecenas imperdiet mi ut sapien efficitur, id mattis ipsum vestibulum. Pellentesque congue dictum nisi, semper sagittis nunc sollicitudin sed. Praesent non elit commodo, sagittis quam nec, auctor erat.
+			</p>
 
-				<h4>Invite</h4>
-				<p class="default-primary-color" style="padding: 5px; border: 1px solid green; border-radius: 5px;">Invite your friends to visit your personal kitchen.  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie, tellus nec tincidunt eleifend, dui magna feugiat dolor, eu placerat purus urna in ligula. Maecenas imperdiet mi ut sapien efficitur, id mattis ipsum vestibulum. Pellentesque congue dictum nisi, semper sagittis nunc sollicitudin sed. </p>
+			<h4>Invite</h4>
+			<p class="default-primary-color" style="padding: 5px; border: 1px solid green; border-radius: 5px;">Invite your friends to visit your personal kitchen.  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie, tellus nec tincidunt eleifend, dui magna feugiat dolor, eu placerat purus urna in ligula. Maecenas imperdiet mi ut sapien efficitur, id mattis ipsum vestibulum. Pellentesque congue dictum nisi, semper sagittis nunc sollicitudin sed. </p>
 
-				<h4>Cook</h3>
-				<p class="default-primary-color" style="padding: 5px; border: 1px solid green; border-radius: 5px;">Cook food for your family and friends.  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie, tellus nec tincidunt eleifend, dui magna feugiat dolor, eu placerat purus urna in ligula. Maecenas imperdiet mi ut sapien efficitur, id mattis ipsum vestibulum.</p>
-			</md-tab>
+			<h4>Cook</h3>
+			<p class="default-primary-color" style="padding: 5px; border: 1px solid green; border-radius: 5px;">Cook food for your family and friends.  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie, tellus nec tincidunt eleifend, dui magna feugiat dolor, eu placerat purus urna in ligula. Maecenas imperdiet mi ut sapien efficitur, id mattis ipsum vestibulum.</p>
+		</md-tab>
 
-			<md-tab label="Login" >
-				<md-tab-body layout-padding="true">
-					<login person="person"><login>
-				</md-tab-body>
-			</md-tab>
+		<md-tab label="Login" >
+			<md-tab-body layout-padding="true">
+				<login person="person"><login>
+			</md-tab-body>
+		</md-tab>
 
-			<md-tab label="Register">
-				<md-tab-body layout-padding="true">
-					<h4>Registration Component Goes Here!</h4>
-					<register></register>
-				</md-tab-body>
-			</md-tab>
+		<md-tab label="Register">
+			<md-tab-body layout-padding="true">
+				<h4>Registration Component Goes Here!</h4>
+				<register></register>
+			</md-tab-body>
+		</md-tab>
 
-		</md-tabs> -->
-
-</md-content>
+	</md-tabs> -->

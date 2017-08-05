@@ -17,12 +17,9 @@
 
 		<!-- Material Design Lite Theme color. -->
 		<link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.green-light_green.min.css" />
-
-		
-		<link href="css/master.css" rel="stylesheet">
 	</head>
 
-	<body id="appBody" class="column" 
+	<body class="light-primary-color" 
 		ng-app="app" 
 		ng-cloak 
 		ng-controller="IndexController">
@@ -30,13 +27,78 @@
 
 
 
-		<!-- Always shows a header, even in smaller screens. -->
-		<div id="appBodyConent" class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-			<main class="mdl-layout__content">
-				<!--<div ui-view style="border: 4px solid red; height: 400px;"></div>-->
 				<div id="uiview" ui-view></div>
-			</main>
-		</div>
+
+
+
+<script>
+	var MEDIA_QUERIES = {
+		viewport: ""
+	};
+	function mediaQuery_xsmall(viewport_xsmall) {
+		document.body.style.backgroundColor = (viewport_xsmall.matches) ? "green" : "green";
+		console.log("window.MEDIA_QUERIES.viewport: " + window.MEDIA_QUERIES.viewport + " | " + window.innerWidth);
+			//debugger;
+
+		return window.MEDIA_QUERIES.viewport;
+	}
+	function mediaQuery_small(viewport_small) {
+		document.body.style.backgroundColor = (viewport_small.matches) ? "green" : "green";
+		window.MEDIA_QUERIES.viewport = "small";
+		console.log("window.MEDIA_QUERIES.viewport: " + window.MEDIA_QUERIES.viewport + " | " + window.innerWidth);
+
+		return window.MEDIA_QUERIES.viewport;
+	}
+	function mediaQuery_medium(viewport_medium) {
+		document.body.style.backgroundColor = (viewport_medium.matches) ? "green" : "green";
+		window.MEDIA_QUERIES.viewport = "medium";
+		console.log("window.MEDIA_QUERIES.viewport: " + window.MEDIA_QUERIES.viewport + " | " + window.innerWidth);
+
+		return window.MEDIA_QUERIES.viewport;
+	}
+	function mediaQuery_large(viewport_large) {
+		document.body.style.backgroundColor = (viewport_large.matches) ? "green" : "green";
+		window.MEDIA_QUERIES.viewport = "large";
+		console.log("window.MEDIA_QUERIES.viewport: " + window.MEDIA_QUERIES.viewport + " | " + window.innerWidth);
+
+		return window.MEDIA_QUERIES.viewport;
+	}
+	function mediaQuery_xlarge(viewport_xlarge) {
+		document.body.style.backgroundColor = (viewport_xlarge.matches) ? "green" : "green";
+		window.MEDIA_QUERIES.viewport = "xlarge";
+		console.log("window.MEDIA_QUERIES.viewport: " + window.MEDIA_QUERIES.viewport + " | " + window.innerWidth);
+
+		return window.MEDIA_QUERIES.viewport;
+	}
+	function mediaQuery_xxlarge(viewport_xxlarge) {
+		document.body.style.backgroundColor = (viewport_xxlarge.matches) ? "green" : "green";
+		window.MEDIA_QUERIES.viewport = "xxlarge";
+		console.log("window.MEDIA_QUERIES.viewport: " + window.MEDIA_QUERIES.viewport + " | " + window.innerWidth);
+
+		return window.MEDIA_QUERIES.viewport;
+	}
+	var viewport_xsmall = window.matchMedia("(max-width: 320px)");
+	viewport_xsmall.addListener(mediaQuery_xsmall);
+
+	var viewport_small = window.matchMedia("(max-width: 480px)");
+	viewport_small.addListener(mediaQuery_small);
+
+	var viewport_medium = window.matchMedia("(max-width: 640px)");
+	viewport_medium.addListener(mediaQuery_medium);
+
+	var viewport_large = window.matchMedia("(max-width: 800px)");
+	viewport_large.addListener(mediaQuery_large);
+
+	var viewport_xlarge = window.matchMedia("(max-width: 1024px)")
+	viewport_xlarge.addListener(mediaQuery_xlarge)
+
+	var viewport_xxlarge = window.matchMedia("(max-width: 1200px)")
+	viewport_xxlarge.addListener(mediaQuery_xxlarge)
+</script>
+
+
+
+
 
 
 
@@ -176,6 +238,14 @@
 		<script type="text/javascript" src="js/htmlmedia/service.htmlmedia.js"></script>
 
 		<script type="text/javascript" src="js/components/hamburger_menu_item.js"></script>
+
+
+
+
+
+		
+		<!--<link href="css/master.css" rel="stylesheet">-->
+		<link href="css/loginBody.css" rel="stylesheet">
 
 
 		<!-- Scripts -->
