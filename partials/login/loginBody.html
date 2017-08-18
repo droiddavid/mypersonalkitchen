@@ -16,33 +16,39 @@
 				<!-- Collect the nav links, forms, and other content for toggling -->
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 					<ul class="nav navbar-nav navbar-right">
-						<li class="active">
-							<a href="#" style="color: white;"">Login <span class="sr-only">(current)</span></a>
+						<li>
+							<a ng-click="$ctrl.login();" style="color: white;"">Login <span class="sr-only">(current)</span></a>
 						</li>
-						<li><a href="#" style="color: white;">Sign Up</a></li>
+						<li><a ng-click="$ctrl.signup();" style="color: white;">Sign Up</a></li>
 					</ul>
 				</div><!-- /.navbar-collapse -->
 			</div><!-- /.container-fluid -->
 		</nav>
 	</div>
 
-	<div class="jumbotron jumbotron-fluid" style="border-radius: 0px;margin-bottom: 0px;">
+	<div id="jumbotron" class="jumbotron jumbotron-fluid" style="border-radius: 0px; margin-bottom: 0px;
+		padding: 0px;">
 
-<!-- 		<img 
-			src="images/homepage/homepage320.png" 
-			class="md-media-md" 
-			alt="AngularJS"
-		>
- -->		
-		<h1 class="display-3">My Personal Kitchen</h1>
-		
-		<p class="lead">
-			Earn Money Selling Your Culinary Delights To Family and Friends.
-		</p>
+		<div id="indexImage" class="indexImage">
+			<img
+				src="images/homepage/homepage320.png"
+				class="md-media-md homepageFallbackImage"
+				alt="home page image"
+			>
+		</div>
+
+		<div id="indexText" class="indexText">
+			<h1 class="display-3">My Personal Kitchen</h1>
+
+			<p class="lead">
+				Earn Money Selling Your Culinary Delights To Family and Friends.
+			</p>
+		</div>
 	</div>
 
-	<!-- homePanel homePanel homePanel homePanel homePanel homePanel homePanel -->
-	<div id="homePanel" class="homePanel" style="margin: 0px;">
+
+	<!-- cards cards cards cards cards cards cards -->
+	<div id="cards" class="cards" style="margin: 0px;">
 
 
 		<div class="singleColumnCard">
@@ -327,73 +333,30 @@
 
 			</md-card>
 		</div>
-
-
 	</div>
-	<!-- homePanel homePanel homePanel homePanel homePanel homePanel homePanel -->
+	<!-- cards cards cards cards cards cards cards -->
+
+
+	<!-- login login login login login login login -->
+	<div id="login" class="login">
+		<login person="person"><login>
+	</div>
+	<!-- login login login login login login login -->
+
+
+	<!-- register register register register register -->
+	<div id="register" class="register">	
+		<register></register>
+	</div>
+	<!-- register register register register register -->
 	
 
-<!--
-	<nav>
- 		<h3>Navigation</h3>
-		<a class="nav-link" href="javascript:void(0)">Home</a>
-		<a class="nav-link" href="javascript:void(0)">Search</a>
-		<a class="nav-link" href="javascript:void(0)">Profile</a>
-		<a class="nav-link" href="javascript:void(0)">Memberships</a>
-		<a class="nav-link" href="javascript:void(0)">Specials</a> 
-	</nav>
-
-	<aside>
- 		<h3>Sidebar</h3>
-		<p>“A work of art is good if it has sprung from necessity. In this nature of its origin lies the judgment of it: there is no other.”<br>- Rainer Maria Rilke</p> 
-	</aside>
 	<footer>
-		<md-button class="md-raised md-primary">Sign In</md-button>
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<md-button class="md-raised md-primary">Sign Up</md-button>
+		<span style="color: white;">
+			<h3>Use what you got to get what you want!</h3>
+		</span>
 	</footer>
--->
 </div>
-
-<!-- <div id="homeWrapper" class="homeWrapper">
-
-	<div id="toolbar" class="toolbar">
-		<h3>My Personal Kitchen</h3>	
-	</div>
-
-
-
-	<div id="homePanel" class="homePanel">
-		<div id="homePhoto" class="homePhoto">
-			<img src="images/pic13.jpg" />
-			--><!--<i class="material-icons" style="font-size: 1000%;">content_paste</i>-->
-		<!--</div>
-
-		<div id="homeText" class="homeText">
-			<h1>Invite</h1>
-			<p>Invite friends and family to taste your culinary designs.</p>
-		</div>
-	</div>
-
-
-
-	<div id="footer" class="footer">
-		<div class="loginButton">
-			<button class="btn btn-primary">Login</button>
-		</div>
-
-		<div class="registerButton">
-			<button class="btn btn-primary">Register</button>			
-		</div>
-	</div>
-
-
-</div>
-	 -->
-
-
 
 
 
@@ -424,10 +387,7 @@
 
 
 <!--
-
-
-		<md-tabs id="frontPageTabs" layout-padding md-selected="1" md-stretch-tabs="always" md-dynamic-height md-center-tabs>
-
+	<md-tabs id="frontPageTabs" layout-padding md-selected="1" md-stretch-tabs="always" md-dynamic-height md-center-tabs>
 		<md-tab label="About">
 			<h2>About Us</h2>
 
@@ -466,5 +426,4 @@
 				<register></register>
 			</md-tab-body>
 		</md-tab>
-
 	</md-tabs> -->

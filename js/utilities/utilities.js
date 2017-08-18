@@ -95,4 +95,36 @@ function onSignIn(googleUser) {
 }
 
 
-var WEB_SERVER = "127.0.0.1";
+//var WEB_SERVER = "127.0.0.1";
+var WEB_SERVER = "www.mypersonalkitchen.com";
+
+var MEDIA_QUERIES = {
+	viewport: ""
+};
+function mediaQuery_xsmall(viewport_xsmall) {
+	document.body.style.backgroundColor = (viewport_xsmall.matches) ? "green" : "green";
+	//console.log("window.MEDIA_QUERIES.viewport: " + window.MEDIA_QUERIES.viewport + " | " + window.innerWidth);
+	return window.MEDIA_QUERIES.viewport; }
+function mediaQuery_small(viewport_small) { return window.MEDIA_QUERIES.viewport; }
+function mediaQuery_medium(viewport_medium) { return window.MEDIA_QUERIES.viewport; }
+function mediaQuery_large(viewport_large) { return window.MEDIA_QUERIES.viewport; }
+function mediaQuery_xlarge(viewport_xlarge) { return window.MEDIA_QUERIES.viewport; }
+function mediaQuery_xxlarge(viewport_xxlarge) { return window.MEDIA_QUERIES.viewport; }
+
+var viewport_xsmall = window.matchMedia("(max-width: 320px)");
+viewport_xsmall.addListener(mediaQuery_xsmall);
+
+var viewport_small = window.matchMedia("(max-width: 480px)");
+viewport_small.addListener(mediaQuery_small);
+
+var viewport_medium = window.matchMedia("(max-width: 640px)");
+viewport_medium.addListener(mediaQuery_medium);
+
+var viewport_large = window.matchMedia("(max-width: 800px)");
+viewport_large.addListener(mediaQuery_large);
+
+var viewport_xlarge = window.matchMedia("(max-width: 1024px)")
+viewport_xlarge.addListener(mediaQuery_xlarge);
+
+var viewport_xxlarge = window.matchMedia("(max-width: 1200px)")
+viewport_xxlarge.addListener(mediaQuery_xxlarge);

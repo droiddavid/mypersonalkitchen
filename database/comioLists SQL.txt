@@ -454,3 +454,101 @@ Social Media Contacts
 	Facebook, Twitter, G+, Email
 Hours of operation
 Private/Semi-Private/Public
+
+
+
+
+Understanding roles, responsibilities, authentication and authorization:
+
+1. Users - People who will use the system. Here I have usernames and passwords.
+
+2. Roles - Collection of roles that users can have. Stuff like guest, member, cook, admin, etc.
+	* 	Fine too. But you will also need a "UserRoles" entity/table that will tell you which users have 		which roles. 
+
+	*	It is likely that a given user may have two or more roles.
+
+3. Resources - Things that users can manipulate. Like food, platters, profile, shopping cart, etc.
+	*	Users don't directly manipulate resources; roles do. 
+
+	*	User -> User Role -> Role -> Operation -> Resource
+
+4. Operations - Things that users can do with the resources. Like create, read, update or delete.
+	*	Except "roles" instead of "users"
+
+5.	The permissions table will look like this (one row of it): 
+	*	ID: 1, operation: create, resource: contract. 
+
+	*	Which means a permission to create a contract.
+
+	*	Hmmm. There are two ways to go with this:
+		A.	You could have the permissions table you describe, but you would also need an additional
+			RolePermissions table/entity that tells you which role has which permission. But I am not sure that is necessary.
+
+		B.	A simpler way to do it is a permissions table/entity with these columns/attributes: Role ID, 		Operation ID, ResourceID. 
+				That way, operations x resource combinations are assigned directly to a role, rather than loaded into a permission that is assigned to a role. 
+
+				It eliminates one entity. 
+
+				There really isn't need for a separate role-agnostic permissions table, unless you wish to predefine what permissions combinations are allowed and which ones are not.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Abstract
+
+A fundamental discussion on user logins in an environment where user roles determine access to application resources.
+
+Definition of roles: 
+4 – guest – can view own profile and seller offerings.
+
+3 – member – can view own profile, 
+	view seller offerings, 
+	make purchase, 
+	send invitatations
+
+2 – driver – can view own profile, 
+	delivery orders, 
+	view seller offerings, 
+	make purchase, 
+	send invitatations.
+
+1 – cook – has access to all resource under own profile.
+
+0 – admin – has access to all resources.
+
+
+
+User Stories
+
+Guest
+1. As a guest, I want to view the front page.
+2. As a guest, I want to sign up.
+3. As a guest, I want to search for cooks.
+4. As a guest, I want to view cooks' products and info.
+5. As a guest, I want to select a cook's product.
+6. As a guest, I want to add products to my shopping cart.
+7. As a guest, I cannot check out.
+
+
+
+
+
+
+
+
+

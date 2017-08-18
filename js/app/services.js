@@ -145,8 +145,11 @@ angular.module('app').service('ProfileService', ['$http', 'Database', 'Session',
 
 angular.module('app').service('Database', ['$http', function ($http) {
 	'use strict';
+	//development baseUrl
+	//var baseUrl = 'http://' + WEB_SERVER + '/mypersonalkitchen/database';
 
-	var baseUrl = 'http://' + WEB_SERVER + '/mypersonalkitchen/database';
+	//production baseUrl
+	var baseUrl = 'http://' + WEB_SERVER + '/database';
 
 	var url = {
 		select: baseUrl + '/select.php',
@@ -159,6 +162,9 @@ angular.module('app').service('Database', ['$http', function ($http) {
 	};
 
 	return this.Database = {
+		testPHP: function () {
+			return $http.post(baseUrl + '/phptest.php');
+		},
 		select: function (obj) {
 			return $http.post(url.select, {
 				fields: 	obj.fields,
@@ -185,8 +191,6 @@ angular.module('app').service('Database', ['$http', function ($http) {
 		insert: function (obj) {
 			return $http.post(url.insert, obj);
 		},
-
-
 		delete: function (obj) {
 			return $http.post(url.delete, {
 				fieldName: 	obj.fieldName,
@@ -194,8 +198,6 @@ angular.module('app').service('Database', ['$http', function ($http) {
 				fieldValue: obj.fieldValue
 			});
 		},
-
-
 		delete2: function (obj) {
 			//debugger;
 			return $http.post(url.delete2, {
@@ -206,8 +208,6 @@ angular.module('app').service('Database', ['$http', function ($http) {
 				secondFieldValue: obj.secondFieldValue
 			});
 		},
-
-
 		update: function (table, columnsArray, where, requiredColumnsArray) {
 
 			return $http.post(url.update, {
@@ -216,10 +216,7 @@ angular.module('app').service('Database', ['$http', function ($http) {
 				where: where, 
 				requiredColumnsArray: requiredColumnsArray
 			});
-
 		},
-		
-
 		//Build a select statement based on a form's fields and a fieldList of required fields.
 		buildSelect: function (formFields, table, fieldList) {
 
@@ -255,7 +252,6 @@ angular.module('app').service('Database', ['$http', function ($http) {
 			} //for
 
 			return select;
-
 		} //buildSelect
 
 	}; // this.Database

@@ -10,30 +10,16 @@ angular
 
 			var that = this;
 
+			that.person = undefined;
+
 			this.$onInit = function () {
-				// this.viewport = window.MEDIA_QUERIES.viewport;
-				// write(this.viewport, "this.viewport is displaying at: ");
 
-
-				this.innerWidth = window.innerWidth;
-				write(this.innerWidth, "this.innerWidth is displaying at: " + this.innerWidth);
-
-
-
-
-
-
-
-
-				//Place these in the component where you want to use the window.mediaQuery
-				/*
-				window.mediaQuery_xsmall(viewport_xsmall);
-				window.mediaQuery_small(viewport_small);
-				window.mediaQuery_medium(viewport_medium);
-				window.mediaQuery_large(viewport_large);
-				window.mediaQuery_xlarge(viewport_xlarge);
-				window.mediaQuery_xxlarge(viewport_xxlarge);
-*/
+				that.person = {
+					firstName: "Test Data Firstname",
+					lastName: "Test Data Lastname",
+					emailAddress: "TestData@EmailAddr.ess",
+					password: "Test Data Password"
+				};
 			};
 
 			this.go = function (menuItem) {
@@ -72,6 +58,35 @@ angular
 					homePanel.style.left = "0px";
 					footer.style.background = "#2C7130";
 				}
+			};
+
+			this.login = function () {
+				//remove the cards from the display
+				var cards = document.querySelector(".cards");
+				cards.style.display = "none";
+
+				//add the register form to the display
+				var register = document.querySelector(".register");
+				register.style.display = "none";
+
+				//add the login form to the display
+				var login = document.querySelector(".login");
+				login.style.display = "block";
+			};
+
+			this.signup = function () {
+
+				//remove the cards from the display
+				var cards = document.querySelector(".cards");
+				cards.style.display = "none";
+
+				//add the login form to the display
+				var login = document.querySelector(".login");
+				login.style.display = "none";
+
+				//add the register form to the display
+				var register = document.querySelector(".register");
+				register.style.display = "block";
 			};
 
 			/*
@@ -228,26 +243,6 @@ angular.module('app').component('mdCardTemplate', {
 });
 
 /*****************************************************/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

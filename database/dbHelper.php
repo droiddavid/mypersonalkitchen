@@ -1,10 +1,12 @@
 <?php
-require_once 'config.php'; // Database setting constants [DB_HOST, DB_NAME, DB_USERNAME, DB_PASSWORD]
+require_once 'config.php'; 
+
 class dbHelper {
     private $db;
     private $err;
     function __construct() {
         $dsn = 'mysql:host='.DB_HOST.';dbname='.DB_NAME.';charset=utf8';
+
         try {
             $this->db = new PDO($dsn, DB_USERNAME, DB_PASSWORD, array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
         } catch (PDOException $e) {
@@ -192,7 +194,6 @@ class dbHelper {
         }
         return $response;
     }
-  
     function verifyRequiredParams($inArray, $requiredColumns) {
         $error = false;
         $errorColumns = "";
