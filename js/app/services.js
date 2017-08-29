@@ -149,7 +149,7 @@ angular.module('app').service('Database', ['$http', function ($http) {
 	//var baseUrl = 'http://' + WEB_SERVER + '/mypersonalkitchen/database';
 
 	//production baseUrl
-	var baseUrl = 'http://' + WEB_SERVER + '/database';
+	var baseUrl = 'https://' + WEB_SERVER + '/database';
 
 	var url = {
 		select: baseUrl + '/select.php',
@@ -162,9 +162,6 @@ angular.module('app').service('Database', ['$http', function ($http) {
 	};
 
 	return this.Database = {
-		testPHP: function () {
-			return $http.post(baseUrl + '/phptest.php');
-		},
 		select: function (obj) {
 			return $http.post(url.select, {
 				fields: 	obj.fields,

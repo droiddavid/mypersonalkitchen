@@ -1,6 +1,11 @@
+/*global angular */
+/*jslint plusplus: true */
+
 angular.module('app').component('guestDashboard', {
 	//NOTE: nothing to bind to at this time.
 	controller: ['$http', '$state', '$mdToast', 'Database', 'Session', function ($http, $state, $mdToast, Database, Session) {
+		'use strict';
+
 		var that = this;
 
 		this.cooks = undefined;
@@ -8,9 +13,12 @@ angular.module('app').component('guestDashboard', {
 
 		this.$onInit = function () {
 
+			debugger;
+			var session = Session;
+
 			that.cooks = Session.Collections.cooks;
 
-			that.cooks.forEach(function (cook, index) {
+			that.cooks.forEach(function (cook) {
 				that.sqlInString += cook.userId + ',';
 			});
 			that.sqlInString = that.sqlInString.substring(that.sqlInString, that.sqlInString.length - 1);

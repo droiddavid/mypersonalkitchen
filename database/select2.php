@@ -5,7 +5,6 @@
 
 	$_POST = json_decode(file_get_contents('php://input'), true);
 
-
 	if (!isset($_POST['table'])) { $errors['table'] = 'table is required.'; }
 	if (!isset($_POST['firstFieldName'])) { $errors['firstFieldName'] = 'First Field Name is required.'; }
 	if (!isset($_POST['firstFieldValue'])) { $errors['firstFieldValue'] = 'First Field Value is required.'; }
@@ -18,7 +17,6 @@
 	$firstFieldValue = $_POST['firstFieldValue'];
 	$secondFieldName = $_POST['secondFieldName'];
 	$secondFieldValue = $_POST['secondFieldValue'];
-
 
 	$rows = $db->select($table,array($firstFieldName=>$firstFieldValue,$secondFieldName=>$secondFieldValue));
 	

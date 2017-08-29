@@ -8,11 +8,16 @@ class dbHelper {
         $dsn = 'mysql:host='.DB_HOST.';dbname='.DB_NAME.';charset=utf8';
 
         try {
+            //echo "trying...";
             $this->db = new PDO($dsn, DB_USERNAME, DB_PASSWORD, array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+           // echo "succeeded...";
         } catch (PDOException $e) {
+            //echo "failed.";
             $response["status"] = "error";
             $response["message"] = 'Connection failed: ' . $e->getMessage();
             $response["data"] = null;
+            $msg = $e->getMessage();
+            echo "msg: ".$e->getMessage();
             exit;
         }
     }
@@ -121,7 +126,7 @@ class dbHelper {
             $c = rtrim($c,', ');
             $v = rtrim($v,', ');
             $stmt =  $this->db->prepare("INSERT INTO $table($c) VALUES($v)");
-            echo "INSERT INTO $table($c) VALUES($v)";
+            //echo "INSERT INTO $table($c) VALUES($v)";
             $stmt->execute($a);
             $affected_rows = $stmt->rowCount();
             $response["status"] = "success";

@@ -1,6 +1,6 @@
 <?php
-define('DB_USERNAME', 'myWebUser');
-define('DB_PASSWORD', 'G0thamC1ty@');
-define('DB_HOST', 'mypersonalkitchen.com');
+define('DB_USERNAME', 'mpk_webuser');
+define('DB_PASSWORD', 'locutus');
+define('DB_HOST', 'localhost'); //mypersonalkitchen.com    localhost
 define('DB_NAME', 'mypersonalkitchen');
 ?>

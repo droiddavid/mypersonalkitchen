@@ -8,9 +8,6 @@
 	$reqCols = array(); 	//required fields for the insert
 	$table = $_POST["table"];
 
-	echo "sql: ";
-	print_r($sql);
-
 
 	foreach ($_POST as $key => $value) {
 		if (!($key == "table"))
@@ -18,20 +15,11 @@
 	}
 	unset($value);
 
-	echo "sql: ";
-	print_r($sql);
-
 	foreach ($_POST as $key => $value) {
 		if (!($key == "table"))
 			$reqCols[] = $key;
 	}
 	unset($value);
-
-	echo "reqCols: ";
-	print_r($reqCols);
-
-	echo "post table";
-	print_r($_POST["table"]);
 
 	//fetch rows
 	$rows = $db->insert($_POST["table"], $sql, $reqCols);
