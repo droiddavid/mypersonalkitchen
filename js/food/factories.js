@@ -18,7 +18,7 @@ angular.module('app').factory('Food', ['$http', function ($http) {
 	/* Public properties, assigned to the instance ('this') */
 	Food.prototype.personId = 0;
 
-	var baseUrl = 'http://' + WEB_SERVER + '/mypersonalkitchen/database';
+	var baseUrl = 'https://' + WEB_SERVER + '/mypersonalkitchen/database';
 	Food.prototype.urls = {
 		"getFood"			: baseUrl + '/getFood.php',
 		"addNew" 			: baseUrl + '/addNewFoodItem.php',

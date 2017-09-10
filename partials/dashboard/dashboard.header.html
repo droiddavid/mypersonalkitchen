@@ -11,7 +11,7 @@
 
 			<a class="navbar-brand" ui-sref="index" style="color: black;">
 				<i class="material-icons" style="padding-right: 15px;">keyboard_arrow_left</i>
-				<h3 style="display: inline;">Dashboard</h3>
+				<h3 style="display: inline;">{{ $ctrl.header.name }} Dashboard</h3>
 			</a>
 		</div>
 
@@ -19,30 +19,9 @@
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav navbar-right">
 
-			<!--<hamburger link='elloHay' linkText="inklay"></hamburger>-->
-
-
-				<li>
-					<a ui-sref="profile" style="color: black;">
-						<h3 style="display: inline;">Profile</h3>
-					</a>
-				</li>
-
-				<li>
-					<a ui-sref="invitations" style="color: black;">
-						<h3 style="display: inline;">Invitations</h3>
-					</a>
-				</li>
-
-				<li>
-					<a ui-sref="members" style="color: black;">
-						<h3 style="display: inline;">Members</h3>
-					</a>
-				</li>
-
-				<li>
-					<a ui-sref="updates" style="color: black;">
-						<h3 style="display: inline;">Updates</h3>
+				<li ng-repeat="item in $ctrl.menu">
+					<a ui-sref="{{ item.url }}" style="color: black;">
+						<span>{{ item.name }}</span>
 					</a>
 				</li>
 

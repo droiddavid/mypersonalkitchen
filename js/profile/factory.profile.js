@@ -38,7 +38,7 @@ angular.module('app').factory('Profile', ['$http', 'Database', function ($http, 
 			});
 		};
 
-		this.urlBase = "http://" + WEB_SERVER + "/mypersonalkitchen/database/";
+		this.urlBase = "https://" + WEB_SERVER + "/mypersonalkitchen/database/";
 		this.urls = {
 			insert:				'insert.php',
 			readProfile: 		'readProfile.php',

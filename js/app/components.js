@@ -14,12 +14,12 @@ angular
 
 			this.$onInit = function () {
 
-				that.person = {
-					firstName: "Test Data Firstname",
-					lastName: "Test Data Lastname",
-					emailAddress: "TestData@EmailAddr.ess",
-					password: "Test Data Password"
-				};
+				// that.person = {
+				// 	firstName: "Test Data Firstname",
+				// 	lastName: "Test Data Lastname",
+				// 	emailAddress: "TestData@EmailAddr.ess",
+				// 	password: "Test Data Password"
+				// };
 			};
 
 			this.go = function (menuItem) {
@@ -113,6 +113,7 @@ angular
 angular
 	.module('app')
 	.component('login', {
+		templateUrl: 'partials/login/login.html',
 		bindings: {
 			person: '<'
 		},
@@ -165,30 +166,14 @@ angular
 			// };
 			this.onLogin = function () {
 
-				// all: 		'*', 			//0
-				// admin: 		'admin', 		//1
-				// cook: 		'cook', 		//2
-				// customer: 	'customer', 	//3
-				// invitee: 	'invitee', 		//4
-				// member: 		'member', 		//5
-				// guest: 		'guest' 		//6
-
-
 				Person.getPerson(this.person)
 					.then(function (response) {
 						if (response.data) {
 							if (response.data.data.length) {
 								var User = response.data.data[0];
-							}
-							if (User.role === USER_ROLES.cook || User.role === 2) { //Cook
 								Session.createUser(User);
 								DataService.onInit();
 							}
-							if (User.role ===  USER_ROLES.guest || User.role ===  6) { //Guest
-								Session.createGuest(User);
-								DataService.onInit();
-							}
-
 						} else {
 							$state.go('login');
 						}
@@ -199,8 +184,7 @@ angular
 			this.go = function (page) {
 				$state.go(page);
 			};
-		},
-		templateUrl: 'partials/login/login.html'
+		}
 }); //login component
 
 

@@ -23,6 +23,7 @@ angular.module('app').service('DataService', ['$http', '$state', '$stateParams',
 	this.zipCodeSmall = undefined; //i.e. 99999 vs 99999-9999
 	this.mapUrl = undefined;
 	this.zipCodeList = '\'';
+	this.proxyCORS = "https://cors-anywhere.herokuapp.com/";
 
 
 	this.userCooks = undefined;
@@ -30,7 +31,7 @@ angular.module('app').service('DataService', ['$http', '$state', '$stateParams',
 
 	this.onInit = function () {	
 
-		// //Determine if .json files exist. If not, create it.	
+		// //Determine if .json files exist. If not, create them.	
 		that.fileExists();
 
 		that.isDone = 0;
@@ -47,6 +48,8 @@ angular.module('app').service('DataService', ['$http', '$state', '$stateParams',
 
 		if (that.isDone === Object.keys(Session.Collections).length) {
 			that.initialized = false;
+			var session = Session;
+			debugger;
 			$state.go('dashboard');
 		}
 
@@ -118,14 +121,15 @@ angular.module('app').service('DataService', ['$http', '$state', '$stateParams',
 		} //if cook
 
 
-		if (Session.role === 6) { //role.6 === guest
+		if (Session.role === 5) { //role.5 === customer
+			debugger;
 			if (navigator.geolocation) {
 
 				//Get the user's lat and lon
 				navigator.geolocation.getCurrentPosition(function showPosition(position) {
 					that.lat = position.coords.latitude, //40.0505328
 					that.lon = position.coords.longitude //-75.1817911
-					var mapQuestURL = 'https://www.mapquestapi.com/geocoding/v1/reverse?key=' + that.mapQuestKey + '&location=' + that.lat + '%2C' + that.lon + '&outFormat=json&thumbMaps=true'; 
+					var mapQuestURL = that.proxyCORS + 'https://www.mapquestapi.com/geocoding/v1/reverse?key=' + that.mapQuestKey + '&location=' + that.lat + '%2C' + that.lon + '&outFormat=json&thumbMaps=true'; 
 
 					$http.get(mapQuestURL)
 						.then(function (response) {
@@ -134,9 +138,9 @@ angular.module('app').service('DataService', ['$http', '$state', '$stateParams',
 
 							var api_key = '3mfre6wOIwlRkd2BxVGoeQCb0Q22E5eIru9GBFujcPaw3d8B8O0nFCzFtBI7HWP8';
 							var zipCode = that.zipCodeSmall;
-							var distance = '2';
+							var distance = '3';
 							var filename = 'radius.json';
-							var url = 'https://www.zipcodeapi.com/rest/' + api_key + '/' + filename + '/' + zipCode + '/' + distance + '/miles?minimal';
+							var url = that.proxyCORS + 'https://www.zipcodeapi.com/rest/' + api_key + '/' + filename + '/' + zipCode + '/' + distance + '/miles?minimal';
 
 
 							$http.get(url)
@@ -154,7 +158,9 @@ angular.module('app').service('DataService', ['$http', '$state', '$stateParams',
 												that.userCooks = response.data;
 												//List of cooks who are in this zip code range.
 												Session.Collections.cooks = response.data;
-												$state.go('guestDashboard');
+												$state.go('customerDashboard', {
+													data: response.data
+												});
 											});
 									}
 								});

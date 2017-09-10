@@ -12,12 +12,12 @@ angular.module('app').component('register', {
 
 
 		this.$onInit = function () {
-			that.person = {
-				firstName: "David",
-				lastName: "Davis",
-				emailAddress: "droiddavid@gmail.com",
-				password: "G0th5mC1t4@25Ot"
-			};
+			// that.person = {
+			// 	firstName: "David",
+			// 	lastName: "Davis",
+			// 	emailAddress: "droiddavid@gmail.com",
+			// 	password: "G0th5mC1t4@25Ot"
+			// };
 		};
 
 
@@ -60,7 +60,7 @@ angular.module('app').component('register', {
 				lastName: that.person.lastName,
 				emailAddress: that.person.emailAddress,
 				password: that.person.password,
-				role: 6, //guest
+				role: 5, //customer
 				userName: that.person.emailAddress.substr(0, that.person.emailAddress.search("@")),
 				lastLogin: new Date(),
 				message: 'Tell us something about yourself.',
@@ -84,6 +84,7 @@ angular.module('app').component('register', {
 
 						//navigate to user's role level state, i.e. guest, cook, etc.
 						//that.accoutCreated(obj);
+						//debugger;
 						that.shouldLogin(obj);						
 					} else {
 
@@ -112,7 +113,7 @@ angular.module('app').component('register', {
 			var suser = user;
 			Database.select(user)
 				.then(function (response) {
-					debugger;
+					//debugger;
 					var role = response.data.role
 					switch (role) {
 						case "guest":
@@ -139,49 +140,51 @@ angular.module('app').component('register', {
 
 		this.shouldLogin = function (user) {
 
+			var val = (user.where === undefined) ? user.emailAddress : user.where[0].value;
+
 			var obj = {
 				table: 'users',
 				fields: 'emailAddress',
-				where: user.where[0].value
+				where: val //user.where[0].value
 			};
 
 			Database.select(obj)
 				.then(function (response) {
-					debugger;
 					// $state.go("guestDashboard");
 
-					var role = undefined;
-					
-					if (response) {
-						if (response.data) {
-							if (response.data.data[0]) {
-								role = response.data.data[0].role;
-							}
-						}
+					var role = undefined,
+						dataobject = undefined;
+
+					if (response && response.data && response.data.data[0]) {
+						role = response.data.data[0].role;
+						dataobject = response.data.data;
 					}
 
-					switch (role) {
+					//if (response) {if (response.data) {if (response.data.data[0]) {role = response.data.data[0].role;}}}
 
-						case 6: //"guest":
-							$state.go("guestDashboard");
-							break;
-						case 5: //"member":
-							$state.go("memberDashboard");
-							break;
-						case 4: //"invitee":
-							$state.go("inviteeDashboard");
-							break;
-						case 3: //"customer":
-							$state.go("customerDashboard");
-							break;
-						case 2: //"cook":
-							$state.go("cookDashboard");
+					switch (role) {
+						case 0: //"all":
+							$state.go("allDashboard");
 							break;
 						case 1: //"admin":
 							$state.go("adminDashboard");
 							break;
-						case 0: //"all":
-							$state.go("allDashboard");
+						case 2: //"cook":
+							$state.go("cookDashboard");
+							break;
+						case 3: //"member":
+							$state.go("memberDashboard");
+							break;
+						case 4: //"driver":
+							$state.go("driverDashboard");
+							break;
+						case 5: //"customer":
+							$state.go("customerDashboard", {
+								data: dataobject
+							});
+							break;
+						case 6: //"guest":
+							$state.go("guestDashboard");
 							break;
 						default:
 							$state.go("index");
@@ -189,7 +192,7 @@ angular.module('app').component('register', {
 					}
 				});
 
-				// debugger;
+			// debugger;
 			// var iconButton = document.querySelector(".iconbar");
 			// //iconButton.click();
 

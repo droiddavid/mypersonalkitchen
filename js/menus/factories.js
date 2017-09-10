@@ -10,7 +10,7 @@ angular.module('app').factory('Menu', ['$http', function ($http) {
 		this.menus = [];
 	};
 
-	var url_base = 'http://' + WEB_SERVER + 'mypersonalkitchen/database/',
+	var url_base = 'https://' + WEB_SERVER + 'mypersonalkitchen/database/',
 		db_single_column_base_url 	= "getDataSingleColumn.php",
 		db_dual_column_base_url 	= "getDataDualColumn.php";
 

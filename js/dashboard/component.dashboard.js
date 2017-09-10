@@ -36,18 +36,16 @@ angular.module('app').component('dashboard', {
 	templateUrl: 'partials/dashboard/dashboard.html'
 });
 angular.module('app').component('dashboardHeader', {
+	templateUrl: 'partials/dashboard/dashboard.header.html',
 	bindings: {
-		link: '<',
-		linkTest: '<'
+		dashboard: '=',
+		header: '=',
+		menu: '='
 	},
 	controller: function () {
 		var that = this;
-		console.log('dashboardHeader.$onInit...');
 		this.$onInit = function () {};
-		console.log('...dashboardHeader.$onInit');
-	
-	},
-	templateUrl: 'partials/dashboard/dashboard.header.html'
+	}
 });
 angular.module('app').component('dashboardBody', {
 	controller: function () {

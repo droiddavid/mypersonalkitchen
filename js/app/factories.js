@@ -108,7 +108,7 @@ angular.module('app').factory('Person', function ($http) {
 		password: 'locutus',
 		data: []
 	},
-		urlBase = 'http://' + WEB_SERVER + '/mypersonalkitchen/database/',
+		urlBase = 'https://' + WEB_SERVER + '/database/',
 		urls = {
 			//sp_getUser: 				'sp_getUser.php',
 			getUser:					'getUser.php',

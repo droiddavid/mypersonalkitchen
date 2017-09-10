@@ -258,7 +258,7 @@ angular.module('app').service('Database', ['$http', function ($http) {
 
 angular.module('app').service('FileService', ['$http', function ($http) {
 	//var fileExistUrl = 'http://localhost/mypersonalkitchen/data/fileExists.php';
-	var fileExistUrl = 'http://' + WEB_SERVER + '/mypersonalkitchen/data/fileExists.php';
+	var fileExistUrl = 'https://' + WEB_SERVER + '/data/fileExists.php';
 	
 	
 	this.isFileExists = function (file_name) {
@@ -297,3 +297,16 @@ angular.module('app').service('DashboardService', ['$http', 'Session', function 
 		menu 			= {};
 		platter 		= {};
 }]);
+
+
+angular.module('app').service('DynamicDashboardService', [function () {
+	this.header = {
+		name: 'Guest',
+		menu: [
+			{
+				name: 'menuItem',
+				url: 'menuItemUrl'
+			}
+		]
+	};
+}])

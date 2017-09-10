@@ -1,3 +1,22 @@
-'use strict';
+/*global angular, $, console */
+/*jslint plusplus: true */
 
-// console.log("js/app/controllers.js");
+// 'use strict';
+
+// app.controller('DashboardController', ['$scope', function ($scope) {
+
+
+// 	this.dashboard = {
+// 		name: 'guest'
+// 	};
+
+// 	this.header = {
+// 		name: 'Guest',
+// 		menuItems: [
+// 			{
+// 				name: 'menuItemName',
+// 				url: 'menuItemUrl'
+// 			}
+// 		]
+// 	};
+// }]); //app.controller.DashboardController

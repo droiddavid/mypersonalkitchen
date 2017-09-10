@@ -20,7 +20,7 @@ angular.module('app').factory('PlatterItem', ['$http', function ($http) {
 	/* Public properties, assigned to the instance ('this') */
 	PlatterItem.prototype.personId = 0;
 	PlatterItem.prototype.urls = {
-		"getPlatterItems": "http://" + WEB_SERVER + "/mypersonalkitchen/database/getPlatterItems_vw.php"
+		"getPlatterItems": "https://" + WEB_SERVER + "/mypersonalkitchen/database/getPlatterItems_vw.php"
 	}; //urls
 
 
@@ -55,7 +55,7 @@ angular.module('app').factory('Platter', ['$http', 'PlatterItem', function ($htt
 	/* Public properties, assigned to the instance ('this') */
 	Platter.prototype.personId = 0;
 	Platter.prototype.urls = {
-		"getPlatters": "http://" + WEB_SERVER + "/mypersonalkitchen/database/getPlatters.php"
+		"getPlatters": "https://" + WEB_SERVER + "/mypersonalkitchen/database/getPlatters.php"
 	};
 
 

@@ -1,10 +1,10 @@
 <?php
 
 // set up the connection variables
-$db_name  = 'iforkandspoon';  //$hostname = 'localhost';
-$hostname = '127.0.0.1';
-$username = 'root';
-$password = 'mysqlpass';
+$db_name  = 'mypersonalkitchen';  //$hostname = 'localhost';
+$hostname = 'mypersonalkitchen.com';
+$username = 'mpk_webuser';
+$password = 'locutus';
 
 try {
 	$mysqli = new PDO("mysql:host=$hostname;dbname=$db_name;charset=utf8", $username, $password, array(PDO::ATTR_EMULATE_PREPARES => false, PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
@@ -20,6 +20,10 @@ if (empty($_POST['fieldList'])) $errors['fieldList'] = 'fieldList is required.';
 $table = $_POST['table'];
 $field = $_POST['field'];
 $fieldList = $_POST['fieldList'];
+
+echo "table: $table";
+echo "field: $field";
+echo "fieldList: $fieldList";
 
 $sql = $mysqli->prepare("SELECT * FROM $table WHERE $field IN ($fieldList)");
 $sql->execute();

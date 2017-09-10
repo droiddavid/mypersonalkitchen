@@ -6,7 +6,9 @@ angular.module('app').component('cooks', {
 		this.cooks = undefined;
 
 		this.$onInit = function () {
-			that.cooks = Session.Collections.cooks;
+			if (Session.Collections) {
+				that.cooks = Session.Collections.cooks;	
+			}
 		};
 
 		this.cookDetails = function (item) {

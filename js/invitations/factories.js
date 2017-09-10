@@ -21,7 +21,7 @@ angular.module('app').factory('Invitation', ['$http', 'Database', function ($htt
 		this.dateSent = '';
 		this.modeId = 0;
 
-		var baseUrl = 'http://' + WEB_SERVER + '/mypersonalkitchen/database';
+		var baseUrl = 'https://' + WEB_SERVER + '/mypersonalkitchen/database';
 		this.urls = {
 			"getInvitations":					baseUrl + '/getInvitations.php',
 			"getInvitationModes":				baseUrl + '/getInvitationModes.php',

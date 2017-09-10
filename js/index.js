@@ -13,13 +13,13 @@ app.constant('AUTH_EVENTS', {
 });
 
 app.constant('USER_ROLES', {
-	all: '*', //0
-	admin: 'admin', //1
-	cook: 'cook', //2
-	customer: 'customer', //3
-	invitee: 'invitee', //4
-	member: 'member', //5
-	guest: 'guest' //6
+	all: '*', //0 - has the authority to perform all actions on all assests
+	admin: 'admin', //1 - can manage cooks, members, customers and guests
+	cook: 'cook', //2 - can manage items, members, customers, guests and drivers
+	member: 'member', //3 - can view cooks' items associated with membership
+	driver: 'driver', //4 - can receive driver orders and resolve food orders
+	customer: 'customer', //5 - guest which can relogin and also purchase
+	guest: 'guest' //6 - can view public cooks and their items.
 });
 
 app.constant('dexie', window.Dexie);
@@ -55,22 +55,96 @@ app.config(function ($stateProvider, $urlServiceProvider, $mdThemingProvider) {
 		}
 	});
 
+	//0 - has the authority to perform all actions on all assests
+	$stateProvider.state('allDashboard', {
+		url: '/allDashboard',
+		component: 'allDashboard'
+	});
+	
+	//1 - can manage cooks, members, customers and guests
+	$stateProvider.state('adminDashboard', {
+		url: '/adminDashboard',
+		component: 'adminDashboard'
+	});
+	
+	//2 - can manage items, members, customers, guests and drivers
+	$stateProvider.state('cookDashboard', {
+		url: '/cookDashboard',
+		component: 'cookDashboard'
+	});
+	
+	//3 - can view cooks' items associated with membership
+	$stateProvider.state('memberDashboard', {
+		url: '/memberDashboard',
+		component: 'memberDashboard'
+	});
+	
+	//4 - can receive driver orders and resolve food orders
+	$stateProvider.state('driverDashboard', {
+		url: '/driverDashboard',
+		component: 'driverDashboard'
+	});
+	
+	//4 - guest which can relogin and also purchase
+	$stateProvider.state('customerDashboard', {
+		url: '/customerDashboard',
+		component: 'customerDashboard'
+	});
+	
+	//5 - can view public cooks and their items.
+	$stateProvider.state('guestDashboard', {
+		url: '/guestDashboard',
+		component: 'guestDashboard',
+		resolve: {
+			cooks: ['Session', function (Session) {
+				if (Session) {
+					if (Session.role === 6) {
+						return Session.Collections.cooks;
+					}
+				} else {
+					return [];
+				}
+			}],
+			cooksPlatters: ['Session', function (Session) {
+				if (Session) {
+					if (Session.role === 6) {
+						return Session.Collections.cooksPlatters;
+					}
+				} else {
+					return [];
+				}
+			}]
+		}
+	});
+
+	$stateProvider.state('guestDashboardDetail', {
+		url: '/guestDashboardDetail',
+		component: 'guestDashboardDetail',
+		params: {
+			cookUserId: null
+		},
+		resolve: {
+			cooks: ['Session', function (Session) {
+				if (Session.role === 6) {
+					return Session.Collections.cooks;
+				}
+			}]
+		}
+	});
+
+	$stateProvider.state('profile', {
+		url: '/profile',
+		component: 'profile',
+		resolve: {
+			profileData: ['Session', function (Session) {
+				if (Session && Session.Collections && Session.Collections.profile) {
+					return Session.Collections.profile;
+				}
+			}]
+		}
+	});
+
 	/* DEVELOPMENT COMPONENTS - DEVELOPMENT COMPONENTS - DEVELOPMENT COMPONENTS */
-	$stateProvider.state('elements', {
-		url: '/elements',
-		component: 'elements'
-	});
-
-	$stateProvider.state('contact', {
-		url: '/contact',
-		component: 'contact'
-	});
-
-	$stateProvider.state('generic', {
-		url: '/generic',
-		component: 'generic'
-	});
-
 	$stateProvider.state('mdCardTemplate', {
 		url: '/mdCardTemplate',
 		component: 'mdCardTemplate'
@@ -120,37 +194,15 @@ app.config(function ($stateProvider, $urlServiceProvider, $mdThemingProvider) {
 		}
 	});
 
-	$stateProvider.state('guestDashboard', {
-		url: '/guestDashboard',
-		component: 'guestDashboard',
-		resolve: {
-			cooks: ['Session', function (Session) {
-				if (Session.role === 6) {
-					return Session.Collections.cooks;
-				}
-			}],
-			cooksPlatters: ['Session', function (Session) {
-				if (Session.role === 6) {
-					return Session.Collections.cooksPlatters;
-				}
-			}]
-		}
-	});
 
-	$stateProvider.state('guestDashboardDetail', {
-		url: '/guestDashboardDetail',
-		component: 'guestDashboardDetail',
-		params: {
-			cookUserId: null
-		},
-		resolve: {
-			cooks: ['Session', function (Session) {
-				if (Session.role === 6) {
-					return Session.Collections.cooks;
-				}
-			}]
-		}
-	});
+
+
+
+
+
+
+
+
 
 	$stateProvider.state('dashboard', {
 		url: '/dashboard',
@@ -242,15 +294,6 @@ app.config(function ($stateProvider, $urlServiceProvider, $mdThemingProvider) {
 	$stateProvider.state('dashboard.dashboardPlatterDetail', {
 		url: '/dashboardPlatterDetail',
 		component: 'dashboardPlatterDetail'
-	});
-	$stateProvider.state('profile', {
-		url: '/profile',
-		component: 'profile',
-		resolve: {
-			profileData: ['Session', function (Session) {
-				return Session.Collections.profile;
-			}]
-		}
 	});
 
 	$stateProvider.state('invitations', {
@@ -385,7 +428,6 @@ app.controller('IndexController', ['$scope', function ($scope) {
 	'use strict';
 
 	$scope.initialize = function () {
-		
 
 
 		/***********************************************************************/

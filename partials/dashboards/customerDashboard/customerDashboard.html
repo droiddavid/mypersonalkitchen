@@ -1,6 +1,9 @@
 <md-content>
 
-	<dashboard-header header="$ctrl.header"></dashboard-header>
+	<dashboard-header 
+		header="$ctrl.header"
+		menu="$ctrl.menu"
+	></dashboard-header>
 
 	<md-tabs 
 		layout-padding
@@ -10,8 +13,9 @@
 		md-center-tabs 
 	>
 		<!-- TAB 1 -->
-		<md-tab label="Select Cook or Company GUEST" >
+		<md-tab label="Select Cook or Company CUSTOMER" >
 			<md-tab-body layout-padding="true">
+				<span>{{ $ctrl.message }}</span>
 				<cooks></cooks>
 			</md-tab-body>
 		</md-tab>
