@@ -47,13 +47,20 @@ app.config(function ($stateProvider, $urlServiceProvider, $mdThemingProvider) {
 	*/
 	$stateProvider.state('index', {
 		url: '/index',
-		component: 'index',
-		resolve: {
-			applicationMenu: function (ApplicationMenuService) { //See js/app/services.js:369
-				return ApplicationMenuService.list();
-			}
-		}
+		component: 'index'
 	});
+
+	$stateProvider.state('login', {
+		url: '/login',
+		component: 'login'
+	});
+
+	$stateProvider.state('register', {
+		url: '/register',
+		component: 'register'
+	});
+
+
 
 	//0 - has the authority to perform all actions on all assests
 	$stateProvider.state('allDashboard', {
@@ -85,13 +92,13 @@ app.config(function ($stateProvider, $urlServiceProvider, $mdThemingProvider) {
 		component: 'driverDashboard'
 	});
 	
-	//4 - guest which can relogin and also purchase
+	//5 - guest which can relogin and also purchase
 	$stateProvider.state('customerDashboard', {
 		url: '/customerDashboard',
 		component: 'customerDashboard'
 	});
 	
-	//5 - can view public cooks and their items.
+	//6 - can view public cooks and their items.
 	$stateProvider.state('guestDashboard', {
 		url: '/guestDashboard',
 		component: 'guestDashboard',

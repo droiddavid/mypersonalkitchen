@@ -26,9 +26,6 @@ angular.module('app').service('DataService', ['$http', '$state', '$stateParams',
 	this.proxyCORS = "https://cors-anywhere.herokuapp.com/";
 
 
-	this.userCooks = undefined;
-
-
 	this.onInit = function () {	
 
 		// //Determine if .json files exist. If not, create them.	
@@ -49,8 +46,51 @@ angular.module('app').service('DataService', ['$http', '$state', '$stateParams',
 		if (that.isDone === Object.keys(Session.Collections).length) {
 			that.initialized = false;
 			var session = Session;
-			debugger;
-			$state.go('dashboard');
+
+			Database.select(obj)
+				.then(function (response) {
+					//$state.go("guestDashboard");
+
+					var role = undefined,
+						dataobject = undefined;
+
+					if (response && response.data && response.data.data[0]) {
+						role = response.data.data[0].role;
+						dataobject = response.data.data;
+					}
+
+					//if (response) {if (response.data) {if (response.data.data[0]) {role = response.data.data[0].role;}}}
+
+
+					switch (role) {
+						case 0: //"all":
+							$state.go("allDashboard");
+							break;
+						case 1: //"admin":
+							$state.go("adminDashboard");
+							break;
+						case 2: //"cook":
+							$state.go("cookDashboard");
+							break;
+						case 3: //"member":
+							$state.go("memberDashboard");
+							break;
+						case 4: //"driver":
+							$state.go("driverDashboard");
+							break;
+						case 5: //"customer":
+							$state.go("customerDashboard", {
+								data: dataobject
+							});
+							break;
+						case 6: //"guest":
+							$state.go("guestDashboard");
+							break;
+						default:
+							$state.go("index");
+							break;
+					}
+				});
 		}
 
 	};
@@ -58,10 +98,13 @@ angular.module('app').service('DataService', ['$http', '$state', '$stateParams',
 
 	//This is the initial data load.  It loads all Session data variables.
 	this.initializeDataSets = function () {
-
 		if (Session.role === 2) { //role.2 === cook
 			//what is the role level?
-			that.cook.getFood(that.cook.QUERIES.Food.fields, that.cook.QUERIES.Food.table, Session.id)
+			that.cook.getFood(
+				that.cook.QUERIES.Food.fields, 
+				that.cook.QUERIES.Food.table, 
+				Session.id
+			)
 				.then(function (response) {
 					Session.Collections.food = response.data.data;
 					that.checkIsDone();
@@ -116,66 +159,81 @@ angular.module('app').service('DataService', ['$http', '$state', '$stateParams',
 			$http.get(Session.getFileName(Session.FileNames.profile))
 				.then(function (response) {
 					Session.Collections[Session.FileNames.profile] = response.data;
+		debugger;
 					that.checkIsDone();
 				});
 		} //if cook
 
 
 		if (Session.role === 5) { //role.5 === customer
-			debugger;
 			if (navigator.geolocation) {
 
-				//Get the user's lat and lon
-				navigator.geolocation.getCurrentPosition(function showPosition(position) {
-					that.lat = position.coords.latitude, //40.0505328
-					that.lon = position.coords.longitude //-75.1817911
-					var mapQuestURL = that.proxyCORS + 'https://www.mapquestapi.com/geocoding/v1/reverse?key=' + that.mapQuestKey + '&location=' + that.lat + '%2C' + that.lon + '&outFormat=json&thumbMaps=true'; 
-
-					$http.get(mapQuestURL)
-						.then(function (response) {
-							that.zipCodeSmall = response.data.results[0].locations[0].postalCode.substring(0,5);
-							that.mapUrl = response.data.results[0].locations[0].mapUrl;
-
-							var api_key = '3mfre6wOIwlRkd2BxVGoeQCb0Q22E5eIru9GBFujcPaw3d8B8O0nFCzFtBI7HWP8';
-							var zipCode = that.zipCodeSmall;
-							var distance = '3';
-							var filename = 'radius.json';
-							var url = that.proxyCORS + 'https://www.zipcodeapi.com/rest/' + api_key + '/' + filename + '/' + zipCode + '/' + distance + '/miles?minimal';
-
-
-							$http.get(url)
-								.then(function (response) {
-									if (response.data.zip_codes.length > 0) {
-										that.zipcodes = response.data.zip_codes;
-										that.zipcodes.forEach(function (zipcode, index) {
-											that.zipCodeList += zipcode + '\',\'';
-										});
-										that.zipCodeList = that.zipCodeList.substring(that.zipCodeList, that.zipCodeList.length - 2);
-
-										var obj = { table: 'profileData', field: 'zip', fieldList: that.zipCodeList };
-										Database.selectIn(obj)
-											.then(function (response) {
-												that.userCooks = response.data;
-												//List of cooks who are in this zip code range.
-												Session.Collections.cooks = response.data;
-												$state.go('customerDashboard', {
-													data: response.data
-												});
-											});
-									}
-								});
-						});
-				});
+				//that.getCurrentPositon();
 
 			} else {
 				// geolocation is not supported
 				console.log("geolocation is not supported");
 			}
 		}
-
 		that.initialized = true;
-
 	};
+	this.getCurrentPosition = function () {
+		//Get the user's lat and lon
+		navigator.geolocation.getCurrentPosition(function showPosition(position) {
+			that.lat = position.coords.latitude, //40.0505328
+			that.lon = position.coords.longitude //-75.1817911
+			var mapQuestURL = that.proxyCORS + 'https://www.mapquestapi.com/geocoding/v1/reverse?key=' + that.mapQuestKey + '&location=' + that.lat + '%2C' + that.lon + '&outFormat=json&thumbMaps=true'; 
+
+			$http.get(mapQuestURL)
+				.then(function (response) {
+					that.getZipCodes(response);
+				});
+		});
+	}; //this.getCurrentPosition
+
+	this.getZipCodes = function (response) {
+
+					that.zipCodeSmall = response.data.results[0].locations[0].postalCode.substring(0,5);
+					that.mapUrl = response.data.results[0].locations[0].mapUrl;
+
+					var api_key = '3mfre6wOIwlRkd2BxVGoeQCb0Q22E5eIru9GBFujcPaw3d8B8O0nFCzFtBI7HWP8';
+					var zipCode = that.zipCodeSmall;
+					var distance = '3';
+					var filename = 'radius.json';
+					var url = that.proxyCORS + 'https://www.zipcodeapi.com/rest/' + api_key + '/' + filename + '/' + zipCode + '/' + distance + '/miles?minimal';
+
+					$http.get(url)
+						.then(function (response) {
+							that.getProfiles(response);
+						});
+
+	}; //this.getZipCodes
+
+	this.getProfiles = function (response) {
+		if (response.data.zip_codes.length > 0) {
+			that.zipcodes = response.data.zip_codes;
+			that.zipcodes.forEach(function (zipcode, index) {
+				that.zipCodeList += zipcode + '\',\'';
+			});
+			that.zipCodeList = that.zipCodeList.substring(that.zipCodeList, that.zipCodeList.length - 2);
+
+			var obj = { table: 'profiledata', field: 'zip', fieldList: that.zipCodeList };
+
+			Database.selectIn(obj)
+				.then(function (response) {
+					debugger;
+					if (response.data) {
+						if (response.data.data) {
+							//List of cooks who are in this zip code range.
+							Session.Collections.cooks = response.data.data;
+						}
+					}
+					// $state.go('customerDashboard', {
+					// 	data: response
+					// });
+				});
+		}
+	}; //this.getProfiles
 
 	/* 	1. check if files exist.
 		If files exist, continue.  Otherwise

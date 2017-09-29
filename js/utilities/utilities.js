@@ -1,4 +1,4 @@
-/*global angular, $, console */
+/*global console */
 /*jslint plusplus: true */
 
 
@@ -43,13 +43,11 @@ Array.prototype.where = function (func) {
     'use strict';
     return filter(func, this);
 };
+
 Array.prototype.select = function (func) {
     'use strict';
     return map(func, this);
 };
-
-
-
 
 function selectDistinct(objects, property) {
     'use strict';
@@ -65,8 +63,6 @@ function selectDistinct(objects, property) {
 	return Object.values(dstinct_values);
 }
 
-
-
 function write(item, itemDescription) {
     'use strict';
 	//console.clear();
@@ -74,8 +70,6 @@ function write(item, itemDescription) {
 	console.log(item + "...");
 	console.table([item]);
 }
-
-
 
 function onSignIn(googleUser) {
 	// Useful data for your client-side scripts:
@@ -94,13 +88,11 @@ function onSignIn(googleUser) {
 	console.log("ID Token: " + id_token);
 }
 
-
 //var WEB_SERVER = "127.0.0.1";
 var WEB_SERVER = "www.mypersonalkitchen.com";
 
-var MEDIA_QUERIES = {
-	viewport: ""
-};
+var MEDIA_QUERIES = { viewport: "" };
+
 function mediaQuery_xsmall(viewport_xsmall) {
 	document.body.style.backgroundColor = (viewport_xsmall.matches) ? "green" : "green";
 	//console.log("window.MEDIA_QUERIES.viewport: " + window.MEDIA_QUERIES.viewport + " | " + window.innerWidth);
@@ -123,8 +115,8 @@ viewport_medium.addListener(mediaQuery_medium);
 var viewport_large = window.matchMedia("(max-width: 800px)");
 viewport_large.addListener(mediaQuery_large);
 
-var viewport_xlarge = window.matchMedia("(max-width: 1024px)")
+var viewport_xlarge = window.matchMedia("(max-width: 1024px)");
 viewport_xlarge.addListener(mediaQuery_xlarge);
 
-var viewport_xxlarge = window.matchMedia("(max-width: 1200px)")
+var viewport_xxlarge = window.matchMedia("(max-width: 1200px)");
 viewport_xxlarge.addListener(mediaQuery_xxlarge);

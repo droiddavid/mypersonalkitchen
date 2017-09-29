@@ -1,7 +1,7 @@
 /*global angular, console */
 /*jslint plusplus: true */
 'use strict';
-angular.module('app').component('register', {
+angular.module('app').component('old_register', {
 	//NOTE: nothing to bind to because user is attempting to register
 	controller: ['$http', '$state', '$mdToast', 'Database', function ($http, $state, $mdToast, Database) {
 
@@ -12,12 +12,12 @@ angular.module('app').component('register', {
 
 
 		this.$onInit = function () {
-			// that.person = {
-			// 	firstName: "David",
-			// 	lastName: "Davis",
-			// 	emailAddress: "droiddavid@gmail.com",
-			// 	password: "G0th5mC1t4@25Ot"
-			// };
+			that.person = {
+				firstName: "David",
+				lastName: "Davis",
+				emailAddress: "droiddavid@gmail.com",
+				password: "G0th5mC1t4@25Ot"
+			};
 		};
 
 
@@ -150,7 +150,7 @@ angular.module('app').component('register', {
 
 			Database.select(obj)
 				.then(function (response) {
-					// $state.go("guestDashboard");
+					$state.go("guestDashboard");
 
 					var role = undefined,
 						dataobject = undefined;
@@ -192,20 +192,20 @@ angular.module('app').component('register', {
 					}
 				});
 
-			// debugger;
-			// var iconButton = document.querySelector(".iconbar");
-			// //iconButton.click();
+			debugger;
+			var iconButton = document.querySelector(".iconbar");
+			//iconButton.click();
 
-			// //add the register form to the display
-			// var register = document.querySelector(".register");
-			// register.style.display = "none";
+			//add the register form to the display
+			var register = document.querySelector(".register");
+			register.style.display = "none";
 
-			// //add the login form to the display
-			// var login = document.querySelector(".login");
-			// login.style.display = "block";
+			//add the login form to the display
+			var login = document.querySelector(".login");
+			login.style.display = "block";
 
-			// console.log("You should login.");
+			console.log("You should login.");
 		};
-	}],
-	templateUrl: 'partials/register/register.html'
+	}]
+	//,templateUrl: 'partials/register/register.html'
 });

@@ -47,12 +47,32 @@ class dbHelper {
         }
         return $response;
     }
-    /*
-        See line #57
-        SELECT MAX(id) FROM $table WHERE userId = :userId <--MariaDB Syntax
-        I added selectMaxID on 10/25/16 at 10:23:00 to dbHelper.php in order
-        to be able to select the last added id for the given table.
-    */
+    function selectIn($table, $where){
+        try{
+            $a = array();
+            $w = "";
+            // foreach ($where as $key => $value) {
+            //     $w .= " and " .$key. " like :".$key;
+            //     $a[":".$key] = $value;
+            // }
+            $stmt = $this->db->prepare("select * from ".$table." where zip in ($where) and 1=1 ". $w);
+            $stmt->execute($a);
+            $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            if(count($rows)<=0){
+                $response["status"] = "warning";
+                $response["message"] = "No data found.";
+            }else{
+                $response["status"] = "success";
+                $response["message"] = "Data selected from database";
+            }
+                $response["data"] = $rows;
+        }catch(PDOException $e){
+            $response["status"] = "error";
+            $response["message"] = 'Select Failed: ' .$e->getMessage();
+            $response["data"] = null;
+        }
+        return $response;
+    }
     function selectMaxID($table, $where){
         try{
             $a = array();
@@ -79,12 +99,6 @@ class dbHelper {
         }
         return $response;
     }
-    /*
-        See line #57
-        SELECT MAX(id) FROM $table WHERE userId = :userId <--MariaDB Syntax
-        I added selectMaxID on 10/25/16 at 10:23:00 to dbHelper.php in order
-        to be able to select the last added id for the given table.
-    */
     function selectMaxIDByEmailAddress($table, $where){
         try{
             $a = array();
@@ -111,21 +125,17 @@ class dbHelper {
         }
         return $response;
     }
-    /*
-        See line #57
-        SELECT MAX(id) FROM $table WHERE userId = :userId <--MariaDB Syntax
-        I added selectMaxID on 10/25/16 at 10:23:00 to dbHelper.php in order
-        to be able to select the last added id for the given table.
-    */
-    function selectIn($table, $where, $fieldList){
+    function selectIn_OLD($table, $fieldname, $fieldList) {
         try{
             $a = array();
             $w = "";
-            foreach ($where as $key => $value) {
+            foreach ($fieldList as $key => $value) {
                 $w .= " and " .$key. " like :".$key;
                 $a[":".$key] = $value;
             }
-            $stmt = $this->db->prepare("select MAX(id) as id from ".$table." where 1=1 ". $w);
+            $sqlString = "select * from ".$table." where ".$fieldname." in (".$fieldList.") and 1=1 ". $w;
+            echo "sqlString: ".$sqlString;
+            $stmt = $this->db->prepare($sqlString);
             $stmt->execute($a);
             $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
             if(count($rows)<=0){

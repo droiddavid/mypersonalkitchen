@@ -2,12 +2,12 @@
 	require_once 'dbHelper.php';
 	$db = new dbHelper();
 
-	$_POST = json_decode(file_get_contents('php://input'), true);
+	$_POST 						= json_decode(file_get_contents('php://input'), true);
 
-	$table = $_POST["table"];
-	$columnsArrayPost = $_POST["columnsArray"];
-	$wherePost = $_POST["where"];
-	$requiredColumnsArrayPost = $_POST["requiredColumnsArray"];
+	$table 						= $_POST["table"];
+	$columnsArrayPost 			= $_POST["columnsArray"];
+	$wherePost 					= $_POST["where"];
+	$requiredColumnsArrayPost 	= $_POST["requiredColumnsArray"];
 
 
 	$columnsArray = array(); 		//fieldName => fieldValue

@@ -309,4 +309,30 @@ angular.module('app').service('DynamicDashboardService', [function () {
 			}
 		]
 	};
-}])
+}]);
+
+
+angular.module('app').service('ToolbarService', [function () {
+
+	var that = this;
+	this.leftButton = {
+		label: '',
+		url: ''
+	};
+	this.title = '';
+	this.name = '';
+	this.menu = [];
+	this.buttons = [];
+
+	this.init = function (toolbar) {
+		//that.leftButton.label = toolbar.leftButton.label;
+		//that.leftButton.url = toolbar.leftButton.url;
+
+		that.title = toolbar.title;
+		that.name = toolbar.name;
+		that.menu = toolbar.menu;
+
+		that.buttons = toolbar.buttons;
+	}
+
+}]); //service.ToolbarService

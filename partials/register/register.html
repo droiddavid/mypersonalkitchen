@@ -1,124 +1,145 @@
-<form class="form-horizontal" layout="column"
-	name="loginForm" 
-	novalidate 
-	ng-model-options="{ allowInvalid: true, debounce: 400 }"
->
-	<h3 ng-if="$ctrl.person.firstName.length > 0">Welcome {{ $ctrl.person.firstName }}</h3>
+<div class="container" style="padding-left: 0px; padding-right: 0px; display: block-inline;">
 
-	<span flex></span>
+	<toolbar id="toolbar" class="toolbar" style="display: inline;"></toolbar>
 
-	<md-input-container style="margin: 0px;">
-		<input 
-			type="text" 
-			id="firstName"
-			name="firstName"
-			ng-model="$ctrl.person.firstName"
-			required
-			aria-label="firstname"
-		>
-		<div class="hint">First Name</div>
-	</md-input-container>
+	<div id="jumbotron" class="jumbotron jumbotron-fluid" style="border-radius: 0px; margin-bottom: 0px;
+		padding: 0px;">
 
-	<md-input-container style="margin: 0px;">
-		<input 
-			type="text" 
-			id="lastName"
-			name="lastName"
-			ng-model="$ctrl.person.lastName"
-			required
-			aria-label="lastname"
-		>
-		<div class="hint">Last Name</div>
-	</md-input-container>
-
-	<md-input-container style="margin: 0px;">
-		<input 
-			type="email"
-			id="emailAddress"
-			name="emailAddress"
-			ng-model="$ctrl.person.emailAddress"
-			required
-			aria-label="emailaddress"
-		>
-		<div class="hint">Email</div>
-	</md-input-container>
-
-	<md-input-container style="margin: 0px;">
-		<input 
-			type="password" 
-			id="password"
-			name="password"
-			ng-model="$ctrl.person.password"
-			required
-			aria-label="password"
-		>
-		<div class="hint">Password</div>
-	</md-input-container>
-
-
-	<div layout="row" flex>
-		<span flex></span>
-
-		<div class="form-group"> 
-			<div class="col-sm-12">
-
-				<div layout="row">
-					<md-button id="registerButton" class="md-raised md-primary" 
-						ng-click="$ctrl.register($ctrl.person)"  
-						aria-label="register button"
-						ng-show="!$ctrl.registered"
-					>
-						Register
-					</md-button>
-
-					<md-button id="loginButton" class="md-raised md-primary" 
-						ng-click="$ctrl.login($ctrl.person)"  
-						aria-label="login button"
-						ng-show="$ctrl.registered"
-					>
-						Login
-					</md-button>
-
-
-				</div>
-
-				<br /><br />
-
-				<!-- Facebook -->
-<!-- 				I need to learn how to use the Facebook login to create a new user
-				account in this app.
-				<div layout="row">
-					<div layout="row">
-						<div class="fb-login-button" data-max-rows="1" data-size="xlarge" data-show-faces="false" data-auto-logout-link="true"></div>
-					</div>
-				</div>
-
-				<div layout="row">
-					<div id="status" layout-padding></div>-->
-					<!--STATUS of FB Login-->
-<!--
-				</div> -->
-
-			</div>
+		<div id="indexImage" class="indexImage">
+			<img
+				src="images/homepage/homepage320.png"
+				class="md-media-md homepageFallbackImage"
+				alt="home page image"
+			>
 		</div>
 
-		<span flex></span>
+		<div id="indexText" class="indexText">
+			<h1 class="display-3">My Personal Kitchen</h1>
+
+			<p class="lead">
+				Earn Money Selling Your Culinary Delights To Family and Friends.
+			</p>
+		</div>
 	</div>
 
-	<div layout="row" flex>
+	<form class="form-horizontal registerForm" layout="column"
+		name="registerForm" 
+		novalidate 
+		ng-model-options="{ allowInvalid: true, debounce: 400 }"
+	>
+
 		<span flex></span>
-		<p>{{ message }}</p>
-		<span flex></span>
-	</div>
 
-</form>
+		<md-input-container style="margin: 0px;">
+			<input 
+				type="text" 
+				id="firstName"
+				name="firstName"
+				ng-model="$ctrl.person.firstName"
+				required
+				aria-label="firstname"
+			>
+			<div class="hint">First Name</div>
+		</md-input-container>
+
+		<md-input-container style="margin: 0px;">
+			<input 
+				type="text" 
+				id="lastName"
+				name="lastName"
+				ng-model="$ctrl.person.lastName"
+				required
+				aria-label="lastname"
+			>
+			<div class="hint">Last Name</div>
+		</md-input-container>
+
+		<md-input-container style="margin: 0px;">
+			<input 
+				type="email"
+				id="emailAddress"
+				name="emailAddress"
+				ng-model="$ctrl.person.emailAddress"
+				required
+				aria-label="emailaddress"
+			>
+			<div class="hint">Email</div>
+		</md-input-container>
+
+		<md-input-container style="margin: 0px;">
+			<input 
+				type="password" 
+				id="password"
+				name="password"
+				ng-model="$ctrl.person.password"
+				required
+				aria-label="password"
+			>
+			<div class="hint">Password</div>
+		</md-input-container>
 
 
+		<div layout="row" flex>
+			<span flex></span>
 
-<!--
-<md-button class="md-raised btn btn-primary" ng-click="$ctrl.go('elements')">Elements</md-button>
-<md-button class="md-raised btn btn-primary" ng-click="$ctrl.go('generic')">Generic</md-button>
-<md-button class="md-raised btn btn-primary" ng-click="$ctrl.go('contact')">Contact</md-button>
--->
+			<div class="form-group"> 
+				<div class="col-sm-12">
+
+					<div layout="row">
+						<md-button id="registerButton" class="md-raised md-primary" 
+							ng-click="$ctrl.register($ctrl.person)"  
+							aria-label="register button"
+							ng-show="!$ctrl.registered"
+						>
+							Register
+						</md-button>
+
+						<md-button id="loginButton" class="md-raised md-primary" 
+							ng-click="$ctrl.login($ctrl.person)"  
+							aria-label="login button"
+							ng-show="$ctrl.registered"
+						>
+							Login
+						</md-button>
 
 
+					</div>
+
+					<br /><br />
+
+					<!-- Facebook -->
+	<!-- 				I need to learn how to use the Facebook login to create a new user
+					account in this app.
+					<div layout="row">
+						<div layout="row">
+							<div class="fb-login-button" data-max-rows="1" data-size="xlarge" data-show-faces="false" data-auto-logout-link="true"></div>
+						</div>
+					</div>
+
+					<div layout="row">
+						<div id="status" layout-padding></div>-->
+						<!--STATUS of FB Login-->
+	<!--
+					</div> -->
+
+				</div>
+			</div>
+
+			<span flex></span>
+		</div>
+
+		<div layout="row" flex>
+			<span flex></span>
+			<p>{{ message }}</p>
+			<span flex></span>
+		</div>
+
+	</form>
+
+
+	<footer>
+		<span style="color: white;">
+			<h3>Get your register on!</h3>
+		</span>
+	</footer>
+</div>

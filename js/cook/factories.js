@@ -54,7 +54,6 @@ angular.module('app').factory('Cook',
 	}; //getData
 
 	Cook.prototype.getFood = function (cookId, db_view, args) {
-
 		return db.select({
 			fields: cookId,
 			table: db_view,

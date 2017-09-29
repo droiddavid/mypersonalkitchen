@@ -4,63 +4,90 @@
 'use strict';
 angular.module('app').component('customerDashboard', {
 	//NOTE: nothing to bind to at this time.
-	controller: ['$http', '$state', '$mdToast', 'Database', 'Session', 'DynamicDashboardService', 
-		function ($http, $state, $mdToast, Database, Session, DynamicDashboardService) {
+	controller: ['$http', '$state', '$mdToast', 'Database', 'Session', 'ToolbarService', 
+		function ($http, $state, $mdToast, Database, Session, ToolbarService) {
 
 		var that = this;
 
-		/*** Dashboard Header, Body, Footer ***/
-		this.Dashboard = this.header = this.menu = this.body = this.footer = undefined;
 		this.cooks = undefined;
 		this.sqlInString = ''; //list of cook userIds ('999', '999', '999')
 		this.message = "";
+		this.buttons = [];
 
 		this.$onInit = function () {
 
-			that.setHeader();
+			that.initToolbar();
 
 			if (Session.Collections) {
-				if (Session.Collections.cooks.length > 0) {
-					debugger;
-					that.cooks = Session.Collections.cooks;
-					that.message = Session.Collections.cooks.length + " Cooks found.";
+				if (Session.Collections.cooks) {
+					if (Session.Collections.cooks.length > 0) {
+						that.cooks = Session.Collections.cooks;
+						that.message = Session.Collections.cooks.length + " Cooks found.";
 
-					that.cooks.forEach(function (cook) {
-						that.sqlInString += cook.userId + ',';
-					});
-					that.sqlInString = that.sqlInString.substring(that.sqlInString, that.sqlInString.length - 1);
+						that.cooks.forEach(function (cook) {
+							that.sqlInString += cook.userId + ',';
+						});
+						that.sqlInString = that.sqlInString.substring(that.sqlInString, that.sqlInString.length - 1);
 
-					//List of food for all cooks in these zip codes
-					var obj = { 
-						table: 'food', 
-						field: 'userId', 
-						fieldList: that.sqlInString 
-					};
-					Database.selectIn(obj)
-						.then(function (response) {
-							Session.Collections.cooksFood = response.data;
-						});			
-				}
+						//List of food for all cooks in these zip codes
+						var obj = { 
+							table: 'food', 
+							field: 'userId', 
+							fieldList: that.sqlInString 
+						};
+						Database.selectIn(obj)
+							.then(function (response) {
+								//debugger;
+								Session.Collections.cooksFood = response.data;
+							});			
+					} else {
+						that.message = "Cooks count is less equals zero. \r\n Enter your zip code above to search for cooks in your area.";
+					} //Session.Collections.cooks.length > 0
+				} else {
+					that.message = "No Cooks Available.<br />Enter your zip code above to search for cooks in your area.";
+				} //Session.Collections.cooks
 			} else {
-				that.message = "0 Cooks Available.";
-			} //if...else Session.Collections
+				that.message = "No Collections Available.<br />Enter your zip code above to search for cooks in your area.";
+			} //Session.Collections
 
 		};
 
-		this.setHeader = function () {
-			this.Dashboard = DynamicDashboardService;
-			this.header = this.Dashboard.header;
-			this.header.name = "Customer";
+		this.initToolbar = function () {
+			var toolbar = {};
 
-			//Initialize the men
-			this.menu = this.header.menu;
-			this.menu.length = 0;
-			this.menu.push({ name: 'Profile', url: 'profile' });
-			this.menu.push({ name: 'Memberships', url: 'memberships' });
+			toolbar.buttons = [];
+			toolbar.buttons.push({
+				text: 'test'
+			});
 
-			this.body = this.Dashboard.body;
-			this.footer = this.Dashboard.footer;
+			toolbar.label = '';
+
+			toolbar.leftButton = {};
+			toolbar.leftButton.label = null; //icon button
+			toolbar.leftButton.url = null;
+
+			toolbar.title = 'Customer';
+			toolbar.name = 'customerDashboard';
+
+			toolbar.menu = [];
+			toolbar.menu.push({
+				state: 'profile', //url
+				label: 'Profile',
+				sronly: '(current)'
+			});
+			toolbar.menu.push({
+				state: 'memberships', //url
+				label: 'Memberships',
+				sronly: ''
+			});
+			toolbar.menu.push({
+				state: 'cookDashboard', //url
+				label: 'Upgrade To Cook',
+				sronly: ''
+			});
+			ToolbarService.init(toolbar);
 		};
+
 	}],
 	templateUrl: 'partials/dashboards/customerDashboard/customerDashboard.html'
 });

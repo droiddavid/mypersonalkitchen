@@ -1,10 +1,12 @@
+/*global angular, $, console */
+/*jslint plusplus: true */
+
 angular
 	.module('app')
 	.component('index', {
-		bindings: {
-			applicationMenu: '<'
-		},
-		controller: function ($state, $scope) {
+		/*templateUrl: 'partials/login/loginBody.html',*/
+		templateUrl: 'partials/index/index.html',
+		controller: function ($state, $scope, ToolbarService) {
 
 			'use strict';
 
@@ -13,81 +15,48 @@ angular
 			that.person = undefined;
 
 			this.$onInit = function () {
-
-				// that.person = {
-				// 	firstName: "Test Data Firstname",
-				// 	lastName: "Test Data Lastname",
-				// 	emailAddress: "TestData@EmailAddr.ess",
-				// 	password: "Test Data Password"
-				// };
+				ToolbarService.init({
+					button: { //icon button
+						label: null,
+						url: null
+					},
+					title: 'My Personal Kitchen',
+					name: 'index',
+					menu: [
+						{
+							state: 'login', //url
+							label: 'Login',
+							sronly: '(current)'
+						},
+						{
+							state: 'register', //url
+							label: 'Register',
+							sronly: ''
+						}
+					]
+				});
 			};
 
 			this.go = function (menuItem) {
 				$state.go(menuItem.url);
 			};
 
-			this.showPanel = function (panel) {
-				var container = that.container().dom;
-				var toolbar = that.ToolBar().dom;
-				var homePanel = that.Panel().dom;
-				var cookPanel = that.CookPanel().dom;
-				var earnPanel = that.EarnPanel().dom;
-				var footer = that.Footer().dom;
+			
 
+			// this.signup = function () {
 
-				if (panel === 'cook') {
-					toolbar.style.background = "#CC5700";
-					homePanel.style.left = that.container().width + "px";
-					earnPanel.style.left = that.container().width + "px";
-					cookPanel.style.left = "0px";
-					footer.style.background = "#CC5700";
-				}
-					
-				if (panel === 'earn') {
-					toolbar.style.background = "#435861";
-					homePanel.style.left = that.container().width + "px";
-					cookPanel.style.left = that.container().width + "px";
-					earnPanel.style.left = "0px";
-					footer.style.background = "#435861";
-				}
-					
-				if (panel === 'home') {
-					toolbar.style.background = "#2C7130";
-					cookPanel.style.left = that.container().width + "px";
-					earnPanel.style.left = that.container().width + "px";
-					homePanel.style.left = "0px";
-					footer.style.background = "#2C7130";
-				}
-			};
+			// 	//remove the cards from the display
+			// 	var cards = document.querySelector(".cards");
+			// 	cards.style.display = "none";
 
-			this.login = function () {
-				//remove the cards from the display
-				var cards = document.querySelector(".cards");
-				cards.style.display = "none";
+			// 	//add the login form to the display
+			// 	var login = document.querySelector(".login");
+			// 	login.style.display = "none";
 
-				//add the register form to the display
-				var register = document.querySelector(".register");
-				register.style.display = "none";
-
-				//add the login form to the display
-				var login = document.querySelector(".login");
-				login.style.display = "block";
-			};
-
-			this.signup = function () {
-
-				//remove the cards from the display
-				var cards = document.querySelector(".cards");
-				cards.style.display = "none";
-
-				//add the login form to the display
-				var login = document.querySelector(".login");
-				login.style.display = "none";
-
-				//add the register form to the display
-				var register = document.querySelector(".register");
-				register.style.display = "block";
-			};
+			// 	//add the register form to the display
+			// 	var register = document.querySelector(".register");
+			// 	register.style.display = "block";
+			// };
 
 			/*
 				this.onSignIn = function (googleUser) {
@@ -105,9 +74,273 @@ angular
 					});
 			};
 			*/
-		},
-		templateUrl: 'partials/login/loginBody.html'
-	});
+		}
+	}); //index component
+
+
+angular
+	.module('app')
+	.component('toolbar', {
+		templateUrl: 'partials/toolbar/toolbar.html',
+		controller: function ($http, $state, ToolbarService) {
+
+			var that = this;
+
+			this.title = undefined;
+			this.menu = [];
+			this.label = undefined;
+			this.state = undefined;
+			this.buttons = [];
+
+			this.$onInit = function () {
+
+				that.title = ToolbarService.title;
+				that.menu = ToolbarService.menu;
+				that.label = ToolbarService.label;
+				that.state = ToolbarService.state;
+				that.buttons = ToolbarService.buttons
+
+			};
+
+			this.go = function (link) {
+				$state.go(link);
+			};
+		}
+	}); //toolbar component
+
+
+angular
+	.module('app')
+	.component('register', {
+		templateUrl: 'partials/register/register.html',
+		controller: ['$http', '$state', '$mdToast', 'Database', 'Session', 'DataService', 'ToolbarService', 'Person', function ($http, $state, $mdToast, Database, Session, DataService, ToolbarService, Person) {
+
+			'use strict';
+
+			var that = this;
+
+			this.person = undefined;
+			this.registered = false;
+
+			this.$onInit = function () {
+				// that.person = {
+				// 	firstName: "David",
+				// 	lastName: "Davis",
+				// 	emailAddress: "droiddavid@gmail.com",
+				 	password: "G0th5mC1t4@25Ot"
+				// };
+
+				that.initToolbar();
+			};
+
+			this.initToolbar = function () {
+				var toolbar = {};
+
+				toolbar.button = {};
+				toolbar.button.label = null; //icon button
+				toolbar.button.url = null;
+
+				toolbar.title = 'Register';
+				toolbar.name = 'register';
+
+				toolbar.menu = [];
+				toolbar.menu.push({
+					state: 'index', //url
+					label: 'HOME',
+					sronly: '(current)'
+				});
+				toolbar.menu.push({
+					state: 'login', //url
+					label: 'Login',
+					sronly: ''
+				});
+				ToolbarService.init(toolbar);
+			};
+
+			this.register = function (person) {
+				that.person = {
+					firstName: person.firstName,
+					lastName: person.lastName,
+					emailAddress: person.emailAddress,
+					password: person.password
+				};
+
+				var obj = {
+					table: 'users',
+					fields: [{ name: 'emailAddress'}, { name: 'password' }],
+					where: [{ value: that.person.emailAddress }, { value: that.person.password }]
+				};
+				Database.select2(obj)
+					.then(function (response) {
+						if (response.data) {
+							if (response.data.data) {
+								if (response.data.data[0] === undefined) {
+									that.addNewUser();
+								} else {
+									that.shouldLogin(obj);
+								}
+							}
+						} else {
+							return response;
+						}
+					});
+			};
+
+			this.addNewUser = function () {
+				var obj = {
+					table: 'users',
+					firstName: that.person.firstName,
+					lastName: that.person.lastName,
+					emailAddress: that.person.emailAddress,
+					password: that.person.password,
+					role: 5, //customer
+					userName: that.person.emailAddress.substr(0, that.person.emailAddress.search("@")),
+					lastLogin: new Date(),
+					message: 'Tell us something about yourself.',
+					lastUpdate: Date.now(),
+					status: 1
+				};
+				Database.insert(obj)
+					.then(function (response) {
+						var message = response.data.message,
+							status = response.data.status;
+
+						if (status === "success") {
+							that.registered = true;
+
+							//Inform user of successful registration.
+							// $mdToast.show(
+							// 	$mdToast.simple()
+							// 	.textContent('Registration successful...')
+							// 	.hideDelay(4000)
+							// );
+
+							that.login(obj);						
+						} else {
+
+							//inform user of failed registration.
+							// $mdToast.show(
+							// 	$mdToast.simple()
+							// 	.textContent('Registration failed. Err Msg: [' + message + '].  Please try again.')
+							// 	.hideDelay(5000)
+							// );
+
+							//Set a login count here, then divert based on unsuccessful attempts.
+							//Clear the sign up form.
+						}
+
+		
+					});
+			};
+
+			this.login = function (user) {
+
+				// $mdToast.show(
+				// 	$mdToast.simple()
+				// 	.textContent('Account ready. Logging you in.')
+				// 	.hideDelay(9000)
+				// );
+
+				var person = {
+					emailAddress: user.emailAddress,
+					password: user.password,
+					role: user.role
+				};
+
+				Person.getPerson(person)
+					.then(function (response) {
+						if (response.data) {
+							if (response.data.data) {
+								if (response.data.data.length) {
+									var User = response.data.data[0];
+									if (User.role === 5) { //customer
+										Session.createGuest(User);
+									}
+									if (User.role === 2) { //cook
+										Session.createUser(User);
+									}
+									//Session.createUser(User);
+
+									//create app objects
+									switch (person.role) {
+										/* Disable temporarily until we decide if admins and all level
+											security should be available during a registration. */
+										// case 0: //"all":
+										// 	$state.go("allDashboard");
+										// 	break;
+										// case 1: //"admin":
+										// 	$state.go("adminDashboard");
+										// 	break;
+										case 2: //"cook":
+											$state.go("cookDashboard");
+											break;
+										case 3: //"member":
+											$state.go("memberDashboard");
+											break;
+										case 4: //"driver":
+											$state.go("driverDashboard");
+											break;
+										case 5: //"customer":
+											$state.go("customerDashboard", {
+												data: User
+											});
+											break;
+										case 6: //"guest":
+											$state.go("guestDashboard");
+											break;
+										default:
+											$state.go("index");
+											break;
+									}								
+								}
+							}
+						} else {
+							$state.go('login');
+						}
+					});
+
+				
+			};
+
+			this.shouldLogin = function (user) {
+
+				//inform user of account already exists.
+				// $mdToast.show(
+				// 	$mdToast.simple()
+				// 	.textContent('Account ready.  Please login.')
+				// 	.hideDelay(9000)
+				// );
+
+				$state.go('login');
+			};
+		}]
+	}); //register component
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 angular
@@ -117,119 +350,52 @@ angular
 		bindings: {
 			person: '<'
 		},
-		controller: function ($http, $state, Session, Person, USER_ROLES, FileService, DataService) {
-			
-			'use strict';
-
-			var that = this;
-
+		controller: function ($http, $state, Session, Person, USER_ROLES, FileService, DataService, ToolbarService) {
+			'use strict'; var that = this;
 			this.$onInit = function () {
-				// this.person = {
-				// 	firstName: 'Craig',
-				// 	lastName: 'Mack',
-				// 	emailAddress: 'craig@mack.com',
-				// 	password: 'locutus',
-				// 	role: '2'
-				// };
-
-
-				// this.person = {
-				// 	firstName: 'Flash',
-				// 	lastName: 'Gordon',
-				// 	emailAddress: 'flash@gordon.com',
-				// 	password: 'locutus',
-				// 	role: '2'
-				// };
-
-
-				this.person = {
-					firstName: 'Betty',
-					lastName: 'Garcia',
-					emailAddress: 'betty@garcia.com',
-					password: 'locutus',
-					role: '6'
-				};
-
-
-				// this.person = {
-				// 	firstName: 'Ion',
-				// 	lastName: 'Kasch',
-				// 	emailAddress: 'ionkasch@cheerful.com',
-				// 	password: 'cdfv42t9',
-				// 	role: '3'
-				// };
+				ToolbarService.init({
+					button: { //icon button
+						label: null,
+						url: null
+					},
+					title: 'Login',
+					name: 'login',
+					menu: [
+						{
+							state: 'index', //url
+							label: 'HOME',
+							sronly: '(current)'
+						},
+						{
+							state: 'register', //url
+							label: 'Register',
+							sronly: ''
+						}
+					]
+				});
 			};
-			// this.$onChanges = function (changes) {
-			// 	if (changes.person) {
-			// 		this.person = Object.assign({}, this.person);
-			// 	}
-			// };
-			this.onLogin = function () {
-
+			this.login = function () {
 				Person.getPerson(this.person)
 					.then(function (response) {
 						if (response.data) {
-							if (response.data.data.length) {
-								var User = response.data.data[0];
-								Session.createUser(User);
-								DataService.onInit();
+							if (response.data.data) {
+								if (response.data.data.length) {
+									var User = response.data.data[0];
+									Session.createUser(User);
+									DataService.onInit();								
+								}
 							}
 						} else {
 							$state.go('login');
 						}
 					});
 			};
-			
-		
-			this.go = function (page) {
-				$state.go(page);
-			};
+			this.go = function (page) { $state.go(page); };
 		}
 }); //login component
 
 
-
-
-
-angular.module('app').component('html5media', {
-	bindings: {
-		video: '<',
-		canvas: '<',
-		photo: '<',
-		startbutton: '<' 
-	},
-	controller: function () {
-		var that = this;
-
-		this.$onInit = function () {
-			console.log('component.html5media ...');
-		};
-	},
-	templateUrl: 'partials/html5media/html5media.html'
-
-});
-
-
-
-
 /*****************************************************/
-angular.module('app').component('elements', {
-	templateUrl: 'elements.html'
-});
-angular.module('app').component('contact', {
-	templateUrl: 'contact.html'
-});
-angular.module('app').component('generic', {
-	templateUrl: 'generic.html'
-});
-angular.module('app').component('mdCardTemplate', {
-	templateUrl: 'mdCardTemplate.html'
-});
-
-/*****************************************************/
-
-
-
 angular.module('app').component('users', {
 	bindings: {
 		users: '<',

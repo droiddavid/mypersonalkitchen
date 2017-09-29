@@ -1,9 +1,25 @@
 <md-content>
 
-	<dashboard-header 
-		header="$ctrl.header"
-		menu="$ctrl.menu"
-	></dashboard-header>
+	<toolbar id="toolbar" class="toolbar" style="display: inline;"></toolbar>
+
+	<div class="custom-search-form">
+		<div class="input-group">
+			<input type="text" class="form-control" placeholder="Search for food or a cook by zip code.">
+			<span class="input-group-btn">
+				<button class="btn btn-default" type="button">
+					<span class="glyphicon glyphicon-search"></span>
+				</button>
+			</span>
+		</div><!-- /input-group -->
+	</div>
+
+	<div class="messages">
+		<ul>
+			<li ng-repeat="message in $ctrl.messages">
+				{{ message.message }}
+			</li>
+		</ul>
+	</div>
 
 	<md-tabs 
 		layout-padding
