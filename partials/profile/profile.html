@@ -1,80 +1,363 @@
-<div style="background-color: #369;">
+<div class="container" style="padding-left: 0px; padding-right: 0px; display: block-inline;">
 
-	<h3>Profile Form</h3>
+	<toolbar id="toolbar" class="toolbar" style="display: inline;"></toolbar>
 
-	<form class="form-horizontal" style="margin: auto; width: 90%;" layout="column">
+	<div id="jumbotron" class="jumbotron jumbotron-fluid" style="border-radius: 0px; margin-bottom: 0px;
+		padding: 0px;">
 
-		<span id="id" ng-model="$ctrl.profile.id">Record ID: {{ $ctrl.profile.id }}</span>
-
-		<span id="userId" ng-model="$ctrl.profile.userId">User ID: {{ $ctrl.profile.userId }}</span>
-
-		<input type="text" id="firstName" name="firstName" ng-model="$ctrl.profile.firstName" placeholder="First Name*" />
-
-		<input type="text" id="lastName" name="lastName" ng-model="$ctrl.profile.lastName" placeholder="Last Name*" />
-
-		<input type="text" id="company" name="company" ng-model="$ctrl.profile.company" placeholder="Company*" />
-
-		<input type="text" id="phone" name="phone" ng-model="$ctrl.profile.phoneNumber" placeholder="Phone Number*" />
-
-		<input type="text" id="email" name="email" ng-model="$ctrl.profile.email" placeholder="Email (You will use this to sign in)*" />
-
-		<input type="text" id="password" name="password" ng-model="$ctrl.profile.password" placeholder="Choose your password*" />
-
-		<input type="text" id="addressLine1" name="addressLine1" ng-model="$ctrl.profile.addressLine1" placeholder="Address Line 1*" />
-
-		<input type="text" id="addressLine2" name="addressLine2" ng-model="$ctrl.profile.addressLine2" placeholder="Address Line 2*" />
-
-		<input type="text" id="city" name="city" ng-model="$ctrl.profile.city" placeholder="City*" />
-
-		<input type="text" id="state" name="state" ng-model="$ctrl.profile.state" placeholder="State*" />
-
-		<input type="text" id="zip" name="zip" ng-model="$ctrl.profile.zip" placeholder="Zip Code*" />
-
-		<input type="text" id="country" name="country" ng-model="$ctrl.profile.country" placeholder="Country*" />
-
-		<input type="text" id="howHeard" name="howHeard" ng-model="$ctrl.profile.howHeard" placeholder="How did you hear about us?" />
-
-		<input type="text" id="hours" name="hours" ng-model="$ctrl.profile.hours" placeholder="Hours" />
-
-		<input type="text" id="description" name="description" ng-model="$ctrl.profile.description" placeholder="Describe your company or yourself." />
-
-		<br />
-
-		<div layout="row" flex>
-			<span flex></span>
-
-			<div class="form-group"> 
-				<div class="col-sm-12">
-					<button id="registerButton" class="md-raised btn btn-primary btn-danger" 
-						ng-click="$ctrl.cancel()"
-						aria-label="register button"
-					>
-						<span class="glyphicon glyphicon-download-alt"></span>
-						<span flex></span>
-						Cancel
-					</button>
-
-					<span flex></span>
-
-					<button class="md-raised btn btn-primary btn-primary" ng-click="$ctrl.update( $ctrl.profile )" aria-label="update button">
-						<span class="glyphicon glyphicon-open"></span>
-						<span flex></span>
-						Update
-					</button>
-
-					<span flex></span>
-
-					<button class="md-raised btn btn-primary btn-primary" ng-click="$ctrl.add( $ctrl.profile )" aria-label="add button">
-						<span class="glyphicon glyphicon-plus"></span>
-						<span flex></span>
-						Add
-					</button>
-				</div>
-			</div>
-
-			<span flex></span>
+		<div id="indexImage" class="indexImage">
+			<img
+				src="images/homepage/homepage320.png"
+				class="md-media-md homepageFallbackImage"
+				alt="home page image"
+			>
 		</div>
 
-	</form>
+		<div id="indexText" class="indexText">
+			<h1 class="display-3">My Personal Kitchen</h1>
 
+			<p class="lead">
+				Earn Money Selling Your Culinary Delights To Family and Friends.
+			</p>
+		</div>
+	</div>
+
+
+
+
+
+
+
+
+
+
+
+	<div class="pageBody">
+
+		<!--<h3>Profile</h3>-->
+
+		<form class="form-horizontal" style="margin: auto; width: 100%;" layout="column">
+<!--
+			<span id="id" ng-model="$ctrl.profile.id">Record ID: {{ $ctrl.profile.id }}</span>
+
+			<span id="userId" ng-model="$ctrl.profile.userId">User ID: {{ $ctrl.profile.userId }}</span>
+-->
+
+
+			<md-input-container style="margin: 0px;">
+				<input 
+					type="email"
+					id="emailAddress"
+					name="emailAddress"
+					ng-model="$ctrl.person.emailAddress"
+					required
+					aria-label="emailaddress"
+				>
+				<!--<div class="hint">Email</div>-->
+			</md-input-container>
+
+			<md-input-container style="margin: 0px;">
+				<input 
+					type="text" 
+					id="firstName" 
+					name="firstName" 
+					ng-model="$ctrl.profile.firstName" 
+					required
+					aria-label="firstname"
+					placeholder="First Name*"
+				/>
+				<!--<div class="hint">First Name</div>-->
+			</md-input-container>
+
+			<md-input-container style="margin: 0px;">
+				<input 
+					type="text" 
+					id="lastName" 
+					name="lastName" 
+					ng-model="$ctrl.profile.lastName" 
+					aria-label="lastname"
+					placeholder="Last Name*"
+				/>
+				<!--<div class="hint">Last Name</div>-->
+			</md-input-container>
+
+			<md-input-container style="margin: 0px;">
+				<input 
+					type="text" 
+					id="company" 
+					name="company" 
+					ng-model="$ctrl.profile.company" 
+					placeholder="Company*"
+					aria-label="company"
+				/>
+				<!--<div class="hint">Company</div>-->
+			</md-input-container>
+
+
+			<md-input-container style="margin: 0px;">
+				<input 
+					type="text" 
+					id="phoneNumber" 
+					name="phoneNumber" 
+					ng-model="$ctrl.profile.phoneNumber" 
+					placeholder="Phone Number*"
+					aria-label="phoneNumber"
+				/>
+				<!--<div class="hint">Phone Number</div>-->
+			</md-input-container>
+
+
+			<md-input-container style="margin: 0px;">
+				<input 
+					type="text" 
+					id="email" 
+					name="email" 
+					ng-model="$ctrl.profile.email" 
+					placeholder="Email (You will use this to sign in)*"
+					aria-label="email address"
+				/>
+				<!--<div class="hint">Email Address</div>-->
+			</md-input-container>
+
+			
+
+			<md-input-container style="margin: 0px;">
+				<input 
+					type="text" 
+					id="password" 
+					name="password" 
+					ng-model="$ctrl.profile.password" 
+					placeholder="Choose your password*"
+					aria-label="password"
+				/>
+				<!--<div class="hint"></div>-->
+			</md-input-container>
+
+			<md-input-container style="margin: 0px;">
+				<input 
+					type="text" 
+					id="addressLine1" 
+					name="addressLine1" 
+					ng-model="$ctrl.profile.addressLine1" 
+					placeholder="Address Line 1*"
+					aria-label="addressLine1"
+				/>
+				<!--<div class="hint">Address Line 1</div>-->
+			</md-input-container>
+
+
+			<md-input-container style="margin: 0px;">
+				<input 
+					type="text" 
+					id="addressLine2" 
+					name="addressLine2" 
+					ng-model="$ctrl.profile.addressLine2" 
+					placeholder="Address Line 2*"
+					aria-label="addressLine2"
+				/>
+				<!--<div class="hint">Address Line 2</div>-->
+			</md-input-container>
+
+			<md-input-container style="margin: 0px;">
+				<input 
+					type="text" 
+					id="city" 
+					name="city" 
+					ng-model="$ctrl.profile.city" 
+					placeholder="City*"
+					aria-label="city"
+				/>
+				<!--<div class="hint">City</div>-->
+			</md-input-container>
+
+			<md-input-container style="margin: 0px;">
+				<input 
+					type="text" 
+					id="state" 
+					name="state" 
+					ng-model="$ctrl.profile.state" 
+					placeholder="State*"
+					aria-label="state"
+				/>
+				<!--<div class="hint">State</div>-->
+			</md-input-container>
+
+			<md-input-container style="margin: 0px;">
+				<input 
+					type="text" 
+					id="zip" 
+					name="zip" 
+					ng-model="$ctrl.profile.zip" 
+					placeholder="Zip Code*"
+					aria-label="zip code"
+				/>
+				<!--<div class="hint">Zip Code</div>-->
+			</md-input-container>
+
+			<md-input-container style="margin: 0px;">
+				<input 
+					type="text" 
+					id="country" 
+					name="country" 
+					ng-model="$ctrl.profile.country" 
+					placeholder="Country*"
+					aria-label="country"
+				/>
+				<!--<div class="hint">Country</div>-->
+			</md-input-container>
+
+			<md-input-container style="margin: 0px;">
+				<input 
+					type="text" 
+					id="howHeard" 
+					name="howHeard" 
+					ng-model="$ctrl.profile.howHeard" 
+					placeholder="How did you hear about us?"
+					aria-label="How did you hear about us?"
+				/>
+				<!--<div class="hint">How did you hear about us?</div>-->
+			</md-input-container>
+
+			<md-input-container style="margin: 0px;">
+				<input 
+					type="text" 
+					id="hours" 
+					name="hours" 
+					ng-model="$ctrl.profile.hours" 
+					placeholder="Hours"
+					aria-label="hours"
+				/>
+				<!--<div class="hint"></div>-->
+			</md-input-container>
+
+			<md-input-container style="margin: 0px;">
+				<input 
+					type="text" 
+					id="description" 
+					name="description" 
+					ng-model="$ctrl.profile.description" 
+					placeholder="Describe your company or yourself."
+					aria-label="description"
+				/>
+				<!--<div class="hint">Description</div>-->
+			</md-input-container>
+
+
+
+			<br />
+
+			<div layout="row" flex>
+				<span flex></span>
+
+				<div class="form-group"> 
+					<div class="col-sm-12">
+						<button 
+							id="registerButton" 
+							class="md-raised btn btn-primary btn-danger" 
+							ng-click="$ctrl.cancel()"
+							aria-label="register button"
+						>
+							<span class="glyphicon glyphicon-download-alt"></span>
+							<span flex></span>
+							Cancel
+						</button>
+
+						<span flex></span>
+
+						<button 
+							class="md-raised btn btn-primary btn-primary" 
+							ng-click="$ctrl.update( $ctrl.profile )" 
+							aria-label="update button"
+						>
+							<span class="glyphicon glyphicon-open"></span>
+							<span flex></span>
+							Update
+						</button>
+
+						<span flex></span>
+
+						<!--<button class="md-raised btn btn-primary btn-primary" ng-click="$ctrl.add( $ctrl.profile )" aria-label="add button">
+							<span class="glyphicon glyphicon-plus"></span>
+							<span flex></span>
+							Add
+						</button>
+						-->
+					</div>
+				</div>
+
+				<span flex></span>
+			</div>
+
+		</form>
+
+	</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<footer>
+		<span style="color: white;">
+			<h3>Get your register on!</h3>
+		</span>
+	</footer>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

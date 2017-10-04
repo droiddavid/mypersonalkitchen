@@ -3,7 +3,7 @@
 
 'use strict';
 angular.module('app').component('customerDashboard', {
-	//NOTE: nothing to bind to at this time.
+	templateUrl: 'partials/dashboards/customerDashboard/customerDashboard.html',
 	controller: ['$http', '$state', '$mdToast', 'Database', 'Session', 'ToolbarService', 
 		function ($http, $state, $mdToast, Database, Session, ToolbarService) {
 
@@ -88,6 +88,5 @@ angular.module('app').component('customerDashboard', {
 			ToolbarService.init(toolbar);
 		};
 
-	}],
-	templateUrl: 'partials/dashboards/customerDashboard/customerDashboard.html'
+	}]
 });

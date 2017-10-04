@@ -22,86 +22,98 @@
 		</div>
 	</div>
 
-	<form class="form-horizontal loginForm" layout="column"
-		name="loginForm" 
-		novalidate 
-		ng-model-options="{ allowInvalid: true, debounce: 400 }"
-	>
-		<h3 ng-if="$ctrl.person.firstName.length > 0">Welcome {{ $ctrl.person.firstName }}</h3>
+	<div id="pageBody" class="pageBody">
 
-		<span flex></span>
+		<div class="loginForm">
 
-		<md-input-container style="margin: 0px;">
-			<input 
-				type="email"
-				id="emailAddress"
-				name="emailAddress"
-				ng-model="$ctrl.person.emailAddress"
-				required
-				aria-label="emailaddress"
+			<form class="form-horizontal" layout="column"
+				name="loginForm" 
+				novalidate 
+				ng-model-options="{ allowInvalid: true, debounce: 400 }"
 			>
-			<div class="hint">Email</div>
-		</md-input-container>
+				<h3 ng-if="$ctrl.person.firstName.length > 0">Welcome {{ $ctrl.person.firstName }}</h3>
 
-		<md-input-container style="margin: 0px;">
-			<input 
-				type="password" 
-				id="password"
-				name="password"
-				ng-model="$ctrl.person.password"
-				required
-				aria-label="password"
-			>
-			<div class="hint">Password</div>
-		</md-input-container>
+				<span flex></span>
+
+				<md-input-container style="margin: 0px;">
+					<input 
+						type="email"
+						id="emailAddress"
+						name="emailAddress"
+						ng-model="$ctrl.person.emailAddress"
+						required
+						aria-label="emailaddress"
+						placeholder="Enter Email Address." 
+					>
+					<!--<div class="hint">Email</div>-->
+				</md-input-container>
+
+				<md-input-container style="margin: 0px;">
+					<input 
+						type="password" 
+						id="password"
+						name="password"
+						ng-model="$ctrl.person.password"
+						required
+						aria-label="password"
+						placeholder="Enter Password." 
+					>
+					<!--<div class="hint">Password</div>-->
+				</md-input-container>
 
 
-		<div layout="row" flex>
-			<span flex></span>
+				<div layout="row" flex>
+					<span flex></span>
 
-			<div class="form-group"> 
-				<div class="col-sm-12">
+					<div class="form-group"> 
+						<div class="col-sm-12">
 
-					<div layout="row">
+							<div layout="row">
 
-						<md-button id="loginButton" class="md-raised md-primary" 
-							ng-click="$ctrl.login()"  
-							aria-label="login"
-						>Login</md-button>
+								<md-button id="loginButton" class="md-raised md-primary" 
+									ng-click="$ctrl.login()"  
+									aria-label="login"
+								>Login</md-button>
 
-					</div>
+							</div>
 
-					<br /><br />
+							<br /><br />
 
-					<!-- Facebook -->
-					<div layout="row">
-						<div layout="row">
-							<div class="fb-login-button" data-max-rows="1" data-size="xlarge" data-show-faces="false" data-auto-logout-link="true"></div>
+							<!-- Facebook -->
+							<div layout="row">
+								<div layout="row">
+									<div class="fb-login-button" data-max-rows="1" data-size="xlarge" data-show-faces="false" data-auto-logout-link="true"></div>
+								</div>
+							</div>
+
+							<div layout="row">
+								<div id="status" layout-padding></div>		
+							</div>
+
 						</div>
 					</div>
 
-					<div layout="row">
-						<div id="status" layout-padding></div>		
-					</div>
-
+					<span flex></span>
 				</div>
-			</div>
 
-			<span flex></span>
+				<div layout="row" flex>
+					<span flex></span>
+					<p>{{ message }}</p>
+					<span flex></span>
+				</div>
+		
+			</form>
+
 		</div>
 
-		<div layout="row" flex>
-			<span flex></span>
-			<p>{{ message }}</p>
-			<span flex></span>
-		</div>
+	</div>
 
-	</form>
-
+	
+	
 
 	<footer>
 		<span style="color: white;">
-			<h3>Get your login on!</h3>
+			<h3>Welcome to My Personal Kitchen</h3>
 		</span>
 	</footer>
 </div>

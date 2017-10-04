@@ -2,10 +2,14 @@
 'use strict';
 
 angular.module('app').component('profile', {
+	templateUrl: "partials/profile/profile.html",
 	bindings: {
 		profileData: '<'
 	},
-	controller: ['$http', '$state', 'Session', 'Profile', 'ProfileService', function ($http, $state, Session, Profile, ProfileService) { 
+	controller: [
+		'$http', '$state', 'Session', 'Profile', 'ProfileService', 'ToolbarService', 
+		function ($http, $state, Session, Profile, ProfileService, ToolbarService) { 
+		
 		'use strict';
 
 		var that = this;
@@ -14,6 +18,31 @@ angular.module('app').component('profile', {
 		this.$onInit = function () {
 			//Create a local profile object based on the array in either the Session collection or the .json file.
 			this.profile = this.profileData[0] || {};
+			that.initToolbar();
+		};
+
+		this.initToolbar = function () {
+			var toolbar = {};
+
+			toolbar.button = {};
+			toolbar.button.label = null; //icon button
+			toolbar.button.url = null;
+
+			toolbar.title = 'Profile';
+			toolbar.name = 'profile';
+
+			toolbar.menu = [];
+			toolbar.menu.push({
+				state: 'index', //url
+				label: 'HOME',
+				sronly: '(current)'
+			});
+			toolbar.menu.push({
+				state: 'cook', //url
+				label: 'Dashboard',
+				sronly: ''
+			});
+			ToolbarService.init(toolbar);
 		};
 
 
@@ -149,8 +178,4 @@ angular.module('app').component('profile', {
 
 
 	}], //controller
-
-
-	templateUrl: "partials/profile/profile.html"
-
 }); //component.profile
