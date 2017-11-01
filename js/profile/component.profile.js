@@ -22,27 +22,27 @@ angular.module('app').component('profile', {
 		};
 
 		this.initToolbar = function () {
-			var toolbar = {};
 
-			toolbar.button = {};
-			toolbar.button.label = null; //icon button
-			toolbar.button.url = null;
+			ToolbarService.init({
+				btnPrevious: {
+					id: 'btnPrevious',
+					class: 'glyphicon glyphicon-chevron-left brand',
+					state: 'cookDashboard',
+					style: 'color: white;'
+				},
+				btnBrand: {
+					id: 'btnBrand',
+					class: 'brand',
+					state: 'cookDashboard',
+					style: 'color: white;',
+					value: 'Profile'
+				},
+				menu: [
+					{ name: 'HOME (logout)', state: 'index' },
+					{ name: 'Memberships', state: 'memberships' }
+				]
+			}); //ToolbarService.init(...)
 
-			toolbar.title = 'Profile';
-			toolbar.name = 'profile';
-
-			toolbar.menu = [];
-			toolbar.menu.push({
-				state: 'index', //url
-				label: 'HOME',
-				sronly: '(current)'
-			});
-			toolbar.menu.push({
-				state: 'cook', //url
-				label: 'Dashboard',
-				sronly: ''
-			});
-			ToolbarService.init(toolbar);
 		};
 
 

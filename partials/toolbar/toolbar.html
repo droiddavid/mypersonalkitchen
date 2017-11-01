@@ -13,17 +13,18 @@
 				<span class="icon-bar"></span>
 			</button>
 
-			<div style="display: inline;">
-				<span 
-					class="glyphicon glyphicon-chevron-left" 
-					style=" color: white;">
-				</span>
-				<a 
-					class="navbar-brand" 
-					style=" color: white;" 
-					href="#">
-					{{ $ctrl.title }}
-				</a>			
+			<div class="navbar-brand">
+				<a id="{{ $ctrl.btnPrevious.id }}" 
+					style="{{ $ctrl.btnPrevious.style }}"
+					ng-click="$ctrl.go($ctrl.btnPrevious.state)"
+				><span class="{{ $ctrl.btnPrevious.class }}"></span></a>
+				
+				<a id="{{ $ctrl.btnBrand.id }}" 
+					class="{{ $ctrl.btnBrand.class }}"
+					style="{{ $ctrl.btnBrand.style }}" 
+					ng-click="$ctrl.btnBrand.state">
+					{{ $ctrl.btnBrand.value }}
+				</a>
 			</div>
 
 		</div>
@@ -217,10 +218,10 @@
 			-->
 
 
-			<ul class="nav navbar-nav navbar-right">
+			<ul id="tbrMenu" class="nav navbar-nav navbar-right">
 				<li ng-repeat="item in $ctrl.menu">
 					<a ng-click="$ctrl.go(item.state);" style="color: white;">
-						{{ item.label }}
+						{{ item.name }}
 					</a>
 				</li>
 				<!-- Add more links here.  Dropdowns allowed

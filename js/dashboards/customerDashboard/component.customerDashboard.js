@@ -53,40 +53,21 @@ angular.module('app').component('customerDashboard', {
 		};
 
 		this.initToolbar = function () {
-			var toolbar = {};
-
-			toolbar.buttons = [];
-			toolbar.buttons.push({
-				text: 'test'
-			});
-
-			toolbar.label = '';
-
-			toolbar.leftButton = {};
-			toolbar.leftButton.label = null; //icon button
-			toolbar.leftButton.url = null;
-
-			toolbar.title = 'Customer';
-			toolbar.name = 'customerDashboard';
-
-			toolbar.menu = [];
-			toolbar.menu.push({
-				state: 'profile', //url
-				label: 'Profile',
-				sronly: '(current)'
-			});
-			toolbar.menu.push({
-				state: 'memberships', //url
-				label: 'Memberships',
-				sronly: ''
-			});
-			toolbar.menu.push({
-				state: 'cookDashboard', //url
-				label: 'Upgrade To Cook',
-				sronly: ''
-			});
-			ToolbarService.init(toolbar);
+			ToolbarService.init({
+				btnBrand: {
+					id: 'btnBrand',
+					class: 'brand',
+					state: 'customerDashboard',
+					style: 'color: white;',
+					value: 'Customer'
+				},
+				menu: [
+					{ name: 'HOME', state: 'index' },
+					{ name: 'Profile', state: 'profile' },
+					{ name: 'Memberships', state: 'memberships' },
+					{ name: 'Upgrade To Cook', state: 'cookDashboard' },
+				]
+			}); //ToolbarService.init(...)
 		};
-
 	}]
 });

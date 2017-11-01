@@ -3,7 +3,7 @@
 
 'use strict';
 angular.module('app').component('cookDashboard', {
-	//NOTE: nothing to bind to at this time.
+	templateUrl: 'partials/dashboards/cookDashboard/cookDashboard.html',
 	controller: ['$http', '$state', '$mdToast', 'Database', 'Session', 'ToolbarService',
 		function ($http, $state, $mdToast, Database, Session, ToolbarService) {
 
@@ -14,7 +14,26 @@ angular.module('app').component('cookDashboard', {
 
 		this.$onInit = function () {
 
-			that.initToolbar();
+			ToolbarService.init({
+				btnBrand: {
+					id: 'btnBrand',
+					class: 'brand',
+					state: 'cookDashboard',
+					style: 'color: white;',
+					value: 'Cook'
+				},
+				menu: [
+					{ name: 'HOME', state: 'index' },
+					{ name: 'Profile', state: 'profile' },
+					{ name: 'Memberships', state: 'memberships' }
+				]
+			}); //ToolbarService.init(...)
+
+			/*	1. Determine if cook collection exists.
+				2. Build a list of cook ids.
+				3. Create an SQL object.
+				4. Select data from the table.
+				5. Return the response. */
 
 			if (Session) {
 				if (Session.Collections) {
@@ -39,40 +58,10 @@ angular.module('app').component('cookDashboard', {
 					}					
 				}
 			}
-
-
 		};
 
-		this.initToolbar = function () {
-			var toolbar = {};
-
-			toolbar.buttons = [];
-			toolbar.buttons.push({
-				text: 'test'
-			});
-
-			toolbar.label = '';
-
-			toolbar.leftButton = {};
-			toolbar.leftButton.label = '<'; //icon button
-			toolbar.leftButton.url = 'stateGoesHere';
-
-			toolbar.title = 'Cook';
-			toolbar.name = 'cookDashboard';
-
-			toolbar.menu = [];
-			toolbar.menu.push({
-				state: 'profile', //url
-				label: 'Profile',
-				sronly: '(current)'
-			});
-			toolbar.menu.push({
-				state: 'memberships', //url
-				label: 'Memberships',
-				sronly: ''
-			});
-			ToolbarService.init(toolbar);
+		this.go = function (state) {
+			$state.go(state);
 		};
-	}],
-	templateUrl: 'partials/dashboards/cookDashboard/cookDashboard.html'
+	}]
 });

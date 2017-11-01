@@ -2,6 +2,7 @@
 
 	<toolbar id="toolbar" class="toolbar" style="display: inline;"></toolbar>
 
+
 	<div id="jumbotron" class="jumbotron jumbotron-fluid" style="border-radius: 0px; margin-bottom: 0px;
 		padding: 0px;">
 
@@ -21,6 +22,7 @@
 			</p>
 		</div>
 	</div>
+
 
 	<div id="pageBody" class="pageBody">
 
@@ -70,10 +72,19 @@
 
 							<div layout="row">
 
-								<md-button id="loginButton" class="md-raised md-primary" 
-									ng-click="$ctrl.login()"  
+<!-- 								<button id="loginButton" class="md-raised md-primary" 
+									ng-click="$ctrl.login()"
+									ng-touchstart="$ctrl.login()"
+									ng-touchend="$ctrl.login()"
 									aria-label="login"
-								>Login</md-button>
+								>Login</button> -->
+
+								<md-button 
+									id="loginButton" 
+									class="md-raised md-primary" 
+									aria-label="login">
+									Login
+								</md-button>
 
 							</div>
 
@@ -105,15 +116,13 @@
 			</form>
 
 		</div>
-
 	</div>
 
-	
-	
 
 	<footer>
 		<span style="color: white;">
 			<h3>Welcome to My Personal Kitchen</h3>
 		</span>
 	</footer>
+
 </div>

@@ -1,7 +1,7 @@
 <md-content>
 
 	<toolbar id="toolbar" class="toolbar" style="display: inline;"></toolbar>
-
+	
 	<div class="custom-search-form">
 		<div class="input-group">
 			<input type="text" class="form-control" placeholder="Search for food or a cook by zip code.">
@@ -14,12 +14,13 @@
 	</div>
 
 	<div class="pageButtons">
-		<ul>
+		<!--<ul>
 			<li style="display: inline;"><span class="glyphicon glyphicon-search"></span></li>
 			<li style="display: inline;"><span class="glyphicon glyphicon-search"></span></li>
 			<li style="display: inline;"><span class="glyphicon glyphicon-search"></span></li>
 			<li style="display: inline;"><span class="glyphicon glyphicon-search"></span></li>
 		</ul>
+		-->
 	</div>
 
 	<div class="messages">
@@ -38,47 +39,41 @@
 		md-center-tabs 
 	>
 		<!-- TAB 1 -->
-		<md-tab label="Manage Food">
+		<md-tab label="Food">
 			<md-tab-body layout-padding="true">
 				<div>
-					<ul class="pageList">
-						<li class="alert alert-success">
-							<span class="pull-left" ng-click="$ctrl.go('food');">
-								Food
-							</span>
-							<span class="glyphicon glyphicon-chevron-right pull-right"></span>
-						</li>
-						<li class="alert alert-success">
-							<span class="pull-left" ng-click="$ctrl.go('platters');">
-								Platters
-							</span>
-							<span class="glyphicon glyphicon-chevron-right pull-right"></span>
-						</li>
-						<li class="alert alert-success">
-							<span class="pull-left" ng-click="$ctrl.go('platters');">
-								Menus
-							</span>
-							<span class="glyphicon glyphicon-chevron-right pull-right"></span>
-						</li>
-						<li class="alert alert-success">
-							<span class="pull-left" ng-click="$ctrl.go('platters');">
-								Specials
-							</span>
-							<span class="glyphicon glyphicon-chevron-right pull-right"></span>
-						</li>
-					</ul>					
+					<form>
+						<div class="form-group">
+							<label for="exampleInputEmail1">Email address</label>
+							<input type="email"  
+								id="exampleInputEmail1"
+								class="form-control" 
+								aria-describedby="emailHelp" 
+								placeholder="Enter email">
+							<small 
+								id="emailHelp" 
+								class="form-text text-muted">
+								We'll never share your email with anyone else.
+							</small>
+						</div>
+
+
+						<div class="form-group">
+							<label for="exampleInputPassword1">Password</label>
+							<input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+						</div>
+
+
+						<div class="form-check">
+							<label class="form-check-label">
+								<input type="checkbox" class="form-check-input">
+								Check me out
+							</label>
+						</div>
+						
+						<button type="submit" class="btn btn-primary">Submit</button>
+					</form>
 				</div>
-
-
-			</md-tab-body>
-		</md-tab>
-
-
-
-		<!-- TAB 2 -->
-		<md-tab label="Select Cook or Company" >
-			<md-tab-body layout-padding="true">
-				<cooks></cooks>
 			</md-tab-body>
 		</md-tab>
 

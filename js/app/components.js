@@ -16,25 +16,24 @@ angular
 
 			this.$onInit = function () {
 				ToolbarService.init({
-					button: { //icon button
-						label: null,
-						url: null
+					btnPrevious: {
+						id: 'btnPrevious',
+						class: 'glyphicon glyphicon-chevron-left brand',
+						state: 'index',
+						style: 'display: none;'
 					},
-					title: 'My Personal Kitchen',
-					name: 'index',
+					btnBrand: {
+						id: 'btnBrand',
+						class: 'brand',
+						state: 'index',
+						style: 'color: white;',
+						value: 'My Personal Kitchen'
+					},
 					menu: [
-						{
-							state: 'login', //url
-							label: 'Login',
-							sronly: '(current)'
-						},
-						{
-							state: 'register', //url
-							label: 'Register',
-							sronly: ''
-						}
+						{ name: 'Login', state: 'login' },
+						{ name: 'Register', state: 'register' }
 					]
-				});
+				}); //ToolbarService.init(...)
 			};
 
 			this.go = function (menuItem) {
@@ -86,20 +85,14 @@ angular
 
 			var that = this;
 
-			this.title = undefined;
-			this.menu = [];
-			this.label = undefined;
-			this.state = undefined;
-			this.buttons = [];
+			this.btnPrevious = {};
+			this.btnBrand = {};
+			this.menu = {};
 
 			this.$onInit = function () {
-
-				that.title = ToolbarService.title;
+				that.btnPrevious = ToolbarService.btnPrevious;
+				that.btnBrand = ToolbarService.btnBrand;
 				that.menu = ToolbarService.menu;
-				that.label = ToolbarService.label;
-				that.state = ToolbarService.state;
-				that.buttons = ToolbarService.buttons
-
 			};
 
 			this.go = function (link) {
@@ -121,33 +114,43 @@ angular
 
 			this.person = undefined;
 			this.FIRST_RECORD_INDEX = 0;
+			this.registerButton = document.querySelector('#registerButton');
 
 			this.$onInit = function () {
+
+				that.registerButton.addEventListener('touchstart click', function (e) {
+
+					that.registerButton.addEventListener('touchmove', function (e) {}, true);
+					that.registerButton.addEventListener('touchend', function (e) {
+						that.register(that.person);
+					}, true);
+
+				}, true);
+
 				that.initToolbar();
+
 			};
 
 			this.initToolbar = function () {
-				var toolbar = {};
-
-				toolbar.button = {};
-				toolbar.button.label = null; //icon button
-				toolbar.button.url = null;
-
-				toolbar.title = 'Register';
-				toolbar.name = 'register';
-
-				toolbar.menu = [];
-				toolbar.menu.push({
-					state: 'index', //url
-					label: 'HOME',
-					sronly: '(current)'
-				});
-				toolbar.menu.push({
-					state: 'login', //url
-					label: 'Login',
-					sronly: ''
-				});
-				ToolbarService.init(toolbar);
+				ToolbarService.init({
+					btnPrevious: {
+						id: 'btnPrevious',
+						class: 'glyphicon glyphicon-chevron-left brand',
+						state: 'index',
+						style: 'color: white;'
+					},
+					btnBrand: {
+						id: 'btnBrand',
+						class: 'brand',
+						state: 'register',
+						style: 'color: white;',
+						value: 'Register'
+					},
+					menu: [
+						{ name: 'HOME', state: 'index' },
+						{ name: 'Login', state: 'login' }
+					]
+				}); //ToolbarService.init(...)
 			};
 
 			this.register = function (person) {
@@ -362,27 +365,41 @@ angular
 
 			this.FIRST_RECORD_INDEX = 0;
 
+			this.loginButton = document.querySelector('#loginButton');
+
 			this.$onInit = function () {
+				that.loginButton.addEventListener('touchstart', function (e) {
+
+					that.loginButton.addEventListener('touchmove', function (e) {}, true);
+					that.loginButton.addEventListener('touchend', function (e) {}, true);
+					that.loginButton.addEventListener('click', function (e) {
+						that.login();
+					}, true);
+
+					that.login();
+
+				}, true);
+
 				ToolbarService.init({
-					button: { //icon button
-						label: null,
-						url: null
+					btnPrevious: {
+						id: 'btnPrevious',
+						class: 'glyphicon glyphicon-chevron-left brand',
+						state: 'index',
+						style: 'color: white;'
 					},
-					title: 'Login',
-					name: 'login',
+					btnBrand: {
+						id: 'btnBrand',
+						class: 'brand',
+						state: 'index',
+						style: 'color: white;',
+						value: 'Login'
+					},
 					menu: [
-						{
-							state: 'index', //url
-							label: 'HOME',
-							sronly: '(current)'
-						},
-						{
-							state: 'register', //url
-							label: 'Register',
-							sronly: ''
-						}
+						{ name: 'HOME', state: 'index' },
+						{ name: 'Register', state: 'register' }
 					]
-				});
+				}); //ToolbarService.init(...)
+
 			};
 
 			this.login = function () {
@@ -393,9 +410,10 @@ angular
 						if (response.data && response.data.data && response.data.data.length) {
 
 							var User = response.data.data[that.FIRST_RECORD_INDEX];
-
 							if (User.role === 5) { Session.createGuest(User); } //customer
-							if (User.role === 2) { Session.createUser(User); }	//cook
+							if (User.role === 2) { 
+								Session.createUser(User);
+							}	//cook
 
 							//create app objects
 							switch (User.role) {
@@ -443,9 +461,173 @@ angular
 }); //login component
 
 
+angular
+	.module('app')
+	.component('food', {
+		templateUrl: 'partials/food/food.html',
+		controller: function (
+			$http, $state, $rootScope, Session, Database, 
+			ToolbarService, FoodTypeService, FoodItemListService) {
+			
+			'use strict'; 
+
+			var that = this;
+
+			this.foodTypes = undefined;
+			this.toolbar = undefined;
+			this.addCategoryButton = document.querySelector('#addCategoryButton');
+
+			this.$onInit = function () {
+
+				FoodTypeService.init();
 
 
+				ToolbarService.init({
+					btnPrevious: {
+						id: 'btnPrevious',
+						class: 'glyphicon glyphicon-chevron-left brand',
+						state: 'cookDashboard',
+						style: 'color: white;'
+					},
+					btnBrand: {
+						id: 'btnBrand',
+						class: 'brand',
+						state: 'food',
+						style: 'color: white;',
+						value: 'Food'
+					},
+					menu: [
+						{ name: 'HOME (logout)', state: 'index' },
+						{ name: 'Profile', state: 'profile' },
+						{ name: 'Memberships', state: 'memberships' }
+					]
+				}); //ToolbarService.init(...)
 
+
+				that.addCategoryButton.addEventListener('touchstart click', function (e) {
+					that.addCategoryButton.addEventListener('touchmove', function (e) {}, true);
+					that.addCategoryButton.addEventListener('touchend', function (e) {
+						that.addCategory();
+					}, true);
+				}, true);//$('#addNewFoodTypePanel').style="display: none;";
+			};
+			this.getFoodTypes = function (response) {
+				that.foodTypes = FoodTypeService.foodTypes;
+			};
+			this.showFoodPage = function (foodType) {
+
+				//set toolbar
+				that.toolbar = {
+					btnPrevious: {
+						id: 'btnPrevious',
+						class: 'glyphicon glyphicon-chevron-left brand',
+						state: 'food',
+						style: 'color: white;'
+					},
+					btnBrand: {
+						id: 'btnBrand',
+						class: 'brand',
+						state: 'food',
+						style: 'color: white;',
+						value: foodType.type
+					},
+					menu: [
+						{ name: 'HOME (logout)', state: 'index' },
+						{ name: 'Profile', state: 'profile' },
+						{ name: 'Memberships', state: 'memberships' }
+					]
+				};
+
+				//init food item service
+
+				var obj = {
+					table: 'food',
+					fields: [{ name: 'userId'}, { name: 'type' }],
+					where: [{ value: Session.id }, { value: foodType.type }]
+				};
+				Database.select2(obj)
+					.then(function (response) {
+						if (response.data && response.data.data) {
+							var _data = response.data.data;
+
+							if (_data === undefined || _data.length === 0) {
+								//ADD $on function
+								//$rootScope.$broadcast('getListData.noFoodDatasetFound');
+								//Add message - no food found in this category, then
+								//change to the food page.  The user will add food to the category
+								//there.
+								$state.go('foodTemplate', { 
+									"data": {	
+										"toolbar": that.toolbar,
+										"foodType": foodType,
+										"foodItems": []
+									}
+								});
+							} else {
+								FoodItemListService.FoodItems = response.data.data;
+
+								$state.go('foodTemplate', { 
+									"data": {	
+										"toolbar": that.toolbar,
+										"foodType": foodType,
+										"foodItems": FoodItemListService.FoodItems
+									}
+								});
+							}
+
+						} else { return response; }
+
+					});
+			};
+			this.go = function (state) {
+				$state.go(state);
+			};
+			this.addCategory = function () {
+				var _newFoodType = document.querySelector('#newFoodType');
+				var _foodType = undefined;
+
+				if (_newFoodType.value) {
+					_foodType = _newFoodType.value;
+				}
+
+				if (_foodType) {
+					FoodTypeService.addFoodType(_foodType);
+					that.getFoodTypes();
+				}
+
+				_newFoodType.value = "";
+			};
+
+			$rootScope.$on('foodTypes.loaded', that.getFoodTypes);
+		}
+}); //food component
+
+
+angular
+	.module('app')
+	.component('foodItemList', {
+		bindings: {
+			foodType: '='
+		},
+		templateUrl: 'partials/foodItemList/foodItemList.html',
+		controller: function (FoodItemListService) {
+			'use strict';
+
+			var that = this;
+			this.type = this.foodType;
+
+			this.foodItemList = [];
+
+			this.$onInit = function () {
+				that.foodItemList.push(	{ name: 'Bread' } );
+				that.foodItemList.push(	{ name: 'Googoo'} );
+				var xxxxxxxxx = that.type;
+				var dafadsfadsf = FoodItemListService;
+				//that.type = FoodItemListService.getFoodType();
+				debugger;
+			};
+		}
+	}); //foodItemList
 
 
 
@@ -493,11 +675,6 @@ angular.module('app').component('userDetail', {
 	bindings: { user: '<' },
 	templateUrl: 'partials/index.detail.html'
 });
-angular.module('app').component('food', {
-	bindings: { total: '<' },
-	controller: function () { this.getFood = function () { alert("Food"); } },
-	template: "<div style='background-color: #f09;'><p>Food template realised.</p></div>"
-}); //component.food
 angular.module('app').component('subscriptions', {
 	bindings: { total: '<' },
 	controller: function () { this.getProfile = function () { alert("Profile"); } },

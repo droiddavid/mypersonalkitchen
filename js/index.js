@@ -1,7 +1,7 @@
 /*global angular, $, console */
 /*jslint plusplus: true */
 
-var app = angular.module('app', ['ui.router', 'ui.bootstrap', 'ngMaterial', 'ngAnimate']);
+var app = angular.module('app', ['ui.router', 'ui.bootstrap', 'ngMaterial', 'ngAnimate', 'ngTouch']);
 
 app.constant('AUTH_EVENTS', {
 	loginSuccess: 'auth-login-success',
@@ -58,6 +58,27 @@ app.config(function ($stateProvider, $urlServiceProvider, $mdThemingProvider) {
 	$stateProvider.state('register', {
 		url: '/register',
 		component: 'register'
+	});
+
+	$stateProvider.state('food', {
+		url: '/food',
+		component: 'food'
+	});
+
+	$stateProvider.state('foodTemplate', {
+		url: '/foodTemplate',
+		component: 'foodTemplate',
+		params: {
+			data: {
+				toolbar: undefined,
+				foodType: undefined
+			}
+		}
+	});
+
+	$stateProvider.state('addActivity', {
+		url: '/addActivity',
+		component: 'addActivity'
 	});
 
 

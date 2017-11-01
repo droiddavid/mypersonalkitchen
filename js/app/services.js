@@ -315,24 +315,40 @@ angular.module('app').service('DynamicDashboardService', [function () {
 angular.module('app').service('ToolbarService', [function () {
 
 	var that = this;
-	this.leftButton = {
-		label: '',
-		url: ''
-	};
-	this.title = '';
-	this.name = '';
-	this.menu = [];
-	this.buttons = [];
+
+	this.btnPrevious = {};
+	this.btnBrand = {};
+	this.menu = {};
 
 	this.init = function (toolbar) {
-		//that.leftButton.label = toolbar.leftButton.label;
-		//that.leftButton.url = toolbar.leftButton.url;
 
-		that.title = toolbar.title;
-		that.name = toolbar.name;
+		that.btnPrevious = toolbar.btnPrevious;
+		that.btnBrand = toolbar.btnBrand;
 		that.menu = toolbar.menu;
 
-		that.buttons = toolbar.buttons;
 	}
 
 }]); //service.ToolbarService
+
+
+angular.module('app').service('FoodItemListService', ['$state', '$stateParams', '$rootScope', 'Database', 'Session', function ($state, $stateParams, $rootScope, Database, Session) {
+	'use strict';
+
+	var that = this;
+	this.FoodItems = undefined;
+	this.foodType = undefined;
+
+	this.init = function (foodType) {};
+
+	this.getFoodType = function () {
+		return that.foodType;
+	};
+
+	this.setFoodType = function (foodType) {
+		that.foodType = foodType;
+	};
+
+	this.getFoodItems = function (foodType) {
+		return that.FoodItems;
+	};
+}]); //service.FoodItemListService

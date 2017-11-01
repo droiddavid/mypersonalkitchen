@@ -1,7 +1,7 @@
 <md-content>
 
 	<toolbar id="toolbar" class="toolbar" style="display: inline;"></toolbar>
-
+	
 	<div class="custom-search-form">
 		<div class="input-group">
 			<input type="text" class="form-control" placeholder="Search for food or a cook by zip code.">
@@ -14,12 +14,13 @@
 	</div>
 
 	<div class="pageButtons">
-		<ul>
+		<!--<ul>
 			<li style="display: inline;"><span class="glyphicon glyphicon-search"></span></li>
 			<li style="display: inline;"><span class="glyphicon glyphicon-search"></span></li>
 			<li style="display: inline;"><span class="glyphicon glyphicon-search"></span></li>
 			<li style="display: inline;"><span class="glyphicon glyphicon-search"></span></li>
 		</ul>
+		-->
 	</div>
 
 	<div class="messages">
@@ -38,47 +39,55 @@
 		md-center-tabs 
 	>
 		<!-- TAB 1 -->
-		<md-tab label="Manage Food">
+		<md-tab label="Food">
 			<md-tab-body layout-padding="true">
+
 				<div>
-					<ul class="pageList">
+					<span>Above the foodItemList component.</span>
+					<ul>
 						<li class="alert alert-success">
-							<span class="pull-left" ng-click="$ctrl.go('food');">
-								Food
+							<span class="pull-left">
+								Add a new food item.
 							</span>
-							<span class="glyphicon glyphicon-chevron-right pull-right"></span>
-						</li>
-						<li class="alert alert-success">
-							<span class="pull-left" ng-click="$ctrl.go('platters');">
-								Platters
+							<span class="pull-right">
+								<!-- Colored FAB button with ripple -->
+								<button 
+									id="addFoodItemButton" 
+									class="
+										mdl-button 
+										mdl-js-button 
+										mdl-button--fab 
+										mdl-button--mini-fab 
+										mdl-button--colored"
+									aria-label="add food item"
+									ng-click="$ctrl.addFoodItem()"
+									style="
+										margin-top: -2.5px;
+										display: inline;
+										width: 10%;"
+								>
+									<i class="material-icons">add</i>
+								</button>
 							</span>
-							<span class="glyphicon glyphicon-chevron-right pull-right"></span>
 						</li>
-						<li class="alert alert-success">
-							<span class="pull-left" ng-click="$ctrl.go('platters');">
-								Menus
-							</span>
-							<span class="glyphicon glyphicon-chevron-right pull-right"></span>
-						</li>
-						<li class="alert alert-success">
-							<span class="pull-left" ng-click="$ctrl.go('platters');">
-								Specials
-							</span>
-							<span class="glyphicon glyphicon-chevron-right pull-right"></span>
-						</li>
-					</ul>					
+					</ul>
+
+					<span>$ctrl.type = {{ $ctrl.type }}</span>
+
+					<div>
+						<ul>
+							<li class="alert alert-success" ng-repeat="item in $ctrl.List">
+								{{ item.name }}
+							</li>
+						</ul>
+					</div>
+
+					<!--<foodItemList foodType="{{ $ctrl.type }}"></foodItemList>-->
+
+					<span>Below the foodItemList component.</span>
+
 				</div>
 
-
-			</md-tab-body>
-		</md-tab>
-
-
-
-		<!-- TAB 2 -->
-		<md-tab label="Select Cook or Company" >
-			<md-tab-body layout-padding="true">
-				<cooks></cooks>
 			</md-tab-body>
 		</md-tab>
 

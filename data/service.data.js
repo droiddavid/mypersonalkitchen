@@ -111,6 +111,7 @@ angular.module('app').service('DataService', ['$http', '$state', '$stateParams',
 				});
 			that.cook.getFoodTypes(that.cook.QUERIES.FoodTypes.fields, that.cook.QUERIES.FoodTypes.table, Session.id)
 				.then(function (response) {
+					debugger;
 					Session.Collections.foodTypes = response.data.data;
 					that.checkIsDone();
 				});

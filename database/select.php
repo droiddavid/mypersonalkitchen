@@ -21,6 +21,8 @@
 
 	if ($table == "invitationModes") {
 		$rows = $db->select("invitationModes",array());
+	} else if ($table == "foodTypes") {
+		$rows = $db->select("foodTypes",array());
 	} else {
 		$rows = $db->select($table,array($fields=>$where));
 	}
