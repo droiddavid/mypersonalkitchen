@@ -1,0 +1,48 @@
+<md-content>
+
+	<toolbar id="toolbar" class="toolbar" style="margin-bottom: 0px;"></toolbar>
+
+
+	<div class="messages" style="margin-top: 0px;">
+		<ul>
+			<li ng-repeat="message in $ctrl.messages">
+				Message: {{ message.message }}
+			</li>
+		</ul>
+	</div>
+
+	<div id="cameraButtons">
+
+		<span 
+			class="btn btn-success glyphicon glyphicon-ok" 
+			ng-click="$ctrl.saveImageFile()"
+			aria-hidden="true">
+		</span>
+
+		<label for="cameraInput">
+			<span 
+				class="
+					btn btn-success 
+					glyphicon glyphicon-camera" 
+				aria-hidden="true">
+			</span>
+			<input 
+				type="file" 
+				id="cameraInput" 
+				class="btn btn-success"
+				name="cameraInput"
+				capture="camera" 
+				accept="image/*" 
+				style="display:none"
+			>
+		</label>
+
+		<!-- <a ng-click="$ctrl.go('invitations')" class="btn btn-success">Invite</a> -->
+		<!-- <a ng-click="$ctrl.showVideoOrPhoto('video')" class="btn btn-success">Video</a> -->
+
+	</div>
+
+	<img id="cameraImage" src="" alt="FOOD PHOTO TIP: For the best food photo, make sure to have plenty of light!" /> 
+
+
+</md-content>

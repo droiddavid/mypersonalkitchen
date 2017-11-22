@@ -1,17 +1,6 @@
 <md-content>
 
 	<toolbar id="toolbar" class="toolbar" style="display: inline;"></toolbar>
-	
-	<div class="custom-search-form">
-		<div class="input-group">
-			<input type="text" class="form-control" placeholder="Search for food or a cook by zip code.">
-			<span class="input-group-btn">
-				<button class="btn btn-default" type="button">
-					<span class="glyphicon glyphicon-search"></span>
-				</button>
-			</span>
-		</div><!-- /input-group -->
-	</div>
 
 	<div class="pageButtons">
 		<!--<ul>
@@ -26,57 +15,78 @@
 	<div class="messages">
 		<ul>
 			<li ng-repeat="message in $ctrl.messages">
-				Message: {{ message.message }}
+				Messages: {{ message.message }}
 			</li>
 		</ul>
 	</div>
 
-	<md-tabs 
-		layout-padding
-		md-selected="0" 
-		md-stretch-tabs="always" 
-		md-dynamic-height 
-		md-center-tabs 
-	>
-		<!-- TAB 1 -->
-		<md-tab label="Food">
-			<md-tab-body layout-padding="true">
-				<div>
-					<form>
-						<div class="form-group">
-							<label for="exampleInputEmail1">Email address</label>
-							<input type="email"  
-								id="exampleInputEmail1"
-								class="form-control" 
-								aria-describedby="emailHelp" 
-								placeholder="Enter email">
-							<small 
-								id="emailHelp" 
-								class="form-text text-muted">
-								We'll never share your email with anyone else.
-							</small>
-						</div>
+	<form>
+		<div class="form-group">
+			<label for="foodname">Name</label>
+			<input type="text" 
+				id="foodname"
+				class="form-control"
+				ng-model="$ctrl.FoodItem.name" 
+				aria-describedby="name of food item" 
+				placeholder="Name of food item">
+		</div>
+<!-- 		<div class="form-group">
+			<label for="category">Category</label>
+			<select type="text" 
+				id="category"
+				class="form-control" 
+				aria-describedby="name of food category">
+				<option ng-repeat="item in $ctrl.foodTypes" value="item.type">{{ item.type }}
+			</select>
+		</div> -->
+		<div class="form-group">
+			<label for="description">Description</label>
+			<input type="text" 
+				id="description"
+				class="form-control"
+				ng-model="$ctrl.FoodItem.description"
+				aria-describedby="food description" 
+				placeholder="Description">
+		</div>
+		<div class="form-group">
+			<label for="price">Price</label>
+			<input type="text" 
+				id="price" 
+				class="form-control"
+				ng-model="$ctrl.FoodItem.price" placeholder="Price">
+		</div>
+		<div class="form-check">
+			<label class="form-check-label">
+				<input type="checkbox"
+					id="available"
+					class="form-check-input"
+					ng-model="$ctrl.FoodItem.status">
+				Available?
+			</label>
+		</div>
+		<button type="button" 
+			class="
+				btn btn-success 
+				glyphicon glyphicon-plus" 
+			aria-hidden="true" 
+			ng-click="$ctrl.addFoodItem();"></button>
 
+		<button type="button" 
+			class="
+				btn btn-success 
+				glyphicon glyphicon-camera" 
+			aria-hidden="true" 
+			ng-click="$ctrl.cameraInput_click();"></button>
 
-						<div class="form-group">
-							<label for="exampleInputPassword1">Password</label>
-							<input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-						</div>
+		<input 
+			type="file" 
+			id="cameraInput" 
+			name="cameraInput"
+			capture="camera" 
+			accept="image/*" 
+			style="display:none" />3
 
-
-						<div class="form-check">
-							<label class="form-check-label">
-								<input type="checkbox" class="form-check-input">
-								Check me out
-							</label>
-						</div>
-						
-						<button type="submit" class="btn btn-primary">Submit</button>
-					</form>
-				</div>
-			</md-tab-body>
-		</md-tab>
-
-	</md-tabs>
+		<img id="cameraImage" alt="">
+	</form>
 
 </md-content>

@@ -15,12 +15,12 @@ angular.module('app').component('htmlmediaBody', {
 
 		this.showVideoOrPhoto = function (choice) {
 			if (choice === "video") {
-				this.showVideo = true;
-				this.showPhoto = false;				
+				that.showVideo = true;
+				that.showPhoto = false;				
 			}
 			if (choice === "photo") {
-				this.showVideo = false;
-				this.showPhoto = true;
+				that.showVideo = false;
+				that.showPhoto = true;
 			}
 		};
 
@@ -142,10 +142,12 @@ angular.module('app').component('htmlmediaBody', {
 				var imageData = that.canvas.toDataURL('image/png');
 				that.photo.setAttribute('src', imageData);
 
-				that.Invitation.photo_imageData = imageData;
+				//that.Invitation.photo_imageData = imageData;
 
 				htmlmediaService.Image.filename = new Date().getTime();
 				htmlmediaService.Image.data = imageData;
+				that.showVideo = false;
+				that.showPhoto = true;
 
 			} else {
 				that.clearphoto();

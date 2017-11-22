@@ -81,6 +81,10 @@ app.config(function ($stateProvider, $urlServiceProvider, $mdThemingProvider) {
 		component: 'addActivity'
 	});
 
+	$stateProvider.state('photo', {
+		url: '/photo',
+		component: 'photo'
+	});
 
 
 	//0 - has the authority to perform all actions on all assests

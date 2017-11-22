@@ -556,6 +556,11 @@ angular
 								//Add message - no food found in this category, then
 								//change to the food page.  The user will add food to the category
 								//there.
+
+								//But first, set the FoodItemList Service count to zero.
+								FoodItemListService.resetFoodItems();
+
+
 								$state.go('foodTemplate', { 
 									"data": {	
 										"toolbar": that.toolbar,
@@ -602,35 +607,11 @@ angular
 		}
 }); //food component
 
-
-angular
-	.module('app')
-	.component('foodItemList', {
-		bindings: {
-			foodType: '='
-		},
-		templateUrl: 'partials/foodItemList/foodItemList.html',
-		controller: function (FoodItemListService) {
-			'use strict';
-
-			var that = this;
-			this.type = this.foodType;
-
-			this.foodItemList = [];
-
-			this.$onInit = function () {
-				that.foodItemList.push(	{ name: 'Bread' } );
-				that.foodItemList.push(	{ name: 'Googoo'} );
-				var xxxxxxxxx = that.type;
-				var dafadsfadsf = FoodItemListService;
-				//that.type = FoodItemListService.getFoodType();
-				debugger;
-			};
-		}
-	}); //foodItemList
-
-
-
+//SEE THE PHOTO JS FILE
+// angular
+// 	.module('app')
+// 	.component('photo', {
+// 		templateUrl: 'partials/photo/photo.html',
 
 
 

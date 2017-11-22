@@ -1,34 +1,44 @@
-<nav class="navbar navbar-default dark-primary-color" role="navigation"">
+<nav class="navbar navbar-default dark-primary-color" role="navigation">
 	<div class="container-fluid">
 		<!-- Brand and toggle get grouped for better mobile display -->
 		<div class="navbar-header">
 			<button type="button" 
 				class="navbar-toggle collapsed" 
 				data-toggle="collapse" 
-				data-target="#bs-megadropdown-tabs">
+				data-target="#bs-megadropdown-tabs"
+			>
 				<span class="sr-only">Toggle navigation</span>
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
+
 			<div class="navbar-brand">
 				<a id="{{ $ctrl.btnPrevious.id }}" 
 					style="{{ $ctrl.btnPrevious.style }}"
 					ng-click="$ctrl.go($ctrl.btnPrevious.state)"
 				><span class="{{ $ctrl.btnPrevious.class }}"></span></a>
+				
 				<a id="{{ $ctrl.btnBrand.id }}" 
 					class="{{ $ctrl.btnBrand.class }}"
 					style="{{ $ctrl.btnBrand.style }}" 
-					ng-click="$ctrl.btnBrand.state">{{ $ctrl.btnBrand.value }}</a>
+					ng-click="$ctrl.btnBrand.state">
+					{{ $ctrl.btnBrand.value }}
+				</a>
 			</div>
+
 		</div>
+
+
+
 		<!-- Collect the nav links, forms, and other content for toggling -->
-		<div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
+		<!--<div class="collapse navbar-collapse" id="bs-megadropdown-tabs">-->
 			<!--<ul class="nav navbar-nav">
 				<li class="dropdown mega-dropdown active">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 						Dropdown <span class="caret"></span>
 					</a>
+
 					<div class="dropdown-menu mega-dropdown-menu">
 						<div class="container-fluid">
 							<!-- Tab panes --><!--
@@ -43,6 +53,7 @@
 												<span>Running</span>
 											</a>
 										</li>
+
 										<li>
 											<a href="#">
 												<img src="http://content.nike.com/content/dam/one-nike/globalAssets/menu_header_images/OneNike_Global_Nav_Icons_Basketball.png">
@@ -176,7 +187,8 @@
 								</div>
 							</div>
 						</div>
-						<!-- Nav tabs --><!--
+
+						--><!-- Nav tabs --><!--
 						<ul class="nav nav-tabs" role="tablist">
 							<li class="active">
 								<a href="#men" role="tab" data-toggle="tab">Men</a>
@@ -194,21 +206,25 @@
 					</div>				
 				</li>
 			</ul>
-			<!--
+
+
+			--><!--
 			<form class="navbar-form navbar-left" role="search">
 				<div class="form-group">
 					<input type="text" class="form-control" placeholder="Search">
 				</div>
 				<button type="submit" class="btn btn-default">Submit</button>
 			</form>
-			-->
+			--><!--
+
+
 			<ul id="tbrMenu" class="nav navbar-nav navbar-right">
 				<li ng-repeat="item in $ctrl.menu">
 					<a ng-click="$ctrl.go(item.state);" style="color: white;">
 						{{ item.name }}
 					</a>
 				</li>
-				<!-- Add more links here.  Dropdowns allowed
+				--><!-- Add more links here.  Dropdowns allowed
 	            <li><a href="#">Link</a></li>
     	        <li class="dropdown">
         			<a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -223,19 +239,24 @@
 					</ul>
 				</li>
 				-->
-			</ul>
-		</div><!-- /.navbar-collapse -->
+			<!--</ul>
+		</div>--><!-- /.navbar-collapse -->
 	</div><!-- /.container-fluid -->
 </nav>
+
+
 <!-- ******************************************************************************** -->
 <!-- ******************************************************************************** -->
 <!-- ******************************************************************************** -->
 <!-- ******************************************************************************** -->
 <!-- ******************************************************************************** -->
 <!-- ******************************************************************************** -->
+
+
 <!-- 
 <nav class="navbar navbar-default dark-primary-color" style="margin-bottom: 1px; border-radius: 0px;">
 	<div class="container-fluid">
+
 		<div class="navbar-header">
 			<button id="iconbar" type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
 				<span class="sr-only">Toggle navigation</span>
@@ -253,6 +274,7 @@
 			</ul>
 			<a class="navbar-brand" style=" color: white;" href="#">{{ $ctrl.title }}</a>
 		</div>
+
 		<!-- Collect the nav links, forms, and other content for toggling -->
 		<!-- <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav navbar-right">

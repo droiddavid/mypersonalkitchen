@@ -25,8 +25,8 @@
 
 	<div class="messages">
 		<ul>
-			<li ng-repeat="message in $ctrl.messages">
-				Message: {{ message.message }}
+			<li class="alert alert-danger" ng-repeat="message in $ctrl.messages">
+				{{ message.message }}
 			</li>
 		</ul>
 	</div>
@@ -43,7 +43,6 @@
 			<md-tab-body layout-padding="true">
 
 				<div>
-					<span>Above the foodItemList component.</span>
 					<ul>
 						<li class="alert alert-success">
 							<span class="pull-left">
@@ -81,10 +80,6 @@
 							</li>
 						</ul>
 					</div>
-
-					<!--<foodItemList foodType="{{ $ctrl.type }}"></foodItemList>-->
-
-					<span>Below the foodItemList component.</span>
 
 				</div>
 

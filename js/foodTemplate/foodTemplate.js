@@ -10,14 +10,33 @@ angular
 			var that = this;
 			this.type = undefined;
 			this.List = undefined;
+			this.messages = [];
 
 			this.$onInit = function () {
 				if ($stateParams.data.toolbar) {
 					ToolbarService.init($stateParams.data.toolbar);
 				}
-				if ($stateParams.data.foodType) {
-					that.type = $stateParams.data.foodType.type;
-					that.List = FoodItemListService.FoodItems;
+				if ($stateParams) {
+					if ($stateParams.data) {
+						if ($stateParams.data.foodType) {
+							that.type = $stateParams.data.foodType.type;
+						}
+					}
+				}
+				if (FoodItemListService) {
+					if (FoodItemListService.FoodItems) {
+						if (FoodItemListService.FoodItems.length > 0) {
+							that.List = FoodItemListService.FoodItems;
+						} else {
+							that.messages.push({
+								message: "You have 0 " + that.type + " available."
+							});
+						}					
+					} else {
+						that.messages.push({
+							message: "You have 0 " + that.type + " available."
+						});
+					}
 				}
 			};
 			this.addFoodItem = function () {

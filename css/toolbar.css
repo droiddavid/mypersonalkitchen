@@ -6,9 +6,9 @@ Logo by Sneaker-mission.com (http://www.sneaker-mission.com/)
 */
 
 .navbar-brand {
-	height: 50px;
-	background: url('http://www.sneaker-mission.com/uploads/3/1/2/7/31279819/5617441.png') no-repeat center center;
-	background-size: 50px;
+	height: 30px;
+	/*background: url('http://www.sneaker-mission.com/uploads/3/1/2/7/31279819/5617441.png') no-repeat center center;*/
+	background-size: 30px;
 }
 
 .nav-tabs {

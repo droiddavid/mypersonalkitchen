@@ -326,7 +326,7 @@ angular.module('app').service('ToolbarService', [function () {
 		that.btnBrand = toolbar.btnBrand;
 		that.menu = toolbar.menu;
 
-	}
+	};
 
 }]); //service.ToolbarService
 
@@ -351,4 +351,16 @@ angular.module('app').service('FoodItemListService', ['$state', '$stateParams', 
 	this.getFoodItems = function (foodType) {
 		return that.FoodItems;
 	};
+
+	this.resetFoodItems = function () {
+		if (that.FoodItems)
+			that.FoodItems.length = 0;
+	};
 }]); //service.FoodItemListService
+angular.module('app').service('PhotoService', ['$http', function ($http) {
+	var that = this;
+
+	this.init = function () {
+		debugger;
+	};
+}]);
