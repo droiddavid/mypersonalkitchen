@@ -1,4 +1,7 @@
-
+/*
+	A list of food items already filtered by category, 
+	ie Meats = Category, List = Chicken, Steak, etc.
+*/
 angular
 	.module('app')
 	.component('foodTemplate', {
@@ -40,12 +43,13 @@ angular
 				}
 			};
 			this.addFoodItem = function () {
-				$state.go('addActivity', {
+				$state.go('addFoodActivity', {
 					"data": {	
 						"toolbar": that.toolbar,
 						"fieldList": that.fieldList,
 						"action": that.action,
-						"buttons" : that.buttons
+						"buttons" : that.buttons,
+						"type" : that.type
 					}
 				});
 			};

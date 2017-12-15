@@ -45,11 +45,12 @@ angular.module('app').factory('Cook',
 		InvitationRecipients: { fields: "userId", table: "InvitationRecipients"}
 	};
 
-	Cook.prototype.getData = function (cookId, db_view, args) {
+	//Note: this is a single column select; i.e. select x from y where z
+	Cook.prototype.getData = function (fieldname, table, whereClause) {
 		return db.select({
-			fields: cookId,
-			table: db_view,
-			where: args //where userId = x
+			fields: fieldname,
+			table: table,
+			where: where //where fieldname = whereClause
 		});
 	}; //getData
 

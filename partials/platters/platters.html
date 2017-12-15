@@ -1,0 +1,192 @@
+<!-- partials/platters/platters.html -->
+
+<md-content>
+
+	<toolbar id="toolbar" class="toolbar" style="display: inline;"></toolbar>
+
+	<div class="custom-search-form">
+		<div class="input-group">
+			<input type="text" class="form-control" placeholder="Search your categories.">
+			<span class="input-group-btn">
+				<button class="btn btn-default" type="button">
+					<span class="glyphicon glyphicon-search"></span>
+				</button>
+			</span>
+		</div><!-- /input-group -->
+	</div>
+
+	<div class="pageButtons" style="margin-top: 0px;">
+		<ul style="display: inline;">
+			<li class="alert alert-success" style="margin-bottom: 0px;">
+				<div id="addNewFoodTypePanel">
+					<form>
+						<div class="form-group" style="margin: 5px 5px 5px 5px;">
+							<input type="text"  
+								id="addPlatter"
+								class="form-control" 
+								aria-describedby="newplatter" 
+								placeholder="Add a platter title."
+								style="display: inline; width: 80%;">
+							<button 
+								id="addPlatterButton" 
+								class="
+									mdl-button 
+									mdl-js-button 
+									mdl-button--fab 
+									mdl-button--mini-fab 
+									mdl-button--colored
+									pull-right"
+								aria-label="add platter"
+								ng-click="$ctrl.addPlatter()"
+								style="
+									margin-top: -2.5px;
+									display: inline;
+									width: 10%;"
+							>
+								<i class="material-icons">add</i>
+							</button>
+						</div>
+					</form>
+				</div>
+			</li>
+		</ul>
+	</div>
+
+	<div class="messages" style="border: 1px solid red; margin-top: 0px; display: inline;">
+		<ul>
+			<li ng-repeat="message in $ctrl.messages">
+				Message: {{ message.message }}
+			</li>
+		</ul>
+	</div>
+
+	<div>
+
+
+<!-- PLATTER CARD PLATTER CARD PLATTER CARD PLATTER CARD PLATTER CARD PLATTER CARD -->
+
+<div>
+<md-card ng-repeat="platter in $ctrl.platters" class="col-md-3 col-sm-6 col-xs-12" style="border: 1px solid blue; border-radius: 15px;">
+
+<!-- 					<md-card-title>
+						<md-card-title-text>
+							<span class="md-subhead">SubHead</span>
+						</md-card-title-text>
+					</md-card-title>
+ -->
+
+					<md-card-header>
+						<!--<md-card-avatar><img class="md-user-avatar" src="avatar.png"></md-card-avatar>-->
+						<md-card-header-text>
+							<span class="md-headline">
+								<span>{{ platter.name }} (#{{ platter.id }})
+								<span>$</span>{{ platter.price }}</span>
+							</span>
+							<span class="md-title">{{ platter.name }}</span>
+							<!--<span class="md-subhead">Sub Platter Notation</span>-->
+						</md-card-header-text>
+
+					</md-card-header>
+
+
+
+					<!--<img ng-src="card-image.png" class="md-card-image" alt="image caption">-->
+
+
+					<md-card-content>
+						<!-- foodItem in platter.Food -->
+						<div layout="row">
+							<ul style="list-style: none; width: 100%;">
+								<li ng-repeat="foodItem in platter.Food">
+									<table style="border: 1px solid #000; width: 100%;">
+										<tr>
+											<td style="border: 1px solid #ccc; width: 90%;">
+												[{{foodItem.type}}] | {{foodItem.name}}
+												<br />
+												{{foodItem.description}}
+											</td>
+
+											<td style="border: 1px solid #ccc; width: 10%;">
+												<button
+													class="btn btn-danger btn-xs"
+													id="removePlatter" 
+													type="button" 
+													style="position: relative; right: 0px;"
+													ng-click="$ctrl.remove(foodItem)" 
+													aria-label="Remove Food Item" >
+													<md-icon>remove</md-icon>
+													<md-tooltip>Remove Food Item</md-tooltip>
+												</button>
+											</td>
+										</tr>
+
+										
+
+									</table>
+
+								</li>
+							</ul>
+						</div>
+
+						<div layout="row">
+							<div layout="column">
+								<div layout="row">
+									<button type="button" 
+										class="
+											btn btn-success 
+											glyphicon glyphicon-plus" 
+										aria-hidden="true" 
+										ng-click="$ctrl.addFoodItemToPlatter(platter)">
+									</button>
+									<md-button 
+										class="btn btn-success btn-xs"
+										id="addFoodItemToPlatter"
+										ng-click="$ctrl.addFoodItemToPlatter(platter)" 
+										aria-label="add food item to platter" 
+									>
+										<md-icon>add</md-icon>
+										<md-tooltip>Add Food Item modal</md-tooltip>
+									</md-button><span style="vertical-align: text-bottom;">Add a food item to this platter.</span>
+								</div>
+
+								<div layout="row">
+									<md-button 
+										class="btn btn-success btn-xs"
+										ng-click="$ctrl.onDelete(platter)"
+									>
+										<md-icon>delete</md-icon>
+										<md-tooltip>Remove Platter</md-tooltip>
+									</md-button><span>Remove this platter.</span>
+								</div>
+							</div>
+
+						</div>
+
+					</md-card-content>
+
+				</md-card>
+</div>
+
+<!-- PLATTER CARD PLATTER CARD PLATTER CARD PLATTER CARD PLATTER CARD PLATTER CARD -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	</div>
+
+
+</md-content>

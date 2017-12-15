@@ -1,26 +1,78 @@
 /* Platters Component */
 angular.module('app').component('dashboardPlatters', {
-	controller: ['$http', '$state', '$stateParams', '$mdToast', 'Session', 'Cook', 'Database', 'PlatterService', 'PlatterItemService', 
-		function ($http, $state, $stateParams, $mdToast, Session, Cook, Database, PlatterService, PlatterItemService) {
+	//templateUrl: 'partials/dashboard/dashboard.platters.html',
+	templateUrl: 'partials/platters/platters.html',
+	controller: [
+		'$http', '$state', '$stateParams', '$mdToast', '$rootScope',
+		'Session', 'Cook', 'Database', 
+		'FoodService', 'PlatterService', 'PlatterItemService', 
+		function (
+			$http, $state, $stateParams, $mdToast, $rootScope,
+			Session, Cook, Database, 
+			FoodService, PlatterService, PlatterItemService) {
 
 		var that = this;
 		this.platter 		= {};
-		this.platters 		= [];
-		this.platterItems 	= [];
-		this.foodList 		= [];
+		this.platters 		= undefined;
+		this.platterItems 	= undefined;
+		this.foodList 		= undefined;
 
 		this.$onInit = function () {
 			//Initialize the PlatterService--get Session.Collections.platters and platterItems
-			if (!(PlatterService.isInitiated())) {
-				PlatterService.onInit();
+			if (!PlatterService.initialized) {
+				PlatterService.init(); 
+			} else {
+				if (that.platters === undefined) {
+					that.platters = PlatterService.platters;
+				}
 			}
 
-			that.platters = PlatterService.platters;
-			that.platterItems = PlatterService.platterItems;
-			that.foodList = PlatterService.foodList;
+			if (!PlatterItemService.initialized) {
+				PlatterItemService.init(); } 
+			else {
+				if (that.platterItems === undefined) {
+					that.platterItems = PlatterItemService.platterItems;	
+				}
+			}
 
+			if (!FoodService.initialized) {
+				FoodService.init();
+			} else {
+				if (that.foodList === undefined) {
+					that.foodList = FoodService.Food;
+				}
+			}
+
+			//For each platter, if a platterItem exist, add it to the platter's Food array.
+			that.platters.forEach(function (platter, index) {
+				if (platter.Food === undefined) {
+					platter.Food = [];
+				} else {
+					platter.Food.length = 0;
+				}
+				that.platterItems.forEach(function (platterItem, ndx) {
+					//what is the platterItem food ID?
+					//what is the platter ID, platterItem's platter ID
+					if (platterItem.foodId !== null) {
+						if (platter.id === platterItem.platterId) {
+
+							that.foodList.forEach(function (foodItem, index) {
+								if (foodItem.id === platterItem.foodId) {
+									platter.Food.push(foodItem);
+								}
+							});
+
+						}					
+					}
+				});
+			});
 		};
-
+		$rootScope.$on('Platters.loaded', that.loadPlatters);
+		this.loadPlatters = function () {
+			if ((PlatterService.platters && PlatterService.isInitialized) && !that.platters) {
+				that.platters = PlatterService.platters;
+			}
+		};
 		this.close = function () {
 			PlatterItemService.close();
 		};
@@ -72,8 +124,6 @@ angular.module('app').component('dashboardPlatters', {
 				});
 			}
 		};
-
-
 		this.addPlatter = function (platter) {
 
 			var Platter = {};
@@ -111,7 +161,6 @@ angular.module('app').component('dashboardPlatters', {
 							} else {
 								console.log("Insert or Select Failed.");
 							}
-
 							for (var index = 0; index < that.platters.length; index++) {
 								if (that.platters[index].id === Platter.id) {
 									var a = that.platters.splice(index,1);	// removes the item
@@ -119,14 +168,9 @@ angular.module('app').component('dashboardPlatters', {
 									break;
 								}
 							}
-
 						});
-
 				}); //.then(function (response) {  --> from cook.addPlatter(Platter)
-
 		}; //this.addPlatter
-
-
 		this.add = function (foodItem) {
 			foodItem.food_name = foodItem.name;
 			foodItem.platter_id = PlatterService.platter.platter_id;
@@ -138,8 +182,8 @@ angular.module('app').component('dashboardPlatters', {
 
 			PlatterService.isOnPlatter();
 		};
-
 		this.addFoodItemToPlatter = function (platter) {
+			debugger;
 			if (platter) {
 
 				if (platter.Food === undefined) {
@@ -161,7 +205,6 @@ angular.module('app').component('dashboardPlatters', {
 				}
 			}
 		};
-
 		this.onDelete = function (platter) {
 			that.deletePlatter(platter);
 			that.deletePlatterItems(platter);
@@ -195,12 +238,5 @@ angular.module('app').component('dashboardPlatters', {
 			var index = that.platters.indexOf(platter);
 			that.platters.splice(index, 1);
 		};
-
-
-
-
-
-
-	}],
-	templateUrl: 'partials/dashboard/dashboard.platters.html'
+	}]
 });

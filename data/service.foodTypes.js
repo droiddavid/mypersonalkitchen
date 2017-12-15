@@ -4,16 +4,43 @@ angular.module('app').service('FoodTypeService',
 	var that = this;
 
 	this.foodTypes = [];
+	this.initialized = false;
 
 	this.init = function () {
-		that.getDefaultFoodTypes();
-		//that.getFoodTypes();
+
+		//Get the defaulyt food types
+		that.loadDefaultFoodTypes();
+
+		//Load user defined food types
+		that.loadFoodTypes();
 
 		//Sort the array
 		that.sort();
+
 	};
 
-	this.getFoodTypes = function () {
+
+	this.loadDefaultFoodTypes = function () {
+		//Get the default food types
+		var obj = {
+			table: 'foodTypes',
+			fields: [{ name: 'userId'}, { name: 'status' }],
+			where: [{ value: 0 }, { value: 1 }]	
+		};
+		Database.select2(obj)
+			.then(function (response) {
+				if (response && response.data && response.data.data) {
+					that.foodTypes = response.data.data;
+					//$rootScope.$broadcast('foodTypes.defaults.loaded');
+				}
+			});
+	};
+	//$rootScope.$on('foodTypes.defaults.loaded', that.getFoodTypes);
+
+
+	this.loadFoodTypes = function () {
+
+		//GETTING FOOD TYPES BY USER ID
 		var obj = {
 			table: 'foodTypes',
 			fields: [{ name: 'userId'}, { name: 'status' }],
@@ -31,7 +58,7 @@ angular.module('app').service('FoodTypeService',
 
 					//sort the array
 					that.sort();
-					$rootScope.$broadcast('foodTypes.loaded', { response: response });
+					that.initialized = true;
 				}
 
 			});
@@ -39,46 +66,7 @@ angular.module('app').service('FoodTypeService',
 		// Database.select({ 
 		// 	fields: 'foodTypeId', 
 		// 	table: 'foodTypes', 
-		// 	where: '%' 
-		// // }).then(function (response) {
-		// 	if (response && response.data && response.data.data) {
-		// 		that.foodTypes = response.data.data;
-
-		// 		//sort the array
-		// 		that.sort();
-		// 		$rootScope.$broadcast('foodTypes.loaded', { response: response });
-		// 	}
-		// });
-	};
-
-	this.getDefaultFoodTypes = function () {
-		//Get the default food types
-		var obj = {
-			table: 'foodTypes',
-			fields: [{ name: 'userId'}, { name: 'status' }],
-			where: [{ value: 0 }, { value: 1 }]	
-		};
-		Database.select2(obj)
-			.then(function (response) {
-				if (response && response.data && response.data.data) {
-					that.foodTypes = response.data.data;
-					$rootScope.$broadcast('foodTypes.defaults.loaded', { response: response })
-				}
-			});
-	};
-	$rootScope.$on('foodTypes.defaults.loaded', that.getFoodTypes);
-
-	this.insertFoodType = function (foodType) {
-		Database.insert({
-			"table": 'foodTypes',
-			"userId": Session.id,
-			"type": foodType,
-			"status": 1
-		}).then(function (response) {
-			if (response && response.data) {
-				return response;
-			}
-		});
+		// 	where: '%'
 	};
 
 	this.sort = function () {
@@ -102,12 +90,12 @@ angular.module('app').service('FoodTypeService',
 		});
 	};
 
+	//Handles adding a new food type
 	this.addFoodType = function (newFoodType) {
 
 		var _exists = false;
 
 		that.foodTypes.forEach(function (foodType, index) {
-
 			if (newFoodType === foodType.type) {
 				_exists = true;
 			}
@@ -123,6 +111,20 @@ angular.module('app').service('FoodTypeService',
 			//get new list
 			that.getDefaultFoodTypes();
 		}
+	};
+
+	//Handles the DB entry.
+	this.insertFoodType = function (foodType) {
+		Database.insert({
+			"table": 'foodTypes',
+			"userId": Session.id,
+			"type": foodType,
+			"status": 1
+		}).then(function (response) {
+			if (response && response.data) {
+				return response;
+			}
+		});
 	};
 
 }]);

@@ -55,7 +55,7 @@ angular
 					btnPrevious: {
 						id: 'btnPrevious',
 						class: 'glyphicon glyphicon-chevron-left brand',
-						state: 'addActivity',
+						state: 'addFoodActivity',
 						style: 'color: white;'
 					},
 					btnBrand: {

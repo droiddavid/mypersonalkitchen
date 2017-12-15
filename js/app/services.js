@@ -335,23 +335,24 @@ angular.module('app').service('FoodItemListService', ['$state', '$stateParams', 
 	'use strict';
 
 	var that = this;
-	this.FoodItems = undefined;
+	this.FoodItems = [];
 	this.foodType = undefined;
 
-	this.init = function (foodType) {};
+	this.init = function (foodType) {
+	};
 
 	this.getFoodType = function () {
 		return that.foodType;
 	};
-
 	this.setFoodType = function (foodType) {
 		that.foodType = foodType;
 	};
-
+	this.addFoodItem = function (foodItem) {
+		that.FoodItems.push(foodItem);
+	};
 	this.getFoodItems = function (foodType) {
 		return that.FoodItems;
 	};
-
 	this.resetFoodItems = function () {
 		if (that.FoodItems)
 			that.FoodItems.length = 0;
@@ -362,5 +363,31 @@ angular.module('app').service('PhotoService', ['$http', function ($http) {
 
 	this.init = function () {
 		debugger;
+	};
+}]);
+angular.module('app').service('FoodService', ['$http', '$rootScope', 'Session', 'Database', function ($http, $rootScope, Session, Database) {
+	var that = this;
+
+	this.Food = [];			//List of food items.
+	this.foodItem = {};		//A single food item.
+	this.initialized = false;
+
+	this.init = function () {
+		if(!that.initalized) {
+			Database.select({
+				table: "food",
+				fields: "userId",
+				where: Session.id
+			}).then(function (response) {
+				if (response && response.data && response.data.data) {
+					that.Food = response.data.data;
+					that.initialized = true;
+
+					$rootScope.$broadcast('FoodService.Food.loaded');
+				}
+			});
+
+			that.initialized = true;			
+		}
 	};
 }]);

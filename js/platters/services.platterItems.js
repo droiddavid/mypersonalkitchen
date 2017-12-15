@@ -1,7 +1,7 @@
 /* js/services.js */
 angular.module('app').service('PlatterItemService', [
-	'$http', '$state', '$stateParams', '$mdToast', 'Session', 'Cook', 'Database', 'PlatterService',
-	function ($http, $state, $stateParams, $mdToast, Session, Cook, Database, PlatterService) {
+	'$http', '$state', '$stateParams', '$rootScope', '$mdToast', 'Session', 'Cook', 'Database', 'PlatterService',
+	function ($http, $state, $stateParams, $rootScope, $mdToast, Session, Cook, Database, PlatterService) {
 
 	var that = this;
 
@@ -9,9 +9,29 @@ angular.module('app').service('PlatterItemService', [
 	this.platterItems = []; 			//contains food from the platter (platter.Food[])
 	this.platter = undefined; 			//the current platter (contains an array of Food)
 	this.foodList = undefined; 			//holds a separate copy of Session.Collections.food
+	this.initialized = false;
 	
 
-	// this.initialized = false;
+	this.init = function () {
+
+		var that = this;
+
+		if (Database) {
+			Database.select({
+				table: "platterItems",
+				fields: "userId",
+				where: Session.id
+			})
+				.then(function (response) {
+					if (response && response.data && response.data.data) {
+						that.platterItems = response.data.data;
+						that.initialized = true;
+						$rootScope.$broadcast('PlatterService.loaded');
+					}
+				});
+		}
+	};
+
 
 
 	// this.onInit = function (platter) {

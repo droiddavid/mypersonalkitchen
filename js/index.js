@@ -76,9 +76,9 @@ app.config(function ($stateProvider, $urlServiceProvider, $mdThemingProvider) {
 		}
 	});
 
-	$stateProvider.state('addActivity', {
-		url: '/addActivity',
-		component: 'addActivity'
+	$stateProvider.state('addFoodActivity', {
+		url: '/addFoodActivity',
+		component: 'addFoodActivity'
 	});
 
 	$stateProvider.state('photo', {
@@ -86,6 +86,103 @@ app.config(function ($stateProvider, $urlServiceProvider, $mdThemingProvider) {
 		component: 'photo'
 	});
 
+	$stateProvider.state('platters', {
+		url: '/platters',
+		component: 'dashboardPlatters'
+	});
+
+	$stateProvider.state('addPlatterActivity', {
+		url: '/addPlatterActivity',
+		component: 'addPlatterActivity'
+	});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
 
 	//0 - has the authority to perform all actions on all assests
 	$stateProvider.state('allDashboard', {
@@ -164,6 +261,94 @@ app.config(function ($stateProvider, $urlServiceProvider, $mdThemingProvider) {
 		}
 	});
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
 	$stateProvider.state('profile', {
 		url: '/profile',
 		component: 'profile',
