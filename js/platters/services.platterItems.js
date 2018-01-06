@@ -26,7 +26,7 @@ angular.module('app').service('PlatterItemService', [
 					if (response && response.data && response.data.data) {
 						that.platterItems = response.data.data;
 						that.initialized = true;
-						$rootScope.$broadcast('PlatterService.loaded');
+						$rootScope.$broadcast('PlatterItemService.loaded');
 					}
 				});
 		}

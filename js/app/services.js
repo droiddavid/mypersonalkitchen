@@ -369,25 +369,28 @@ angular.module('app').service('FoodService', ['$http', '$rootScope', 'Session', 
 	var that = this;
 
 	this.Food = [];			//List of food items.
-	this.foodItem = {};		//A single food item.
 	this.initialized = false;
 
 	this.init = function () {
-		if(!that.initalized) {
-			Database.select({
-				table: "food",
-				fields: "userId",
-				where: Session.id
-			}).then(function (response) {
+		if(!that.initialized) {
+			that.loadFood().then(function (response) {
 				if (response && response.data && response.data.data) {
 					that.Food = response.data.data;
 					that.initialized = true;
 
-					$rootScope.$broadcast('FoodService.Food.loaded');
+					$rootScope.$broadcast('FoodService.loaded');
 				}
 			});
-
-			that.initialized = true;			
 		}
+	};
+	this.loadFood = function () {
+		return Database.select({
+			table: "food",
+			fields: "userId",
+			where: Session.id
+		})
+	};
+	this.getFood = function () {
+		return that.Food;
 	};
 }]);

@@ -96,6 +96,13 @@ app.config(function ($stateProvider, $urlServiceProvider, $mdThemingProvider) {
 		component: 'addPlatterActivity'
 	});
 
+	$stateProvider.state('addPlatterItemActivity', {
+		url: '/addPlatterItemActivity',
+		component: 'addPlatterItemActivity',
+		params: {
+			"data": {}
+		}
+	});
 
 
 
@@ -182,7 +189,8 @@ app.config(function ($stateProvider, $urlServiceProvider, $mdThemingProvider) {
 
 
 
-	
+
+
 
 	//0 - has the authority to perform all actions on all assests
 	$stateProvider.state('allDashboard', {

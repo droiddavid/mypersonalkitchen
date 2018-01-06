@@ -59,6 +59,8 @@ angular.module('app').service('FoodTypeService',
 					//sort the array
 					that.sort();
 					that.initialized = true;
+					$rootScope.$broadcast('FoodTypeService.loaded');
+
 				}
 
 			});

@@ -22,32 +22,13 @@ angular.module('app').component('cookDashboard', {
 		this.messages = [];
 		this.count = 0;
 
-		this.testServicesInitialized = function () {
-			that.count++;
-			if (that.count === 4) {
-				that.testServices();
-			}
-		};
-		$rootScope.$on('test.services.initalized', that.testServicesInitialized);
-		this.testServices = function () {
-			that.messages.push({ message: "FoodTypeService.initialized: " + FoodTypeService.initialized });
-			that.messages.push({ message: "FoodService.initialized: " + FoodService.initialized });
-			that.messages.push({ message: "PlatterService.initialized: " + PlatterService.initialized });
-			that.messages.push({ message: "PlatterItemService.initialized: " + PlatterItemService.initialized });
-		};
-
-
 		this.$onInit = function () {
-			//Initialize the cook's data
 
+			//Initialize the cook's data
 			if (!FoodTypeService.initialized) { FoodTypeService.init(); }
 			if (!FoodService.initialized) { FoodService.init(); }
 			if (!PlatterService.initialized) { PlatterService.init(); }
 			if (!PlatterItemService.initialized) { PlatterItemService.init(); }
-			// if (!Session.Collections.foodType) { FoodTypeService.init(); }
-			// if (!Session.Collections.food) { FoodService.init(); }
-			// if (!Session.Collections.platters) { PlatterService.init(); }
-			// if (!Session.Collections.platterItems) { PlatterItemService.init(); }
 
 
 			ToolbarService.init({

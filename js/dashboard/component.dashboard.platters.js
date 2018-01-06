@@ -4,18 +4,23 @@ angular.module('app').component('dashboardPlatters', {
 	templateUrl: 'partials/platters/platters.html',
 	controller: [
 		'$http', '$state', '$stateParams', '$mdToast', '$rootScope',
-		'Session', 'Cook', 'Database', 
+		'Session', 'Cook', 'Database', 'ToolbarService',
 		'FoodService', 'PlatterService', 'PlatterItemService', 
 		function (
 			$http, $state, $stateParams, $mdToast, $rootScope,
-			Session, Cook, Database, 
+			Session, Cook, Database, ToolbarService,
 			FoodService, PlatterService, PlatterItemService) {
 
 		var that = this;
-		this.platter 		= {};
-		this.platters 		= undefined;
-		this.platterItems 	= undefined;
-		this.foodList 		= undefined;
+		this.platter 			= {};
+		this.platters 			= undefined;
+		this.platterItems 		= undefined;
+		this.foodList 			= undefined;
+		this.addPlatterPanel 	= undefined;
+		this.buttonList 		= undefined;
+		this.platterName		= undefined;
+		this.description		= undefined;
+		this.price				= undefined;
 
 		this.$onInit = function () {
 			//Initialize the PlatterService--get Session.Collections.platters and platterItems
@@ -23,6 +28,9 @@ angular.module('app').component('dashboardPlatters', {
 				PlatterService.init(); 
 			} else {
 				if (that.platters === undefined) {
+					that.platters = [];
+					that.platters = PlatterService.platters;
+				} else {
 					that.platters = PlatterService.platters;
 				}
 			}
@@ -31,110 +39,81 @@ angular.module('app').component('dashboardPlatters', {
 				PlatterItemService.init(); } 
 			else {
 				if (that.platterItems === undefined) {
-					that.platterItems = PlatterItemService.platterItems;	
+					that.platterItems = [];
+					that.platterItems = PlatterItemService.platterItems;
+				} else {
+					that.platterItems = PlatterItemService.platterItems;
 				}
+	
 			}
 
 			if (!FoodService.initialized) {
 				FoodService.init();
 			} else {
 				if (that.foodList === undefined) {
+					that.foodList = [];
+					that.foodList = FoodService.Food;
+				} else {
 					that.foodList = FoodService.Food;
 				}
 			}
 
-			//For each platter, if a platterItem exist, add it to the platter's Food array.
-			that.platters.forEach(function (platter, index) {
-				if (platter.Food === undefined) {
-					platter.Food = [];
-				} else {
-					platter.Food.length = 0;
-				}
-				that.platterItems.forEach(function (platterItem, ndx) {
-					//what is the platterItem food ID?
-					//what is the platter ID, platterItem's platter ID
-					if (platterItem.foodId !== null) {
-						if (platter.id === platterItem.platterId) {
+			ToolbarService.init({
+				btnPrevious: {
+					id: 'btnPrevious',
+					class: 'glyphicon glyphicon-chevron-left brand',
+					state: 'cookDashboard',
+					style: 'color: white;'
+				},
+				btnBrand: {
+					id: 'btnBrand',
+					class: 'brand',
+					state: 'cookDashboard',
+					style: 'color: white;',
+					value: 'Platters'
+				},
+				menu: [
+					{ name: 'HOME (logout)', state: 'index' },
+					{ name: 'Invitations', state: 'invitations' },
+					{ name: 'Memberships', state: 'memberships' },
+					{ name: 'Profile', state: 'profile' }
+				]
+			}); //ToolbarService.init(...)
 
-							that.foodList.forEach(function (foodItem, index) {
-								if (foodItem.id === platterItem.foodId) {
-									platter.Food.push(foodItem);
-								}
-							});
+			that.addPlatterPanel = document.querySelector("#addPlatterPanel");
+			that.addPlatterPanel.style.display = "none";
 
-						}					
-					}
-				});
-			});
+			that.buttonList = document.querySelector("#buttonList");
+			that.buttonList.style.display = "block";
+
+		};
+		this.hideAddPlatterPanel = function () {
+			if (that.buttonList.style.display === "none") {
+				that.buttonList.style.display = "block";
+			} else { that.buttonList.style.display = "none"; }
+
+			if (that.addPlatterPanel.style.display === "none") {
+				that.addPlatterPanel.style.display = "block";
+				that.buttonList.style.display = "none";
+			} else { that.addPlatterPanel.style.display = "none"; }
 		};
 		$rootScope.$on('Platters.loaded', that.loadPlatters);
 		this.loadPlatters = function () {
 			if ((PlatterService.platters && PlatterService.isInitialized) && !that.platters) {
 				that.platters = PlatterService.platters;
-			}
-		};
+			}};
 		this.close = function () {
 			PlatterItemService.close();
 		};
-		this.remove = function (platterItem) {
-			var obj = {
-				table: 				"platterItems",
-				firstFieldName: 	"platterId",
-				firstFieldValue: 	platterItem.platter_id,
-				secondFieldName: 	"foodId",
-				secondFieldValue: 	platterItem.food_id
-			};
-
-			Database.delete2(obj)
-				.then(function (response) {
-					return response;
-				});
-
-			that.platterItems.forEach(function (item, index) {
-				if (item.platter_id === platterItem.platter_id) {
-					if (item.food_id === platterItem.food_id) {
-						that.platterItems.splice(index, 1);  //console.log('[that.platterItems.platter_id: (' + item.platter_id + ') ]We want to delete: ' + item.food_name + '[' + index + ']');
-					}
-				}
-			});
-
-			that.platters.forEach(function (platter, index) {
-				if (platter.platter_id === platterItem.platter_id) {
-					platter.Food.forEach(function (foodItem, ndx) {
-						if (foodItem.food_id === platterItem.food_id) {
-							platter.Food.splice(ndx, 1); //console.log('[foodItem.food_id: (' + foodItem.food_id + ') ]We want to delete: ' + foodItem.food_name + '[' + ndx + ']');
-						}
-					});
-				}
-			});
-
-			var platter = that.platters.find(function () {
-				return platterItem.platter_id;
-			});
-
-			if (platter.Food !== undefined) {
-				platter.Food.forEach(function (platterItem, i) {
-					that.foodList.forEach(function (Food, index) { //for each type, ie "Meat", "Starches", etc.
-						Food.items.forEach(function (food, ndx) {
-							if (platterItem.foodId === food.food_id) {
-								Food.items[ndx].isOnPlatter = false;	
-							}
-						});
-					});
-				});
-			}
+		this.removeFoodItem = function (platter, foodItem) {
+			PlatterService.removeFoodItem(platter, foodItem);
 		};
-		this.addPlatter = function (platter) {
+		this.addPlatter = function () {
 
 			var Platter = {};
-
-			//Add the form's elements to the insert object.
-			for (var key in platter) {
-				// skip loop if the property is from prototype
-				if (!platter.hasOwnProperty(key)) continue;			
-				Platter[key] = platter[key];
-			}
-
+			Platter.name = that.platterName;
+			Platter.description = that.description;
+			Platter.price = that.price;
 			Platter.table = "platters";
 			Platter.userId = Session.id;
 			Platter.menuId = 0;
@@ -168,9 +147,23 @@ angular.module('app').component('dashboardPlatters', {
 									break;
 								}
 							}
+							//Reset the form fields
+							that.platterName		= undefined;
+							that.description		= undefined;
+							that.price				= undefined;
 						});
 				}); //.then(function (response) {  --> from cook.addPlatter(Platter)
-		}; //this.addPlatter
+
+			that.hideAddPlatterPanel();}; //this.addPlatter
+		this.addFoodItemToPlatter = function (platter) {
+			$state.go('addPlatterItemActivity', {
+				"data": {
+					"platter": platter
+				}
+			});	}
+
+		//Move this code to the addPlatterActivity component
+		//Move this code to the addPlatterActivity component
 		this.add = function (foodItem) {
 			foodItem.food_name = foodItem.name;
 			foodItem.platter_id = PlatterService.platter.platter_id;
@@ -182,61 +175,37 @@ angular.module('app').component('dashboardPlatters', {
 
 			PlatterService.isOnPlatter();
 		};
-		this.addFoodItemToPlatter = function (platter) {
-			debugger;
-			if (platter) {
+		//Move this code to the addPlatterActivity component
+		//Move this code to the addPlatterActivity component
 
-				if (platter.Food === undefined) {
-					platter.Food = [];
-				}
-
-				if (platter.Food !== undefined) {
-					platter.Food.forEach(function (platterItem, i) {
-						that.foodList.forEach(function (Food, index) { //for each type, ie "Meat", "Starches", etc.
-							Food.items.forEach(function (food, ndx) {
-								if (platterItem.foodId === food.food_id) {
-									Food.items[ndx].isOnPlatter = true;	
-								}
-							});
-						});
-					});
-
-					PlatterService.platter = platter;
-				}
-			}
-		};
 		this.onDelete = function (platter) {
 			that.deletePlatter(platter);
 			that.deletePlatterItems(platter);
-			that.deletePlatterItemsFromArray(platter);
-		};
+			that.deletePlatterItemsFromArray(platter);};
 		this.deletePlatter = function (platter) {
 			//Remove platter from db.platters where platterId = platter.id
 			var obj = {
 				table: "platters",
 				fieldName: "id",
-				fieldValue: platter.platter_id
+				fieldValue: platter.id
 			};
 			Database.delete(obj)
 				.then(function (response) {
 					return response;
-				});
-		};
+				});};
 		this.deletePlatterItems = function (platter) {
 			//Remove platterItems from db.platterItems where platterId = platter.id
 			var obj = {
 				table: "platterItems",
 				fieldName: "platterId",
-				fieldValue: platter.platter_id
+				fieldValue: platter.id
 			};
 			Database.delete(obj)
 				.then(function (response) {
 					return response;
-				});
-		};
+				});};
 		this.deletePlatterItemsFromArray = function (platter) {
 			var index = that.platters.indexOf(platter);
-			that.platters.splice(index, 1);
-		};
+			that.platters.splice(index, 1);};
 	}]
 });

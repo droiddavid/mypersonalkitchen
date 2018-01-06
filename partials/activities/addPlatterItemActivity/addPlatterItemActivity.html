@@ -1,0 +1,251 @@
+<md-content>
+
+	<toolbar id="toolbar" class="toolbar" style="display: inline;"></toolbar>
+
+	<div class="pageButtons">
+		<!--<ul>
+			<li style="display: inline;"><span class="glyphicon glyphicon-search"></span></li>
+			<li style="display: inline;"><span class="glyphicon glyphicon-search"></span></li>
+			<li style="display: inline;"><span class="glyphicon glyphicon-search"></span></li>
+			<li style="display: inline;"><span class="glyphicon glyphicon-search"></span></li>
+		</ul>
+		-->
+	</div>
+
+	<div class="messages">
+		<ul>
+			<li ng-repeat="message in $ctrl.messages">
+				Messages: {{ message.message }}
+			</li>
+		</ul>
+	</div>
+
+
+	<!-- CATEGORY MENU -->
+	<div class="horizontal">
+		<div class="table">
+			<article ng-repeat="item in $ctrl.foodList">
+				<span ng-click="$ctrl.toggleFoodList(item.type);">
+					<h3>{{ item.type }}</h3>
+				</span>
+			</article>
+		</div>
+	</div>
+	<!-- CATEGORIZED FOOD -->
+	<div id="selectedFoodList" class="horizontal">
+		<div class="table">
+			<article ng-repeat="foodItem in $ctrl.selectedFoodList">
+				<h3>{{ foodItem.name }}</h3>		
+
+				<div layout="row">
+					<button type="button" 
+						class="
+							btn btn-success  
+							glyphicon glyphicon-plus" 
+						id="addFoodItemToPlatter" 
+						ng-click="$ctrl.addFoodItemToPlatter(foodItem)"
+						ng-hide="foodItem.isOnPlatter"
+						ng-show="!foodItem.isOnPlatter"
+						aria-label="add food item to platter" >
+					</button>
+					<button type="button" 
+						class="
+							btn btn-danger 
+							glyphicon glyphicon-minus" 
+						id="removeFoodItemToPlatter" 
+						ng-click="$ctrl.onDelete(foodItem)"
+						ng-hide="!foodItem.isOnPlatter"
+						ng-show="foodItem.isOnPlatter"
+						aria-label="add food item to platter" >
+					</button>
+				</div>
+
+
+
+
+
+
+
+
+
+
+
+				<div ng-hide="item.isOnPlatter !== item.isOnPlatter">
+					<h2>{{ item.isOnPlatter }}</h2>
+				</div>
+
+			</article>
+		</div>
+	</div>
+	<ul>
+		<li 
+			id="{{ foodItem.type }}" 
+			ng-repeat="foodItem in item.items"
+			ng-hide="item.type !== $ctrl.activeType"
+			ng-show="item.type === $ctrl.activeType" 
+			style="
+				border-bottom: 1px solid green;
+				background-color: rgba(0, 255, 0, 0.2);
+				padding: 10px;
+				width: 100%;"
+		>
+			<input type="checkbox" />{{ foodItem.name }}
+		</li>
+	</ul>
+	<!--
+	<div class="icon-bar">
+		<a class="btn btn-primary active" href="#"><i class="fa fa-home"></i></a> 
+	</div>
+	-->
+
+	<div>
+		This platter has the following food items:<br /><br />
+		<ul>
+			<li 
+				ng-repeat="foodItem in $ctrl.platter.Food" 
+				style="padding-left: 10px; padding-right: 10px;">
+				<!--{{ foodItem.id }}<br />
+				{{ foodItem.type }}<br />--><!--
+				{{ foodItem.description }}<br />-->
+				<span class="pull-left">{{ foodItem.name }}</span>
+				<span class="pull-right">{{ foodItem.price }}</span>
+
+<!-- 				="http://lorempixel.com/400/200/sports/" -->
+			</li>
+		</ul>
+	</div>
+
+<!-- <md-tabs 
+		layout-padding
+		md-selected="0" 
+		md-stretch-tabs="always" 
+		md-dynamic-height 
+		md-center-tabs 
+	> -->
+		<!-- TAB 1 -->
+<!-- 		<md-tab label="{{ item.type }}" ng-repeat="item in $ctrl.foodList">
+
+			<md-tab-body layout-padding="true"> -->
+
+<!-- 				<div class="scrolling-wrapper" style="border: 1px solid red;">
+					<md-card 
+						class="card alert alert-success" 
+						ng-repeat="foodItem in item.items" 
+						style="
+							border: 1px solid blue; 
+							border-radius: 15px; 
+							width: 700px;">
+
+	<!-- 					<md-card-title>
+							<md-card-title-text>
+								<span class="md-subhead">SubHead</span>
+							</md-card-title-text>
+						</md-card-title>
+	 -->
+
+						<!-- <md-card-header> -->
+							<!--<md-card-avatar><img class="md-user-avatar" src="avatar.png"></md-card-avatar>-->
+<!-- 							<md-card-header-text>
+								<span class="md-headline">
+									<span>{{ platter.name }} (#{{ platter.id }})
+									<span>$</span>{{ platter.price }}</span>
+								</span>
+								<span class="md-title">{{ platter.name }}</span> -->
+								<!--<span class="md-subhead">Sub Platter Notation</span>-->
+<!-- 							</md-card-header-text>
+
+						</md-card-header> -->
+
+
+
+						<!--<img ng-src="card-image.png" class="md-card-image" alt="image caption">-->
+
+
+<!-- 						<md-card-content>
+							<span>
+								{{ platter.description }}
+							</span> -->
+							<!-- foodItem in platter.Food -->
+<!-- 							<div layout="row">
+
+								{{ foodItem.id }}<br />
+								{{ foodItem.type }}<br />
+								{{ foodItem.description }}<br />
+								<span><em>[{{ foodItem.type }}]</em></span><br />
+								<div style="width: 100%;">
+									<span class="pull-left">{{ foodItem.name }}</span>
+									<span class="pull-right">{{ foodItem.price }}</span>
+								</div>
+
+							</div>
+
+							<div layout="row">
+								<div layout="column">
+									<div layout="row">
+										<button type="button" 
+											class="
+												btn btn-success 
+												glyphicon glyphicon-plus" 
+											id="addFoodItemToPlatter" 
+											ng-click="$ctrl.addFoodItemToPlatter(platter)"
+											aria-label="add food item to platter" >
+										</button>
+									</div>
+
+									<div layout="row">
+										<md-button 
+											class="btn btn-success btn-xs"
+											ng-click="$ctrl.onDelete(platter)"
+										>
+											<md-icon>delete</md-icon>
+											<md-tooltip>Remove Platter</md-tooltip>
+										</md-button><span>Remove this platter.</span>
+									</div>
+								</div>
+
+							</div>
+
+						</md-card-content>
+
+					</md-card> -->
+				<!-- </div> -->
+				<!-- <ul class="scrolling-wrapper" style="border: 1px solid red; height: 200px;">
+					<li class="card alert alert-success" ng-repeat="foodItem in item.items"
+						style="border: 1px solid black; border-radius: 5px; margin: 5px; height: 200px; width: 200px;"
+					>
+						{{ foodItem.id }}<br />
+						{{ foodItem.type }}<br /> --><!--
+						{{ foodItem.description }}<br />
+						<span><em>[{{ foodItem.type }}]</em></span><br />
+						<div style="width: 100%;">
+							<span class="pull-left">{{ foodItem.name }}</span>
+							<span class="pull-right">{{ foodItem.price }}</span>
+						</div>
+					</li>
+				</ul>-->
+<!-- 			</md-tab-body>
+
+		</md-tab>
+
+	</md-tabs> -->
+
+	<div style="display: none;">
+
+		<button type="button" 
+			class="
+				btn btn-success 
+				glyphicon glyphicon-camera" 
+			aria-hidden="true" 
+			ng-click="$ctrl.cameraInput_click();"></button>
+		<input 
+			type="file" 
+			id="cameraInput" 
+			name="cameraInput"
+			capture="camera" 
+			accept="image/*" 
+			style="display:none" />
+
+		<img id="cameraImage" alt="">
+	</div>
+
+</md-content>
