@@ -1,0 +1,73 @@
+<!-- partials\activities\sendFlyerActivity\sendFlyerActivity.html -->
+<!-- partials/invitations/invitations.html -->
+
+<md-content>
+
+	<toolbar id="toolbar" class="toolbar" style="display: inline;"></toolbar>
+	
+	<div class="custom-search-form" style="margin: 0px;">
+		<form class="form-group" style="margin: 0px;">
+			<input 
+				class="mdl-textfield__input"
+				id="recipient" 
+				type="text" 
+				ng-model="$ctrl.recipient.phone"
+				placeholder="Enter Phone # or Email:"
+				style="border: 1px solid #777; margin: 0px; display: inline;"
+			/>
+			<button class="btn btn-success" ng-click="$ctrl.contacts();">Contacts</button>
+		</form>
+
+	</div>
+
+	<div class="pageButtons" style="margin-top: 0px;">
+	</div>
+
+	<div class="messages" style="display: inline;">
+		<ul>
+			<li ng-repeat="message in $ctrl.messages">
+				Message: {{ message.message }}
+			</li>
+		</ul>
+	</div>
+
+	<div style="border: 1px solid red; border-radius: 5px; margin: 5px;">
+		<form style="margin: 5px;">
+
+			<div class="form-group">
+				<label for="dateSent">Sent:</label>
+				<span id="dateSent">{{ $ctrl.invitation.dateSent }}</span><br />
+
+				<label for="title">From:</label>
+				<span id="title">{{ $ctrl.invitation.title }}</span><br />
+
+				<label for="message">Message</label>
+				<span id="message">{{ $ctrl.invitation.message }}</span><br />
+
+				<label for="beginDate">On:</label>
+				<span id="beginDate">{{ $ctrl.invitation.beginDate }}</span><br />
+				
+				<label for="endDate">Until:</label>
+				<span>{{ $ctrl.invitation.endDate }}</span>
+			</div>
+
+			<div>
+				<button class="btn btn-danger" ng-click="$ctrl.cancel();">Cancel</button>
+				<button class="btn btn-success" ng-click="$ctrl.send();">Send</button>
+			</div>
+
+		</form>
+
+		<div>
+			<ul>
+				<li ng-repeat="recipient in $ctrl.recipients">
+					{{ recipient.name }}
+					{{ recipient.phone }}
+					{{ recipient.message }}
+				</li>
+			</ul>
+		</div>
+
+	</div>
+
+</md-content>

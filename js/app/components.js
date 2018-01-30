@@ -499,17 +499,11 @@ angular
 					},
 					btnBrand: {
 						id: 'btnBrand',
-						class: 'brand',
+						class: 'brand pull-right',
 						state: 'food',
 						style: 'color: white;',
 						value: 'Food'
-					},
-					menu: [
-						{ name: 'HOME (logout)', state: 'index' },
-						{ name: 'Invitations', state: 'invitations' },
-						{ name: 'Memberships', state: 'memberships' },
-						{ name: 'Profile', state: 'profile' }
-					]
+					}
 				}); //ToolbarService.init(...)
 
 

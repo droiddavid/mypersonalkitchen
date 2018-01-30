@@ -45,6 +45,8 @@ app.config(function ($stateProvider, $urlServiceProvider, $mdThemingProvider) {
 		REMEMBER, index component's templateUrl calls partials/login/loginBody.html.
 		partials/login/loginBody.html instantiates a login component. 
 	*/
+
+	/* APPLICATION BOOTSTRAP --- APPLICATION BOOTSTRAP --- APPLICATION BOOTSTRAP */
 	$stateProvider.state('index', {
 		url: '/index',
 		component: 'index'
@@ -59,7 +61,11 @@ app.config(function ($stateProvider, $urlServiceProvider, $mdThemingProvider) {
 		url: '/register',
 		component: 'register'
 	});
+	/* APPLICATION BOOTSTRAP --- APPLICATION BOOTSTRAP --- APPLICATION BOOTSTRAP */
 
+
+
+	/* FOOD --- FOOD --- FOOD --- FOOD --- FOOD --- FOOD --- FOOD --- FOOD --- FOOD */
 	$stateProvider.state('food', {
 		url: '/food',
 		component: 'food'
@@ -80,12 +86,22 @@ app.config(function ($stateProvider, $urlServiceProvider, $mdThemingProvider) {
 		url: '/addFoodActivity',
 		component: 'addFoodActivity'
 	});
+	/* FOOD --- FOOD --- FOOD --- FOOD --- FOOD --- FOOD --- FOOD --- FOOD --- FOOD */
 
+
+
+
+	/* UTILITIES --- UTILITIES --- UTILITIES --- UTILITIES --- UTILITIES --- UTILITIES */
 	$stateProvider.state('photo', {
 		url: '/photo',
 		component: 'photo'
 	});
+	/* UTILITIES --- UTILITIES --- UTILITIES --- UTILITIES --- UTILITIES --- UTILITIES */
 
+
+
+
+	/* PLATTERS --- PLATTERS --- PLATTERS --- PLATTERS --- PLATTERS --- PLATTERS */
 	$stateProvider.state('platters', {
 		url: '/platters',
 		component: 'dashboardPlatters'
@@ -103,16 +119,28 @@ app.config(function ($stateProvider, $urlServiceProvider, $mdThemingProvider) {
 			"data": {}
 		}
 	});
+/* PLATTERS PLATTERS PLATTERS PLATTERS PLATTERS PLATTERS PLATTERS PLATTERS */
 
 
 
 
-
-
-
-
-
-
+/* FLYERS --- INVITATIONS ---FLYERS --- INVITATIONS ---FLYERS --- INVITATIONS */
+	$stateProvider.state('invitationDetail', {
+		url: '/invitationDetail',
+		component: 'invitationDetail',
+		params: {
+			data: null,
+			invitationId: null
+		}
+	});
+	$stateProvider.state('sendFlyerActivity', {
+		url: '/sendFlyerActivity',
+		component: 'sendFlyerActivity',
+		params: {
+			"data": null
+		}
+	});
+/* FLYERS --- INVITATIONS ---FLYERS --- INVITATIONS ---FLYERS --- INVITATIONS */
 
 
 
@@ -548,31 +576,6 @@ app.config(function ($stateProvider, $urlServiceProvider, $mdThemingProvider) {
 				} //if
 			}]
 		}
-	});
-
-	$stateProvider.state('invitationDetail', {
-		url: '/invitationDetail/:invitationId',
-		component: 'invitationDetail',
-		params: {
-			data: null,
-			invitationId: null
-		}
-		/*
-		resolve: {
-			Invitation: ['$http', 'Session', 'Cook', 'InvitationService', function ($http, Session, Cook, InvitationService) {
-				if (!InvitationService.Invitation || InvitationService.Invitation.length === 0) {
-					InvitationService.getInvitation(userId)
-						.then(function (response) {
-							debugger;
-							return response;
-						});
-				} else {
-					return InvitationService.Invitation;
-				}
-			}]
-		}
-		*/
-
 	});
 
 

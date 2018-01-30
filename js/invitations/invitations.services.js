@@ -1,27 +1,46 @@
-angular.module('app').service('InvitationService', ['$http', 'Database', function ($http, Database) {
+angular.module('app').service('InvitationService', ['$http', 'Session', 'Database', function ($http, Session, Database) {
 	'use strict';
 
-	this.Invitations = []; //list of invitations
-	this.Invitation = undefined; //current invitation
+	var that = this;
 
+	this.invitations = []; 	//list of invitations
+	this.invitation = {};	//current invitation
+	this.initialized = false;
+	this.messages = [];
 
+	this.init = function () {
+		if (that.invitations.length === 0) {
+			that.loadInvitations()
+				.then(function (response) {
+					if (response && response.data && response.data.data) {
+						that.invitations = response.data.data;
+						that.initialized = true;
+					}
+				});
+		}
+	};
+	this.loadInvitations = function () {
+		return Database.select({
+				"table": "invitations",
+				"fields": "userId",
+				"where": Session.id
+			});
+	};
+	this.getInvitations = function () {
+		return that.invitations;
+	};
+	this.getInvitation = function (id) {
+		var invite = that.invitations.find(function (invitation) {
+			return invitation.id = id;
+		});
+		return invite;
+	};
 	this.getPhotoFileName = function (filename) {
 		return $http.get(Session.getFileName(filename));
-	}
+	};
+	this.addInvitation = function (invite) {
+		return Database.insert(invite);
+	};
 
 
-	this.getInvitations = function (userId) {
-		console.log('Getting invitations by userId: ' + userId);
-	}; //getInvitations
-
-
-	this.getInvitation = function (id) {
-
-		return Database.select({ fields: 'id', table: "invitations", where: id })
-
-	}; //getInvitation
-
-
-	return this;
-
-}]); //angular.module('app').service('InvitationService'
+}]);

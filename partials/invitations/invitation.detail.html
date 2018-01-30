@@ -1,63 +1,128 @@
-<div class="mdl-card mdl-cell mdl-cell--12-col mdl-shadow--6dp">
+<!-- partials/invitations/invitations.html -->
 
-<!--
-<figure class="mdl-card__media">
-	<img src="images/pic05.jpg" alt="" />
-</figure>
--->
+<md-content>
 
-	<div>
-		Id: {{ $ctrl.Invitation.id }}
-		<input type="hidden" 
-			ng-model="Invitation.id" 
-			value="{{ $ctrl.Invitation.id }}"
-			/>
+	<toolbar id="toolbar" class="toolbar" style="display: inline;"></toolbar>
+
+	<div class="custom-search-form">
+		<div class="input-group">
+			<input type="text" class="form-control" placeholder="Search your invitations.">
+			<span class="input-group-btn">
+				<button class="btn btn-default" type="button">
+					<span class="glyphicon glyphicon-search"></span>
+				</button>
+			</span>
+		</div><!-- /input-group -->
 	</div>
 
-
-	<div class="mdl-card__title">
-		<h2 class="mdl-card__title-text">{{ $ctrl.Invitation.title }}</h2>
+	<div class="pageButtons" style="margin-top: 0px;">
 	</div>
-	
 
-	<div class="mdl-card__supporting-text">
-		<p>Starts: {{ $ctrl.Invitation.beginDate }}</p>
-		<p>Ends: {{ $ctrl.Invitation.endDate }}</p>
-		<br />
-		<p>{{ $ctrl.Invitation.message }}</p>
+	<div class="messages" style="border: 1px solid red; margin-top: 0px; display: inline;">
+		<ul>
+			<li ng-repeat="message in $ctrl.messages">
+				Message: {{ message.message }}
+			</li>
+		</ul>
+	</div>
 
-		<div class="mdl-card__actions mdl-card--border">
+	<div style="border: 1px solid red; border-radius: 5px; margin: 5px;">
+		<form style="margin: 5px;">
 
-			<ul class="icons">
-				<li style="padding: 0px;">
-					<a 
-						ng-click="$ctrl.go('index')" 
-						class="btn btn-success icon fa-remove">
-					</a>
-				</li>
+			<div class="form-group">
+				<label for="title">Title</label>
+				<input 
+					class="mdl-textfield__input"
+					id="title" 
+					type="text" 
+					pattern="[A-Z,a-z]*" 
+					ng-model="$ctrl.invitation.title"
+					style="border: 1px solid #0a0;" />
+			</div>
 
-				<li style="padding: 0px;">
-					<a 
-						ng-click="$ctrl.addToCart($ctrl.Invitation)"
-						class="btn btn-primary icon fa fa-shopping-cart"
-					>
-					</a>
-				</li>
-			</ul>
 
-		</div>
 
-		<div>
-			<ul>
-				<li ng-repeat="item in $ctrl.shoppingCart.items">
-					<strong>Title</strong>: {{ item.title }},<br />
-					<strong>Message</strong>: {{ item.message }},<br />
-					<strong>End Date</strong>: {{ item.endDate }}
-					<hr />
-				</li>
-			</ul>
-		</div>
+			<div class="form-group">
+				<label for="message">Message</label>
+				<textarea 
+					class="mdl-textfield__input" 
+					type="text" 
+					rows="3"
+					pattern="[A-Z,a-z]*" 
+					id="message"
+					ng-model="$ctrl.invitation.message"
+					placeholder="Invitation Message"
+					style="border: 1px solid #0c0;"
+				/>
+				</textarea>
+			</div>
 
-	</div><!-- End mdl-card_supporting-text -->
 
-</div><!-- end mdl-card mdl-cell -->
+			<div class="form-group">
+				<label for="beginDate">Begin Date</label>
+				<input class="mdl-textfield__input" 
+					type="text"
+					id="beginDate"
+					ng-model="$ctrl.invitation.beginDate"
+					placeholder="Begin Date"
+					style="border: 1px solid #080;" />
+			</div>
+
+
+			<div class="form-group">
+				<label for="endDate">End Date</label>
+				<input class="mdl-textfield__input" 
+					type="text"
+					id="endDate"
+					ng-model="$ctrl.invitation.endDate"
+					placeholder="End Date"
+					style="border: 1px solid #060;" />
+			</div>
+
+
+
+			<div>
+				<label>Available:
+					<input type="checkbox" 
+						id="isAvailable" 
+						ng-checked="$ctrl.invitation.status === 1"
+						ng-model="$ctrl.invitation.status"
+						style="height: 15px; width: 15px;"  />
+				</label>
+			</div>
+
+
+			<div>
+				<input 
+					type="file" 
+					id="cameraInput" 
+					name="cameraInput"
+					capture="camera" 
+					accept="image/*" 
+					style="display:none" />
+
+				<img id="cameraImage" alt="">
+			</div>
+
+
+			<div>
+				<button class="btn btn-success" ng-click="$ctrl.getImage();">Image</button>
+				<button class="btn btn-danger" ng-click="$ctrl.remove();">Remove</button>
+				<button class="btn btn-success" ng-click="$ctrl.save();">Save</button>
+				<button class="btn btn-warning" ng-click="$ctrl.send();">Send</button>
+			</div>
+
+		</form>
+
+	<div class="simpleShareFABContainer">
+		<button ng-click="$ctrl.sendFlyer('sms');" class="simpleShareFAB" tooltip="Text"></button>
+		<button ng-click="$ctrl.sendFlyer('email');" class="simpleShareFAB" tooltip="Email"></button>
+		<button ng-click="$ctrl.sendFlyer('google');" class="simpleShareFAB" tooltip="Google+"></button>
+		<button ng-click="$ctrl.sendFlyer('twitter');" class="simpleShareFAB" tooltip="Twitter"></button>
+		<button ng-click="$ctrl.sendFlyer('facebook');" class="simpleShareFAB" tooltip="Facebook"></button>
+		<button class="simpleShareFAB" tooltip="Share"></button>			
+	</div>
+
+	</div>
+
+</md-content>

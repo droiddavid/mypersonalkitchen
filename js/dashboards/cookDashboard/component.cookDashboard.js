@@ -8,12 +8,14 @@ angular.module('app').component('cookDashboard', {
 		'USER_ROLES', '$http', '$state', '$rootScope', '$mdToast', 
 		'Database', 'Session', 'ToolbarService', 
 		'FoodService', 'FoodTypeService',
-		'PlatterService', 'PlatterItemService', 
+		'PlatterService', 'PlatterItemService',
+		'InvitationService', 'ContactsService', 
 		function (
 			USER_ROLES, $http, $state, $rootScope, $mdToast, 
 			Database, Session, ToolbarService, 
 			FoodService, FoodTypeService,
-			PlatterService, PlatterItemService) {
+			PlatterService, PlatterItemService, 
+			InvitationService, ContactsService) {
 
 		var that = this;
 
@@ -29,6 +31,8 @@ angular.module('app').component('cookDashboard', {
 			if (!FoodService.initialized) { FoodService.init(); }
 			if (!PlatterService.initialized) { PlatterService.init(); }
 			if (!PlatterItemService.initialized) { PlatterItemService.init(); }
+			if (!InvitationService.initialized) { InvitationService.init(); }
+			if (!ContactsService.initialized) { ContactsService.init(); }
 
 
 			ToolbarService.init({

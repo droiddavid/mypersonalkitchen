@@ -331,6 +331,25 @@ angular.module('app').service('ToolbarService', [function () {
 }]); //service.ToolbarService
 
 
+angular.module('app').service('ToolbarPreviousPageService', [function () {
+
+	var that = this;
+
+	this.btnPrevious = {};
+	this.btnBrand = {};
+	this.menu = {};
+
+	this.init = function (toolbar) {
+
+		that.btnPrevious = toolbar.btnPrevious;
+		that.btnBrand = toolbar.btnBrand;
+		that.menu = toolbar.menu;
+
+	};
+
+}]); //service.ToolbarService
+
+
 angular.module('app').service('FoodItemListService', ['$state', '$stateParams', '$rootScope', 'Database', 'Session', function ($state, $stateParams, $rootScope, Database, Session) {
 	'use strict';
 

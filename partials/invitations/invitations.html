@@ -1,5 +1,509 @@
-<invitations-header></invitations-header>
-<hr />
-<invitations-body invites="$ctrl.invitations"></invitations-body>
-<hr />
-<invitations-footer></invitations-footer>
+<!-- partials/invitations/invitations.html -->
+
+<md-content>
+
+	<toolbar id="toolbar" class="toolbar" style="display: inline;"></toolbar>
+
+	<div class="custom-search-form">
+		<div class="input-group">
+			<input type="text" class="form-control" placeholder="Search your invitations.">
+			<span class="input-group-btn">
+				<button class="btn btn-default" type="button">
+					<span class="glyphicon glyphicon-search"></span>
+				</button>
+			</span>
+		</div><!-- /input-group -->
+	</div>
+
+	<div class="pageButtons" style="margin-top: 0px;">
+		<div id="addInvitationPanel">
+			<form>
+				<div class="form-group" style="margin: 5px 5px 5px 5px;">
+					<input type="text"  
+						id="title"
+						class="form-control" 
+						ng-model="$ctrl.invitation.title"
+						aria-describedby="new invitation title" 
+						placeholder="Give your invitation a title."
+						style="display: inline;">
+					<textarea 
+						id="invitationMessage"
+						name="invitationMessage" 
+						rows="3" 
+						cols="35"
+						class="form-control"
+						ng-model="$ctrl.invitation.message"
+						aria-describedby="new invitation message"
+						style="overflow-y:hidden;overflow-x: auto;"
+					></textarea>
+
+					<label for="beginDate">Start Date</label>
+					<input type="date" 
+						id="beginDate" 
+						ng-model="$ctrl.invitation.beginDate" 
+						style="display: inline;" 
+					/><br />
+
+					<label for="endDate">End Date</label>
+					<input type="date" 
+						id="endDate" 
+						ng-model="$ctrl.invitation.endDate" 
+						style="display: inline;"
+					/><br />
+
+					<button type="button" 
+						class="
+							btn btn-success 
+							glyphicon glyphicon-plus"
+					aria-label="add invitation"
+					ng-click="$ctrl.addInvitation();"
+					style="display: inline;"></button>
+					<button type="button" 
+						class="
+							btn btn-danger
+							glyphicon glyphicon-remove
+							pull-right"
+					aria-label="add invitation"
+					ng-click="$ctrl.hideAddInvitationPanel();"
+					style="display: inline;"></button>
+				</div>
+			</form>
+		</div>
+
+
+
+
+
+		<ul id="buttonList" style="display: inline;">
+			<li class="alert alert-success" style="margin-bottom: 0px;">
+				<button 
+					id="addInvitationButton" 
+					class="
+						mdl-button 
+						mdl-js-button 
+						mdl-button--fab 
+						mdl-button--mini-fab 
+						mdl-button--colored
+						pull-right"
+					aria-label="add invitation"
+					ng-click="$ctrl.hideAddInvitationPanel()"
+					style="
+						margin-top: -2.5px;
+						display: inline;
+						width: 10%;"
+				>
+					<i class="material-icons">add</i>
+				</button>
+			</li>
+		</ul>
+	</div>
+
+	<div class="messages" style="border: 1px solid red; margin-top: 0px; display: inline;">
+		<ul>
+			<li ng-repeat="message in $ctrl.messages">
+				Message: {{ message.message }}
+			</li>
+		</ul>
+	</div>
+
+	<div>
+		<ul>
+			<li 
+				class="alert alert-success" 
+				ng-repeat="invitation in $ctrl.invitations" 
+				ng-click="$ctrl.view(invitation);"
+			>
+
+				<span class="
+					btn btn-success 
+					glyphicon glyphicon-minus 
+					pull-left"></span>
+
+				<span class="pull-left"
+					style="
+						padding: 5px;
+						vertical-align: center;">
+					{{ invitation.title }} (#{{ invitation.id }})	
+				</span>
+
+				<span class="
+					btn btn-success 
+					glyphicon glyphicon-chevron-right 
+					pull-right"></span>
+			</li>
+		</ul>
+	</div>
+
+</md-content>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Add Modal -->
+<div class="modal fade" id="invitationModal" role="dialog">
+	<div class="modal-dialog">
+
+		<!-- Modal content-->
+		<div class="modal-content">
+
+			<form ng-submit="add(invitation)">
+
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Add a new invitation</h4>
+				</div><!-- modal-header -->
+
+				<div class="modal-body">
+					<div class="container-fluid">
+
+						<form action="#">
+
+							<div class="mdl-textfield 
+								mdl-js-textfield 
+								mdl-textfield--floating-label">
+								<input 
+									class="mdl-textfield__input" 
+									type="text" 
+									pattern="[A-Z,a-z]*" 
+									id="title"
+									ng-model="$ctrl.invitation.title"
+									placeholder="Title" />
+							</div>
+
+
+
+							<div class="mdl-textfield 
+								mdl-js-textfield 
+								mdl-textfield--floating-label">
+								<input 
+									class="mdl-textfield__input" 
+									type="text" 
+									pattern="[A-Z,a-z]*" 
+									id="message"
+									ng-model="$ctrl.invitation.message"
+									placeholder="Invitation Message" />
+							</div>
+
+
+
+							<div class="mdl-textfield 
+								mdl-js-textfield 
+								mdl-textfield--floating-label">
+								<input class="mdl-textfield__input" 
+									type="date"
+									id="beginDate"
+									ng-model="$ctrl.invitation.beginDate"
+									placeholder="Begin Date" 
+								/>
+							</div>
+
+
+							<div class="mdl-textfield 
+								mdl-js-textfield 
+								mdl-textfield--floating-label">
+								<input class="mdl-textfield__input" 
+									type="date"
+									id="endDate"
+									ng-model="$ctrl.invitation.endDate"
+									placeholder="End Date" />
+							</div>
+
+
+
+							<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+								<input class="mdl-textfield__input" 
+									type="text" 
+									pattern="[A-Z,a-z]*" 
+									id="photo_filename"
+									ng-model="$ctrl.invitation.photo_filename"
+									placeholder="Take a photo" />
+							</div>
+						</form>
+
+					</div><!-- container-fluid -->
+				</div><!-- modal-body -->
+
+
+				<div class="modal-footer">
+
+					<div>
+						<div class="mdl-layout-spacer"></div>
+
+						<button 
+							id="save" 
+							type="button" 
+							class="btn btn-primary btn-xs" 
+							ng-click="$ctrl.save($ctrl.invitation)" 
+							data-dismiss="modal"
+						><i class="material-icons">save</i></button>
+
+						<button 
+							id="update" 
+							type="button" 
+							class="btn btn-primary btn-xs" 
+							ng-click="$ctrl.update($ctrl.invitation)" 
+							data-dismiss="modal"
+						><i class="material-icons">update</i></button>
+
+						<button 
+							id="cancel" 
+							type="button" 
+							class="btn btn-danger btn-xs" 
+							data-dismiss="modal"
+						><i class="material-icons">cancel</i></button>
+					</div>
+
+				</div><!-- modal-footer -->
+
+			</form><!-- form -->
+
+		</div><!-- modal-content -->
+
+	</div><!-- modal-dialog -->
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Update Modal -->
+<div class="modal fade" id="updateModal" role="dialog">
+	<div class="modal-dialog">
+
+		<!-- Modal content-->
+		<div class="modal-content">
+
+			<form ng-submit="update($ctrl.invitation)">
+
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Make changes to your invitation</h4>
+				</div><!-- modal-header -->
+
+				<div class="modal-body">
+					<div class="container-fluid">
+
+						<form action="#">
+
+							<div>
+								<input type="hidden" 
+									ng-model="$ctrl.invitation.id" 
+									value="$ctrl.invitation.id" />
+							</div>
+
+							<div class="mdl-textfield 
+								mdl-js-textfield 
+								mdl-textfield--floating-label">
+								<input 
+									class="mdl-textfield__input" 
+									type="text" 
+									pattern="[A-Z,a-z]*" 
+									id="title"
+									ng-model="$ctrl.invitation.title"
+									placeholder="Title" />
+							</div>
+
+
+
+							<div class="mdl-textfield 
+								mdl-js-textfield 
+								mdl-textfield--floating-label">
+								<input 
+									class="mdl-textfield__input" 
+									type="text" 
+									pattern="[A-Z,a-z]*" 
+									id="message"
+									ng-model="$ctrl.invitation.message"
+									placeholder="Invitation Message" />
+							</div>
+
+
+
+							<div class="mdl-textfield 
+								mdl-js-textfield 
+								mdl-textfield--floating-label">
+								<input class="mdl-textfield__input" 
+									type="date"
+									id="beginDate"
+									ng-model="$ctrl.invitation.beginDate"
+									placeholder="Begin Date" 
+								/>
+							</div>
+
+
+							<div class="mdl-textfield 
+								mdl-js-textfield 
+								mdl-textfield--floating-label">
+								<input class="mdl-textfield__input" 
+									type="date"
+									id="endDate"
+									ng-model="$ctrl.invitation.endDate"
+									placeholder="End Date" />
+							</div>
+
+
+
+							<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+								<input class="mdl-textfield__input" 
+									type="text" 
+									pattern="[A-Z,a-z]*" 
+									id="photo_filename"
+									ng-model="$ctrl.invitation.photo_filename"
+									placeholder="Take a photo" />
+							</div>
+
+
+							<div>
+								<label>Available:
+									<input type="checkbox" ng-model="$ctrl.invitation.status">
+								</label>
+							</div>
+						</form>
+
+					</div><!-- container-fluid -->
+				</div><!-- modal-body -->
+
+
+				<div class="modal-footer">
+
+					<div>
+						<div class="mdl-layout-spacer"></div>
+
+						<button 
+							id="update" 
+							type="button" 
+							class="btn btn-primary btn-xs" 
+							ng-click="$ctrl.update($ctrl.invitation)" 
+							data-dismiss="modal"
+						><i class="material-icons">update</i></button>
+
+						<button 
+							id="cancel" 
+							type="button" 
+							class="btn btn-danger btn-xs" 
+							data-dismiss="modal"
+						><i class="material-icons">cancel</i></button>
+					</div>
+
+				</div><!-- modal-footer -->
+
+			</form><!-- form -->
+
+		</div><!-- modal-content -->
+
+	</div><!-- modal-dialog -->
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
