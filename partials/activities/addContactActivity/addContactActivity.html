@@ -1,0 +1,73 @@
+<!-- partials/activities/addContactActivity/addContactActivity.html -->
+<md-content>
+
+	<toolbar id="toolbar" class="toolbar" style="display: inline;"></toolbar>
+	
+	<div class="custom-search-form" style="margin: 0px;">
+		<!-- <form class="form-group" style="margin: 0px;">
+			<input 
+				class="mdl-textfield__input"
+				id="recipient" 
+				type="text" 
+				ng-model="$ctrl.recipient.phone"
+				placeholder="Enter Phone # or Email:"
+				style="border: 1px solid #777; margin: 0px; display: inline;"
+			/>
+			<button class="btn btn-success" ng-click="$ctrl.contacts();">Contacts</button>
+		</form> -->
+	</div>
+
+	<div class="pageButtons" style="margin-top: 0px;">
+	</div>
+
+	<div class="messages" style="display: inline;">
+		<ul>
+			<li ng-repeat="message in $ctrl.messages">
+				Message: {{ message.message }}
+			</li>
+		</ul>
+	</div>
+
+	<div style="border: 1px solid red; border-radius: 5px; margin: 5px;">
+		<form style="margin: 5px;">
+
+			<div class="form-group">
+				<label for="contactName">Name:</label>
+				<input 
+					type="text" 
+					id="contactName" 
+					ng-model="$ctrl.contact.name" /><br />
+
+				<label for="phone">Phone:</label>
+				<input 
+					type="text" 
+					id="phone" 
+					ng-model="$ctrl.contact.phone" /><br />
+
+				<label for="emailAddress">emailAddress</label>
+				<input
+					type="email" 
+					id="emailAddress" 
+					ng-model="$ctrl.contact.emailAddress" /><br />
+			</div>
+
+			<div>
+				<button class="btn btn-danger" ng-click="$ctrl.cancel();">Cancel</button>
+				<button class="btn btn-success" ng-click="$ctrl.add();">Add</button>
+			</div>
+
+		</form>
+
+		<div>
+			<ul>
+				<li ng-repeat="contact in $ctrl.contacts">
+					{{ contact.name }}
+					{{ contact.phone }}
+					{{ contact.emailAddress }}
+				</li>
+			</ul>
+		</div>
+
+	</div>
+
+</md-content>

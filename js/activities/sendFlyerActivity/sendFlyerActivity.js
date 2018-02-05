@@ -53,10 +53,12 @@ angular
 					]
 				}); //ToolbarService.init(...)
 			};
+			this.contacts = function () {
+				$state.go('contacts');
+			};
 			this.send = function () {
 				debugger;
 				//Send an SMS from HTML5
-
 			};
 			this.cancel = function () {
 				debugger;

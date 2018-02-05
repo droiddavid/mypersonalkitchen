@@ -130,19 +130,14 @@ angular.module('app').service('Session', ['$log', '$rootScope', 'Cook', 'Custome
 	};
 
 }]); //app.service.Session
-
-
 angular.module('app').service('ProfileService', ['$http', 'Database', 'Session', function ($http, Database, Session) {
-	
 	var db = Database;
 
 	this.getProfile = function (id) {
 		return db.select({ fields: "userId", table: "profileData", where: id})
 	};
 
-}]);
-
-
+}]); //service.ProfileService
 angular.module('app').service('Database', ['$http', function ($http) {
 	'use strict';
 	//development baseUrl
@@ -253,9 +248,7 @@ angular.module('app').service('Database', ['$http', function ($http) {
 
 	}; // this.Database
 
-}]);
-
-
+}]); //service.Database
 angular.module('app').service('FileService', ['$http', function ($http) {
 	//var fileExistUrl = 'http://localhost/mypersonalkitchen/data/fileExists.php';
 	var fileExistUrl = 'https://' + WEB_SERVER + '/data/fileExists.php';
@@ -269,9 +262,7 @@ angular.module('app').service('FileService', ['$http', function ($http) {
 				return response.data; //returns "1" or "0"
 			})};
 
-}]);
-
-
+}]); //service.FileService
 angular.module('app').service('ApplicationMenuService', function($http) { 
 	return {
 		list: function() {
@@ -279,12 +270,9 @@ angular.module('app').service('ApplicationMenuService', function($http) {
 				.then(function (resp) {
 					return resp.data;
 				});
-//				.then(resp => resp.data)
 		}
 	};
-});
-
-
+}); //service.ApplicationMenuService
 angular.module('app').service('DashboardService', ['$http', 'Session', function ($http, Session) {
 	var self = this,
 		Platters = [],
@@ -296,9 +284,7 @@ angular.module('app').service('DashboardService', ['$http', 'Session', function 
 		Menus_Platters_PlatterItems = Menus_Platters_PlatterItems,
 		menu 			= {};
 		platter 		= {};
-}]);
-
-
+}]); //service.DashboardService
 angular.module('app').service('DynamicDashboardService', [function () {
 	this.header = {
 		name: 'Guest',
@@ -309,9 +295,7 @@ angular.module('app').service('DynamicDashboardService', [function () {
 			}
 		]
 	};
-}]);
-
-
+}]); //service.DynamicDashboardService
 angular.module('app').service('ToolbarService', [function () {
 
 	var that = this;
@@ -329,8 +313,6 @@ angular.module('app').service('ToolbarService', [function () {
 	};
 
 }]); //service.ToolbarService
-
-
 angular.module('app').service('ToolbarPreviousPageService', [function () {
 
 	var that = this;
@@ -347,9 +329,7 @@ angular.module('app').service('ToolbarPreviousPageService', [function () {
 
 	};
 
-}]); //service.ToolbarService
-
-
+}]); //service.ToolbarPreviousPageService
 angular.module('app').service('FoodItemListService', ['$state', '$stateParams', '$rootScope', 'Database', 'Session', function ($state, $stateParams, $rootScope, Database, Session) {
 	'use strict';
 
@@ -383,7 +363,7 @@ angular.module('app').service('PhotoService', ['$http', function ($http) {
 	this.init = function () {
 		debugger;
 	};
-}]);
+}]); //service.PhotoService
 angular.module('app').service('FoodService', ['$http', '$rootScope', 'Session', 'Database', function ($http, $rootScope, Session, Database) {
 	var that = this;
 
@@ -412,4 +392,4 @@ angular.module('app').service('FoodService', ['$http', '$rootScope', 'Session', 
 	this.getFood = function () {
 		return that.Food;
 	};
-}]);
+}]); //service.FoodService

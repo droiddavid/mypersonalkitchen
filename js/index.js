@@ -145,6 +145,26 @@ app.config(function ($stateProvider, $urlServiceProvider, $mdThemingProvider) {
 
 
 
+/* CONTACTS --- CONTACTS ---CONTACTS --- CONTACTS ---CONTACTS --- CONTACTS */
+	$stateProvider.state('contacts', {
+		url: '/contacts',
+		component: 'contacts',
+		params: {
+			"data": null
+		}		
+	});
+	$stateProvider.state('addContactActivity', {
+		url: '/addContactActivity',
+		component: 'addContactActivity',
+		params: {
+			"data": null
+		}
+	});
+/* CONTACTS --- CONTACTS ---CONTACTS --- CONTACTS ---CONTACTS --- CONTACTS */
+
+
+
+
 
 
 
