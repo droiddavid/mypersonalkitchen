@@ -157,6 +157,13 @@ angular.module('app').service('Database', ['$http', function ($http) {
 	};
 
 	return this.Database = {
+		getData: function (table, fields, where) {
+			return $http.post(url.select, {
+				"table": 	table,
+				"fields": 	fields,
+				"where": 	where
+			});
+		},
 		select: function (obj) {
 			return $http.post(url.select, {
 				fields: 	obj.fields,

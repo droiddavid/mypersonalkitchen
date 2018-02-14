@@ -1,82 +1,85 @@
 <md-content>
 
-        <toolbar id="toolbar" class="toolbar" style="display: inline;"></toolbar>
-    
-        <div class="custom-search-form">
-            <!-- <div class="input-group">
-                <input type="text" class="form-control" placeholder="Search your categories.">
-                <span class="input-group-btn">
-                    <button class="btn btn-default" type="button">
-                        <span class="glyphicon glyphicon-search"></span>
-                    </button>
-                </span>
-            </div> -->
-            <!-- input-group -->
-        </div>
-    
-        <div class="pageButtons" style="margin-top: 0px;">
-            <ul style="display: inline;">
-                <li class="alert alert-success" style="margin-bottom: 0px;">
-                    <div id="addNewContactPanel">
-                        <form>
-                            <div class="form-group" style="margin: 5px 5px 5px 5px;">
-                                <button 
-                                    id="addContactButton" 
-                                    class="
-                                        mdl-button 
-                                        mdl-js-button 
-                                        mdl-button--fab 
-                                        mdl-button--mini-fab 
-                                        mdl-button--colored
-                                        pull-right"
-                                    aria-label="add contact"
-                                    ng-click="$ctrl.addContact()"
-                                    style="display: inline;">
-                                    <i class="material-icons">add</i>
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                </li>
-            </ul>
-        </div>
-    
-        <div class="messages" style="border: 1px solid red; margin-top: 0px; display: inline;">
-            <ul>
-                <li ng-repeat="message in $ctrl.messages">
-                    Message: {{ message.message }}
-                </li>
-            </ul>
-        </div>
-    
-        <md-tabs 
-            layout-padding
-            md-selected="0" 
-            md-stretch-tabs="always" 
-            md-dynamic-height 
-            md-center-tabs 
-        >
-            <!-- TAB 1 -->
-            <md-tab label="Food">
-    
-                <md-tab-body layout-padding="true">
-    
-                    <div>
-                        <ul>
-                            <li class="alert alert-success" ng-repeat="foodType in $ctrl.foodTypes">
-                                <!-- #{{ foodType.foodTypeId }} - -->
-                                <span class="pull-left" ng-click="$ctrl.showFoodPage(foodType)">
-                                    {{ foodType.type }}	
-                                </span>
-                                <span class="glyphicon glyphicon-chevron-right pull-right"></span>
-                            </li>
-                        </ul>
-                    </div>
-    
-                </md-tab-body>
-    
-            </md-tab>
-    
-        </md-tabs>
-    
-    </md-content>
+		<toolbar id="toolbar" class="toolbar" style="display: inline;"></toolbar>
+
+		<div class="custom-search-form">
+			<!--
+			<div class="input-group">
+				<input type="text" class="form-control" placeholder="Search your categories.">
+				<span class="input-group-btn">
+					<button class="btn btn-default" type="button">
+					<span class="glyphicon glyphicon-search"></span>
+				</button>
+				</span>
+			</div>
+			-->
+		</div>
+
+		<div class="pageButtons" style="margin-top: 0px;">
+			<ul style="display: inline;">
+				<li class="alert alert-success" style="margin-bottom: 0px;">
+					<div id="addNewContactPanel">
+						<form>
+							<div class="form-group" style="margin: 5px 5px 5px 5px;">
+								<button 
+									id="addContactButton" 
+									class="
+										mdl-button 
+										mdl-js-button 
+										mdl-button--fab 
+										mdl-button--mini-fab 
+										mdl-button--colored
+										pull-right"
+									aria-label="add contact"
+									ng-click="$ctrl.addContact()"
+									style="display: inline;">
+									<i class="material-icons">add</i>
+								</button>
+							</div>
+						</form>
+					</div>
+				</li>
+			</ul>
+		</div>
+
+		<div class="messages" style="border: 1px solid red; margin-top: 0px; display: inline;">
+			<ul>
+				<li ng-repeat="message in $ctrl.messages">
+					Message: {{ message.message }}
+				</li>
+			</ul>
+		</div>
+
+		<md-tabs 
+			layout-padding
+			md-selected="0" 
+			md-stretch-tabs="always" 
+			md-dynamic-height 
+			md-center-tabs 
+		>
+			<!-- TAB 1 -->
+			<md-tab label="Contacts">
+
+				<md-tab-body layout-padding="true">
+
+					<ul>
+						<li 
+						class="" 
+						style="border: 1px solid green; border-radius: 5px;" 
+						ng-repeat="contact in $ctrl.Contacts">
+							{{ contact.id }} - {{ contact.contactName }}<br /><br />
+							<ul>
+								<li ng-repeat="detail in contact.details">
+									<input type="checkbox" value="{{ detail.contactValue }}" />{{ detail.contactType }} --> {{ detail.contactValue }}
+								</li>
+							</ul>
+						</li>
+					</ul>
+
+				</md-tab-body>
+
+			</md-tab>
+
+		</md-tabs>
+
+	</md-content>
